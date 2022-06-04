@@ -1,8 +1,9 @@
 
 
-var backend = "https://crudcrud.com/api/80909ca5f735420688ef880f614e5345";
-var  personas = new Array();
-var persona={cedula:"", nombre:"",clave:""};
+var backend = "http://localhost:8080/BackEnd/api";
+//var backend = "https://crudcrud.com/api/80909ca5f735420688ef880f614e5345";
+var  doctores = new Array();
+var doctor={cedula:"", nombre:"",clave:""};
 var id="";
 
 
@@ -14,9 +15,9 @@ function mostrarPersona(){
    //window.location.href = "registro.html";
    //window.open("registro.html");
    
-   document.getElementById("cedula3").value = persona.cedulaField;
-   document.getElementById("nombre").value = persona.nombreField;
-   document.getElementById("clave").value = persona.claveField;
+   document.getElementById("cedula3").value = doctor.cedulaField;
+   document.getElementById("nombre").value = doctor.nombreField;
+   document.getElementById("clave").value = doctor.claveField;
 
    //$('#add-modal').modal('show');
   }  
@@ -24,11 +25,11 @@ function mostrarPersona(){
   function existePersona(){
       let existe=false;
 
-      personas.forEach( (p)=> {
-          if(p.cedula == persona.cedula && p.clave == persona.clave){
+      doctores.forEach( (p)=> {
+          if(p.cedula == doctor.cedula && p.clave == doctor.clave){
             existe = true;
-            console.log("ced: "+ p.cedula + " - ced: " + persona.cedula)
-            persona = p;            
+            console.log("ced: "+ p.cedula + " - ced: " + doctor.cedula)
+            doctor = p;            
           } 
       })
       return existe;
@@ -36,12 +37,12 @@ function mostrarPersona(){
  
 function fetchAndLoad(){
    
-    const request = new Request(backend+'/personas', {method:'GET', headers: { }});
+    const request = new Request(backend+'/doctores', {method:'GET', headers: { }});
     (async ()=> {
         try{
             const response = await fetch(request);
             
-            personas = await response.json();
+            doctores = await response.json();
             
             mostrarPersona();
         }catch(e){
@@ -51,12 +52,12 @@ function fetchAndLoad(){
 }
 
 function load(){
-    id = persona._id; //- llamar al formulario
+    id = doctor._id; //- llamar al formulario
     //---  Set Persona, antes del request.  !!
-    persona = Object.fromEntries( (new FormData($("#formulario").get(0))).entries());
+    doctor = Object.fromEntries( (new FormData($("#formulario").get(0))).entries());
 
     console.log("Persona->");
-    console.log(JSON.stringify(persona));
+    console.log(JSON.stringify(doctor));
 }
 
 function add(){
@@ -64,7 +65,7 @@ function add(){
     load();
     /* if (!validar()) return; */
     
-    const request = new Request(backend + '/personas', {method:'POST',headers:{'Content-Type':'application/json'}, body:JSON.stringify(persona)});
+    const request = new Request(backend + '/doctores', {method:'POST',headers:{'Content-Type':'application/json'}, body:JSON.stringify(doctor)});
     (async ()=> {
         try{
             const response = await fetch(request);
@@ -82,13 +83,13 @@ function search(){
 
     load(); //- persona loaded
 
-    const request = new Request(backend+'/personas', {method:'GET', headers: { }});
+    const request = new Request(backend+'/doctores', {method:'GET', headers: { }});
     (async ()=> {
         try{
             const response = await fetch(request);
             
-            personas = await response.json();
-            console.log("Personas-> "+ JSON.stringify(personas));
+            doctores = await response.json();
+            console.log("Personas-> "+ JSON.stringify(doctores));
 
             if(existePersona()){ 
                 
@@ -96,7 +97,7 @@ function search(){
                 console.log("Existe persona!!");
                 
 
-                localStorage.setItem("doctor",JSON.stringify(persona));
+                localStorage.setItem("doctor",JSON.stringify(doctor));
                 
                 document.location = "registro.html";
 
@@ -124,7 +125,7 @@ function render(){
 }
 
 function reset(){
-    persona={cedula:"", nombre:"",sexo:""};
+    doctor={cedula:"", nombre:"",sexo:""};
 }
 
 function makeNew(){

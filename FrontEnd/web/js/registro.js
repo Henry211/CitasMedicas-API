@@ -1,10 +1,12 @@
 
 
-var backend = "https://crudcrud.com/api/80909ca5f735420688ef880f614e5345";
-var  personas = new Array();
+var backend = "http://localhost:8080/BackEnd/api";
+//var backend = "https://crudcrud.com/api/80909ca5f735420688ef880f614e5345";
+
+var  doctores = new Array();
 
 
-var persona={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:"localidad",
+var doctor={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:"localidad",
                 horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
 
 var horario = [lunes,martes,miercoles,jueves,viernes];
@@ -25,9 +27,9 @@ function mostrarPersona(){
     /* $("#listado").html(""); */
    /*  personas.forEach( (p)=>{row($("#listado"),p);});	 */
    
-   document.getElementById("cedula").value = persona.cedula;
-   document.getElementById("nombre").value = persona.nombre;
-   document.getElementById("clave").value = persona.clave;
+   document.getElementById("cedula").value = doctor.cedula;
+   document.getElementById("nombre").value = doctor.nombre;
+   document.getElementById("clave").value = doctor.clave;
 
    //$('#add-modal').modal('show');
   }  
@@ -35,11 +37,11 @@ function mostrarPersona(){
 function existePersona(){
       let existe=false;
 
-      personas.forEach( (p)=> {
-          if(p.cedula == persona.cedula && p.clave == persona.clave){
+      doctores.forEach( (p)=> {
+          if(p.cedula == doctor.cedula && p.clave == doctor.clave){
             existe = true;
-            console.log("ced: "+ p.cedula + " - ced: " + persona.cedula)
-            persona = p;            
+            console.log("ced: "+ p.cedula + " - ced: " + doctor.cedula)
+            doctor = p;            
           } 
       })
       return existe;
@@ -47,13 +49,13 @@ function existePersona(){
  
 function fetchAndLoad(){
    
-    const request = new Request(backend+'/personas', {method:'GET', headers: { }});
+    const request = new Request(backend+'/doctores', {method:'GET', headers: { }});
     (async ()=> {
         try{
             const response = await fetch(request);
             
-            personas = await response.json();
-            console.log("Personas Array-> "+ JSON.stringify(personas));
+            doctores = await response.json();
+            console.log("Personas Array-> "+ JSON.stringify(doctores));
             
             //mostrarPersona();
             //-> mostrar datos de persona registrada
@@ -64,16 +66,16 @@ function fetchAndLoad(){
 }
 
 function load(){
-    id = persona._id; //- llamar al formulario
+    id = doctor._id; //- llamar al formulario
     //---  Set Persona, antes del request.  !!
-    persona = Object.fromEntries( (new FormData($("#formulario").get(0))).entries());
+    doctor = Object.fromEntries( (new FormData($("#formulario").get(0))).entries());
     
     //saveSchedule();// -- ojo 
     horario = [lunes,martes,miercoles,jueves,viernes];
-    persona.horario = horario;
+    doctor.horario = horario;
 
     console.log("Persona->");
-    console.log(JSON.stringify(persona));
+    console.log(JSON.stringify(doctor));
 }
 
 function add(){
@@ -81,7 +83,7 @@ function add(){
     load();
     /* if (!validar()) return; */
     
-    const request = new Request(backend + '/personas', {method:'POST',headers:{'Content-Type':'application/json'}, body:JSON.stringify(persona)});
+    const request = new Request(backend + '/doctores', {method:'POST',headers:{'Content-Type':'application/json'}, body:JSON.stringify(doctor)});
     (async ()=> {
         try{
             const response = await fetch(request);
@@ -100,13 +102,13 @@ function search(){
 
     load(); //- persona loaded
 
-    const request = new Request(backend+'/personas', {method:'GET', headers: { }});
+    const request = new Request(backend+'/doctores', {method:'GET', headers: { }});
     (async ()=> {
         try{
             const response = await fetch(request);
             
-            personas = await response.json();
-            console.log("Personas-> "+ JSON.stringify(personas))
+            doctores = await response.json();
+            console.log("Personas-> "+ JSON.stringify(doctores))
 
             if(existePersona()){ 
                 
@@ -138,7 +140,7 @@ function render(){
 }
 
 function reset(){
-    persona={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:"localidad",
+    doctor={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:"localidad",
                 horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
 }
 
@@ -159,7 +161,7 @@ function saveSchedule(){
     
     //persona.horario[0].checked  = lunes;
     console.log("P 1");
-    console.log(JSON.stringify(persona));
+    console.log(JSON.stringify(doctor));
 
     // Lunes Only
     if(checkL.checked){
@@ -204,7 +206,7 @@ function saveSchedule(){
 function fetchUpdate(){
 
 
-    const request = new Request(backend + '/personas/'+id, {method: 'PUT', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(persona)});
+    const request = new Request(backend + '/doctores/'+id, {method: 'PUT', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(doctor)});
     (async ()=> {
         try{
             const response = await fetch(request);
@@ -233,19 +235,19 @@ function checkLocalStorage(){
     if(localStorage.getItem('doctor')){
         //- Cargar datos en fields
 
-        persona = JSON.parse(localStorage.getItem('doctor'));
+        doctor = JSON.parse(localStorage.getItem('doctor'));
         
-        document.querySelector('#cedula').value = persona.cedula;
-        document.querySelector('#nombre').value = persona.nombre;
-        document.querySelector('#clave').value = persona.clave;
-        document.querySelector('#especialidad').value = persona.especialidad;
-        document.querySelector('#fee').value = persona.fee;
-        document.querySelector('#localidad').value = persona.localidad;
+        document.querySelector('#cedula').value = doctor.cedula;
+        document.querySelector('#nombre').value = doctor.nombre;
+        document.querySelector('#clave').value = doctor.clave;
+        document.querySelector('#especialidad').value = doctor.especialidad;
+        document.querySelector('#fee').value = doctor.fee;
+        document.querySelector('#localidad').value = doctor.localidad;
 
         //-- add schedule
 
-        console.log("Horario L: " + JSON.stringify(persona.horario[0]));
-        console.log("Horario M: " + persona.horario[1]);
+        console.log("Horario L: " + JSON.stringify(doctor.horario[0]));
+        console.log("Horario M: " + doctor.horario[1]);
 
         $('#lunes').on("click",
                 (e)=>{e.target.parentNode.parentNode.querySelector('.col-body').classList.toggle("active");});
@@ -259,41 +261,41 @@ function checkLocalStorage(){
                 (e)=>{e.target.parentNode.parentNode.querySelector('.col-body').classList.toggle("active");});
                 
 
-        document.querySelector('#lunes').checked = persona.horario[0].checked; 
-        document.querySelector('#martes').checked = persona.horario[1].checked; 
-        document.querySelector('#miercoles').checked = persona.horario[2].checked; 
-        document.querySelector('#jueves').checked = persona.horario[3].checked; 
-        document.querySelector('#viernes').checked = persona.horario[4].checked;
+        document.querySelector('#lunes').checked = doctor.horario[0].checked; 
+        document.querySelector('#martes').checked = doctor.horario[1].checked; 
+        document.querySelector('#miercoles').checked = doctor.horario[2].checked; 
+        document.querySelector('#jueves').checked = doctor.horario[3].checked; 
+        document.querySelector('#viernes').checked = doctor.horario[4].checked;
 
              
 
-        if(persona.horario[0].checked){
-            document.querySelector('#desdeL').value = persona.horario[0].desde;
-            document.querySelector('#hastaL').value = persona.horario[0].hasta;
+        if(doctor.horario[0].checked){
+            document.querySelector('#desdeL').value = doctor.horario[0].desde;
+            document.querySelector('#hastaL').value = doctor.horario[0].hasta;
 
             document.querySelector('#lunes').parentNode.parentNode.querySelector('.col-body').classList.toggle("active");
         }
-        if(persona.horario[1].checked){
-            document.querySelector('#desdeM').value = persona.horario[1].desde;
-            document.querySelector('#hastaM').value = persona.horario[1].hasta;
+        if(doctor.horario[1].checked){
+            document.querySelector('#desdeM').value = doctor.horario[1].desde;
+            document.querySelector('#hastaM').value = doctor.horario[1].hasta;
 
             document.querySelector('#martes').parentNode.parentNode.querySelector('.col-body').classList.toggle("active");
         }
-        if(persona.horario[2].checked){
-            document.querySelector('#desdeI').value = persona.horario[2].desde;
-            document.querySelector('#hastaI').value = persona.horario[2].hasta;
+        if(doctor.horario[2].checked){
+            document.querySelector('#desdeI').value = doctor.horario[2].desde;
+            document.querySelector('#hastaI').value = doctor.horario[2].hasta;
 
             document.querySelector('#miercoles').parentNode.parentNode.querySelector('.col-body').classList.toggle("active");
         }
-        if(persona.horario[3].checked){
-            document.querySelector('#desdeJ').value = persona.horario[3].desde;
-            document.querySelector('#hastaJ').value = persona.horario[3].hasta;
+        if(doctor.horario[3].checked){
+            document.querySelector('#desdeJ').value = doctor.horario[3].desde;
+            document.querySelector('#hastaJ').value = doctor.horario[3].hasta;
 
             document.querySelector('#jueves').parentNode.parentNode.querySelector('.col-body').classList.toggle("active");
         }
-        if(persona.horario[4].checked){
-            document.querySelector('#desdeV').value = persona.horario[4].desde;
-            document.querySelector('#hastaV').value = persona.horario[4].hasta;
+        if(doctor.horario[4].checked){
+            document.querySelector('#desdeV').value = doctor.horario[4].desde;
+            document.querySelector('#hastaV').value = doctor.horario[4].hasta;
 
             document.querySelector('#viernes').parentNode.parentNode.querySelector('.col-body').classList.toggle("active");
         }

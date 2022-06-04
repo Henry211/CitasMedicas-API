@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package una.ac.backend.logic;
 
 /**
@@ -13,15 +9,18 @@ public class Doctor {
     String cedula;
     String nombre;
     String clave;
-    String estado;
-    String horario;
+    String especialidad;
+    String fee;
+    String localidad;
+    //String horario;
+    Dia[] horario;
 
     public Doctor(String cedula, String nombre, String clave, String estado, String horario) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.clave = clave;
-        this.estado = estado;
-        this.horario = horario;
+        
+        //this.horario = horario;
     }
 
     public String getCedula() {
@@ -48,20 +47,14 @@ public class Doctor {
         this.clave = clave;
     }
 
-    public String getEstado() {
-        return estado;
-    }
+   
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getHorario() {
+   /* public String getHorario() {
         return horario;
     }
 
     public void setHorario(String horario) {
         this.horario = horario;
-    }
+    }*/
     
 }
