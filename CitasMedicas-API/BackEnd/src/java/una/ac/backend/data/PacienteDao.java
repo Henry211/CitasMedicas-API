@@ -9,5 +9,10 @@ package una.ac.backend.data;
  * @author ESCINF
  */
 public class PacienteDao {
+    Database db;
+
+    public PacienteDao() {
+       db = Database.instance();
+    }
     
 }

@@ -9,5 +9,10 @@ package una.ac.backend.data;
  * @author ESCINF
  */
 public class HorarioDao {
+    Database db;
+
+    public HorarioDao() {
+        db = Database.instance();
+    }
     
 }

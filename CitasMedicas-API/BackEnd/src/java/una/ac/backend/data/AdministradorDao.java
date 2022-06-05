@@ -9,5 +9,12 @@ package una.ac.backend.data;
  * @author ESCINF
  */
 public class AdministradorDao {
+    Database db;
+
+    public AdministradorDao() {
+         db = Database.instance();
+    }
+    
+    
     
 }

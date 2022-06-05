@@ -9,5 +9,12 @@ package una.ac.backend.data;
  * @author ESCINF
  */
 public class CitaDao {
+    Database db;
+
+    public CitaDao() {
+       db = Database.instance();
+    }
+    
+    
     
 }

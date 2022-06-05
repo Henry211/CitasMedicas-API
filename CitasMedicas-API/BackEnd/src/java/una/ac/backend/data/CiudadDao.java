@@ -9,5 +9,12 @@ package una.ac.backend.data;
  * @author ESCINF
  */
 public class CiudadDao {
+    Database db;
+
+    public CiudadDao() {
+        db = Database.instance();
+    }
+    
+    
     
 }
