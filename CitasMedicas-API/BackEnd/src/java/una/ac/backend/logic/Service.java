@@ -7,6 +7,7 @@ package una.ac.backend.logic;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import una.ac.backend.data.DoctorDao;
 
 /**
  *
@@ -14,7 +15,11 @@ import java.util.List;
  */
 public class Service {
     
+    DoctorDao mDao = new DoctorDao();
+    
+    
     private static Service uniqueInstance;
+     
     
     
     public static Service instance(){
@@ -23,15 +28,23 @@ public class Service {
         return uniqueInstance;
     }
     
+    
     HashMap<String, Doctor> doctores;
     
     private Service(){
         doctores = new HashMap<>();
     }
     
-    
-    
-    
+    //--------------Metodos  Base de Datos---------------------------
+    public void createMedico(Medico medico) throws Exception {
+        mDao.create(medico);
+    }
+ 
+    public Medico medicoLogin(Medico medico) throws Exception {
+        return mDao.read(medico);
+    }
+    //--------------Metodos  Base de Datos---------------------------
+
     public Doctor doctorCreate(Doctor doc) throws Exception{
         if(doctores.get(doc.getCedula()) !=  null){
             throw new Exception("406 - doctor ya existe");
