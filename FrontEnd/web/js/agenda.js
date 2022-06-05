@@ -13,15 +13,33 @@ var horario = [lunes, martes, miercoles, jueves, viernes];
 
 function cell(col, hora) {
     var tr = $("<tr />");
-    tr.html(`
+
+
+    if (hora) { // true -> Botón habilitado
+
+        tr.html(`
             <div class="horas">        
                 <div class="calendario_dia">                  
                     <div class="hora-row">
-                        9:00
+                        true-> ${hora}
                         <!-- <a class="item"> </a> -->
                     </div>
                 </div> 
             </div>`);
+        col.append(tr);
+    } else { // false -> Botón inhabilitado
+
+        tr.html(`
+            <div class="horas">        
+                <div class="calendario_dia">                  
+                    <div class="hora-row">
+                        false-> ${hora}
+                        <!-- <a class="item"> </a> -->
+                    </div>
+                </div> 
+            </div>`);
+        col.append(tr);
+    }
 }
 
 
@@ -29,6 +47,7 @@ function main() {
 
     console.log("set col-Lunes");
     let i = 0;
+    let horas = [false, true, true, false, false];
 
     $(".col-Lunes").each(function () {
         console.log("day-count + " + i + " " + JSON.stringify(horario[i]))
@@ -37,17 +56,9 @@ function main() {
             // print gray boxes
         } else { // true
 
-            var tr = $("<tr/>");
-            tr.html(`
-            <div class="horas">        
-                <div class="calendario_dia">                  
-                    <div class="hora-row">
-                        LOOOOL
-                        <!-- <a class="item"> </a> -->
-                    </div>
-                </div> 
-            </div>`);
-            $(this).append(tr);
+            horas.forEach((h) => {
+                cell($(this), h);
+            })
 
         }
 
