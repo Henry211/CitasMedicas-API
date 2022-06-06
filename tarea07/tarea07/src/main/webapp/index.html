@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">         
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>     
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
+        <script src="js/login.js"></script>   
+    </head>
+<body>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="imag/doc.png">
+                    
+                  <h4 class="mt-1 mb-5 pb-1">Electronic Medical Record</h4>
+                </div>
+
+                <form id="formulario" >
+                  <p>Please login to your account</p>
+
+                  <div class="form-outline mb-4">
+                    <input type="text" name="cedula" id="cedula"  class="form-control"
+                      placeholder="ID" />
+                    <label class="form-label" for="cedula">ID</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" name="password" id="password" class="form-control" />
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button" id="aplicar">Login</button>
+                    <a class="text-muted" href="#!">Forgot password?</a>
+                  </div>
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                      
+                    <p class="mb-0 me-2">Don't have an account?</p>
+
+                    <input type="button" id="Regi" class="btn btn-outline-danger" value="Create new">
+                   
+                    
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+               
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">“Work is going to occupy a large part of your life. 
+                    The only way to be truly satisfied is to do what you believe is good work,
+                    and the only way to do great work is to love what you do." - Apple's Steve Jobs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+

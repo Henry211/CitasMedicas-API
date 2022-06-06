@@ -1,0 +1,106 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 24 may. 2022, 18:41:07
+    Author     : ESCINF
+*/
+
+.gradient-custom {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right,#0000ff , #00ff7f,#66cdaa, #1e90ff);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #0000ff, #00ff7f, #66cdaa, #1e90ff);
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+font-size: 1rem;
+line-height: 2.15;
+padding-left: .75em;
+padding-right: .75em;
+}
+.card-registration .select-arrow {
+top: 13px;
+}
+
+/*venta popup*/
+
+
+.popup {
+    display: flex;
+    visibility: hidden;
+    position: absolute;
+    top: -10%; 
+    left: 30%;
+    width: 45%; 
+    height: 50%;
+    justify-content: center;
+    padding-top: 1em;    
+    background-color: white;
+    z-index:2;
+    border: 1px solid rgba(0,0,0,.4);
+    border-radius: .3rem;
+    transition: all 0.5s linear;  
+}
+
+.popup.active {
+  top: 10%; 
+  visibility: visible;
+}
+
+.overlay{
+    display: flex;
+    visibility: hidden;
+    position: absolute;
+    top: 0%; 
+    left: 0%;
+    width: 100%; 
+    height: 100%;
+    background-color: #000;;
+    z-index:1; 
+    opacity:0;
+    transition: all 1s ease;    
+}
+
+.overlay.active {
+  opacity: 0.5;
+  visibility: visible;
+}
+
+
+/*
+.horario-row{
+    list-style-type: none;
+}
+*/
+#horario-col{
+    
+  display: inline;
+  float: left;
+  width: 110px;
+  height: 152px;
+  padding: 0 5px;
+    
+   
+}
+.horario-col-body{
+    vertical-align: top;
+    visibility: hidden;
+    background: #00ff7f;
+    border-radius: 15px;
+}
+
+.horario-col-body.active{ 
+    visibility: inherit;
+     
+}
+button{
+    margin: 0 auto;
+}
+
+
