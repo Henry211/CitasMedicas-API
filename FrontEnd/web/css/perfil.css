@@ -1,0 +1,27 @@
+.calendario{
+    background-color: lightgray;
+    overflow: hidden; /* if you don't want #second to wrap below #first */
+    float:left;
+    margin-top: -25px;
+}
+
+.calendario_dia{
+    overflow: hidden; /* if you don't want #second to wrap below #first */
+  
+}
+
+.dias{
+    float:left;
+    margin-right: 50px;
+    
+}
+
+.fin{
+    margin-left: 50px;
+}
+
+.horario-acomodar{
+    margin-top: 100px;
+    margin-left: 80px;
+}
+

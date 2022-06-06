@@ -35,6 +35,23 @@ function cell(col, hora) {
     }
 }
 
+function headCell(col, hora){
+    
+    var tr = $("<tr />");
+    
+    tr.html(`
+            <div class="horas">        
+                <div class="calendario_dia">                  
+                    <div class="hora-row">
+                        ${hora}
+                        <!-- <a class="item"> </a> -->
+                    </div>
+                </div> 
+            </div>`);
+        col.append(tr);
+    
+}
+
 function calcHoras(frequency, desde, hasta) {
     /*count cells = 21 when frequency = 30min  (8am->6pm)*/
     let horas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -99,6 +116,8 @@ function main() {
             horas.forEach((h) => {
                 
                 if(count == 1){
+                    headCell($(this), h);
+                }else{
                     cell($(this), h);
                 }
                 
