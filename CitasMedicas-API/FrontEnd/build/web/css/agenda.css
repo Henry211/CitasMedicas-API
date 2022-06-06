@@ -1,0 +1,120 @@
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.contenedor{
+    width: 90%;
+    margin: 0 auto;
+    background: lightblue;
+    max-width: 1200px;
+    box-shadow: 0 2px 20px rgba(0,0,0,.1);
+    border-radius: 10px;
+    margin-bottom: 60px;
+    margin-top: 40px;
+
+}
+
+.nombre_mes{
+    text-align: center;
+    color: #51565d;
+    font-weight: 400;
+    padding: 30px 0;
+}
+
+.dias{
+    display:grid;
+    grid-template-columns: repeat(6,1fr);
+    place-items: center;
+    height: 45px;
+    border-top: 1px solid gray;
+    color:#51565d;
+    
+}
+
+/* .calendario{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-auto-rows: 300px;
+    height: 50px;
+
+}
+ */
+.horas{
+    display:grid;
+    overflow:hidden;
+    grid-template-columns: repeat(6,1fr);
+    grid-auto-rows: 300px;
+    height: 50px;
+}
+
+.calendario_dia{
+    
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    border-left: 1px solid lightsteelblue;
+    border-right: 1px solid lightsteelblue;
+    padding: 0px 20px;
+    color: black;
+    height: 50px;
+}
+
+    /* iguales 2x */
+.hora-row{
+    float: left;
+    border-radius: 15%;
+    background-color: rgb(43, 106, 241);
+    width: 100px;
+    text-align: center;
+    margin-left: 30px;
+    margin-top: 15px;
+}
+
+.cita{
+    float: left;
+   border-radius: 15%;
+   background-color: lightseagreen;
+   width: 100px;
+   text-align: center;
+   margin-left: 100px;
+   margin-right: 100px;
+   margin-top: 15px;
+}
+
+.item{
+    color:lightyellow;
+    text-decoration: none;
+}
+
+#ver-perfil-btn{
+    background-color: lightblue;
+    color:black;
+    text-decoration: none;
+    border-color: darkblue;
+    width:400px;
+    height: 100px;
+    margin-left: 370px;
+    margin-top: 200px;
+}
+
+
+.cols-container{
+    /* overflow: hidden; */
+
+    /* GOOD LINES: */
+    display:grid;
+    grid-template-columns: repeat(6,1fr);
+    place-items: center;
+}
+
+.col-uno{
+    /* display:grid;  */  
+    /* float:right; */
+    /* padding-right: -150px; */
+}
+
+.col-Lunes{
+    /* float:right; */
+    /* overflow: hidden; */
+}
+
