@@ -8,7 +8,7 @@ var  doctores = new Array();
 var doctor={nombre:"", cedula:"",password:"",localidad:"",especialidad:"",tarifa:""};
 var id="";
 var mode='A'; //adding
-var backend="https://crudcrud.com/api/6aa7dbd096aa4041aa641e46a86bc447";
+var backend="http://localhost:8080/backend/api";
 const NET_ERR=999;
 
 

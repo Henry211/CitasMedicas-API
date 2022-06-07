@@ -5,8 +5,13 @@
 
 
 var  doctores = new Array();
+
+/*
 var doctor={nombre:"", cedula:"",password:"",localidad:"",especialidad:"",tarifa:"",
     horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
+*/
+
+var doctor={nombre:"", cedula:"",password:"",localidad:"",especialidad:"",tarifa:""};
 
 
 var lunes={checked:false};
@@ -17,7 +22,7 @@ var viernes={checked:false};
 var horario=[lunes,martes,miercoles,jueves,viernes];
 var id="";
 var mode='A'; //adding
-var backend="https://crudcrud.com/api/6aa7dbd096aa4041aa641e46a86bc447";
+var backend="http://localhost:8080/backend/api";
 const NET_ERR=999;
 
    function render(){
@@ -43,10 +48,10 @@ const NET_ERR=999;
 
 
   function load(){
-      id=doctor._id;
+      //id=doctor._id;
       doctor = Object.fromEntries( (new FormData($("#formulario").get(0))).entries());
-      var horario=[lunes,martes,miercoles,jueves,viernes];
-      doctor.horario=horario;
+      //var horario=[lunes,martes,miercoles,jueves,viernes];
+      //doctor.horario=horario;
   }
   
   function reset(){
@@ -74,7 +79,7 @@ function add(){
            if (response.ok) {
               alert('Registro exitoso');
           }
-          fetchAndList();
+          //fetchAndList();
           
           
       }
@@ -83,6 +88,8 @@ function add(){
       }        
   })();    
 } 
+
+
 
 
 function makenew(){
@@ -138,7 +145,7 @@ function renderPopup(){
    function regresar(){
     document.getElementById("overlay").classList.toggle("active");
     document.getElementById("popup").classList.toggle("active"); 
-     document.querySelector("#popup input[id='lunes'][value='"+doctor.horario+"']").checked=true;
+     //document.querySelector("#popup input[id='lunes'][value='"+doctor.horario+"']").checked=true;
   }
   
    function Rhorario(){
@@ -199,8 +206,8 @@ function storage(){
         document.getElementById("localidad").setAttribute("value",doctor.localidad);
         document.getElementById("especialidad").setAttribute("value",doctor.especialidad);
         document.getElementById("tarifa").setAttribute("value",doctor.tarifa);
-        console.log(doctor.horario[0]);
-        
+       // console.log(doctor.horario[0]);
+       
         $("#lunes").on("click",
           (e)=>{e.target.parentNode.parentNode.querySelector(".horario-col-body").classList.toggle("active");});
         $("#martes").on("click",
@@ -211,7 +218,7 @@ function storage(){
           (e)=>{e.target.parentNode.parentNode.querySelector(".horario-col-body").classList.toggle("active");});
         $("#viernes").on("click",
           (e)=>{e.target.parentNode.parentNode.querySelector(".horario-col-body").classList.toggle("active");});
-
+/*
         document.querySelector("#lunes").checked=doctor.horario[0].checked;
         document.querySelector("#martes").checked=doctor.horario[1].checked;
         document.querySelector("#miercoles").checked=doctor.horario[2].checked;
@@ -249,7 +256,7 @@ function storage(){
             document.querySelector('#viernes').parentNode.parentNode.querySelector(".horario-col-body").classList.toggle("active");
         }
  
-        
+        */
         
   
         
@@ -257,7 +264,7 @@ function storage(){
  
 
 function loaded(){
-    storage();
+   storage();
   console.log('hola');
 
   document.getElementById("horario").addEventListener("click",edit);
@@ -267,7 +274,7 @@ function loaded(){
    document.getElementById("xd").addEventListener("click",regresar);
    $("#aplicar").click(makenew);
 }
-  $("#xd").click(Rhorario);
+ // $("#xd").click(Rhorario);
 
 
 
