@@ -21,6 +21,7 @@ button{
     box-shadow:0 0 30px rgba(0,0,0,0.5);
     overflow: hidden;
     border-radius:15px;
+    
 }
 .user-img img{
     width: 200px;
@@ -73,8 +74,8 @@ button{
 }
 
 .pad{
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-bottom:  20px;
     padding-top: 20px;
     background-color: lightblue;
@@ -140,4 +141,25 @@ button{
     width: 200px;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+
+.col-body{
+    visibility: hidden;
+   
+    border: 1px solid gray;
+    
+    background-color:palegreen;
+
+
+}
+
+.col-body.active{
+    visibility: visible;
+}
+
+#lista{
+    /*text-align: center;*/
+    margin-left: 16%;
 }
