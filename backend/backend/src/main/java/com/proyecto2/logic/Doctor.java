@@ -12,15 +12,15 @@ public class Doctor {
     String nombre;
     String cedula;
     String password;
-    String especialidad;
-    String localidad;
+    Especialidad especialidad;//objeto
+    Ciudad localidad;//objeto
     String tarifa;
     // Dia[] horario;
 
     public Doctor() {
     }
 
-    public Doctor(String nombre, String cedula, String password, String especialidad, String localidad, String tarifa) {
+    public Doctor(String nombre, String cedula, String password, Especialidad especialidad, Ciudad localidad, String tarifa) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.password = password;
@@ -28,10 +28,6 @@ public class Doctor {
         this.localidad = localidad;
         this.tarifa = tarifa;
     }
-
-
-
- 
 
  
 
@@ -81,22 +77,25 @@ public class Doctor {
     }
 
     */
-
-    public String getEspecialidad() {
+    
+    public Especialidad getEspecialidad() {
         return especialidad;
     }
 
-    public void setEspecialidad(String especialidad) {
+    public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
 
-    public String getLocalidad() {
+    public Ciudad getLocalidad() {
         return localidad;
     }
 
-    public void setLocalidad(String localidad) {
+    public void setLocalidad(Ciudad localidad) {
         this.localidad = localidad;
     }
+
+
+   
 
     
     
