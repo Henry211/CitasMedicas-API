@@ -60,7 +60,7 @@ public class DoctorDao {
             Doctor c = from(rs, "c");
             return c;
         } else {
-            throw new Exception("medico existente");
+            throw new Exception("Medico existente");
         }
     }
     
@@ -75,7 +75,7 @@ public class DoctorDao {
             return c;
         }
         else{
-            throw new Exception ("MEdico no existe");
+            throw new Exception ("Medico no existe");
         }
     }
      

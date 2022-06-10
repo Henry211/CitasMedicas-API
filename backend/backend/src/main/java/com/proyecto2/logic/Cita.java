@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @author ESCINF
  */
 public class Cita {
-     int idCita;
+    int idCita;
     String estado;
     LocalDateTime fecha;
     String dateStr;

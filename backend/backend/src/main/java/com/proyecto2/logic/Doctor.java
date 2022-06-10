@@ -19,6 +19,10 @@ public class Doctor {
 
     public Doctor() {
     }
+    
+    public Doctor(String cedula) {
+        this.cedula = cedula;
+    }
 
     public Doctor(String nombre, String cedula, String password, Especialidad especialidad, Ciudad localidad, String tarifa) {
         this.nombre = nombre;

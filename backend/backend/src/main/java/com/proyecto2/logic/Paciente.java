@@ -18,6 +18,10 @@ public class Paciente {
 
     public Paciente() {
     }
+        
+    public Paciente(String cedula) {
+        this.cedula=cedula;
+    }
 
     public String getNombre() {
         return nombre;
