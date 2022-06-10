@@ -8,7 +8,7 @@ examenes:[{id:"1",fecha:"22/11/1997"},{id:"2",fecha:"21/6/1995"}]};
 
 
 function verCitasBtn(){
-    location.href = 'listaCitas.html'
+    location.href = 'listaCitas.html';
 }
 
 

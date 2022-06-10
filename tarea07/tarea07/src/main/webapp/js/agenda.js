@@ -1,20 +1,44 @@
 
+let arr;
 
 
+class CitaCell{
+    constructor(dia,hora){
+        this.dia = dia;
+        this.hora = hora;
+    }
+}
 
+function iteracionDay(i){
 
+    switch(i){
+        case 0:
+            return "";
+        case 1:
+            return arr[1];
+        case 2:
+            return "M";
+        case 3:
+            return "I";
+        case 4:
+            return "J";
+        case 5:
+            return "V";
+    }
+}
 
-function cell(col, hora) {
+function cell(col, hora, iteracion) {
     var tr = $("<tr />");
-
+    var dayLetter = iteracionDay(iteracion);
 
     if (hora) { // true -> Botón habilitado
 
         tr.html(`
             <div class="horas">        
-                <div class="calendario_dia">                  
+                <div class="calendario_dia" draggable="true">                  
                     <div class="hora-row ableButton">
-                        ${hora}
+                        ${arr[iteracion]} 
+                         
                         <!-- <a class="item"> </a> -->
                     </div>
                 </div> 
@@ -53,7 +77,7 @@ function headCell(col, hora){
 }
 
 
-function unDay(col,hora){
+function unDay(col,hora){// días del pasado
 
     var tr = $("<tr />");
 
@@ -168,41 +192,40 @@ function validarFecha(dateStr, locale){
 
     }
 
-    var todayNumber = String(date.getDate()).padStart(2, '0');
-    let lu,ma,mi,ju,vi;
+    let lu,ma,mi,ju,vi;//- To print Head Days
 
     if(day == "Monday"){
  
-        lu = "Lunes " + todayNumber; 
-        ma = "Martes " + (todayNumber+1);
-        mi = "Miercoles " + (todayNumber+2);
-        ju = "Jueves " + (todayNumber+3);
-        vi = "Viernes " + (todayNumber+4);
+        lu = "Lunes " + String(date.getDate()).padStart(2, '0'); 
+        ma = "Martes " + String(date.getDate()+1).padStart(2, '0');
+        mi = "Miercoles " + String(date.getDate()+2).padStart(2, '0');
+        ju = "Jueves " + String(date.getDate()+3).padStart(2, '0');
+        vi = "Viernes " + String(date.getDate()+4).padStart(2, '0');
         
 
     }else if(day == "Tuesday"){
 
         lu = "Lunes";
-        ma = "Martes " + todayNumber;
-        mi = "Miercoles " + (todayNumber+1);
-        ju = "Jueves " + (todayNumber+2);
-        vi = "Viernes " + (todayNumber+3);
+        ma = "Martes " + String(date.getDate()).padStart(2, '0');
+        mi = "Miercoles " + String(date.getDate()+1).padStart(2, '0');
+        ju = "Jueves " + String(date.getDate()+2).padStart(2, '0');
+        vi = "Viernes " + String(date.getDate()+3).padStart(2, '0');
 
     }else if(day == "Wednesday"){
 
         lu = "Lunes";
         ma = "Martes ";
-        mi = "Miercoles " + todayNumber;
-        ju = "Jueves " + (todayNumber+1);
-        vi = "Viernes " + (todayNumber+2);
+        mi = "Miercoles " + String(date.getDate()).padStart(2, '0');
+        ju = "Jueves " + String(date.getDate()+1).padStart(2, '0');
+        vi = "Viernes " + String(date.getDate()+2).padStart(2, '0');
 
     }else if(day == "Thursday"){
 
         lu = "Lunes";
         ma = "Martes ";
         mi = "Miercoles ";
-        ju = "Jueves " + todayNumber;
-        vi = "Viernes " + (todayNumber+1);
+        ju = "Jueves " + String(date.getDate()).padStart(2, '0');
+        vi = "Viernes " + String(date.getDate()+1).padStart(2, '0');
 
     }else if(day == "Friday"){
 
@@ -210,61 +233,21 @@ function validarFecha(dateStr, locale){
         ma = "Martes ";
         mi = "Miercoles ";
         ju = "Jueves ";
-        vi = "Viernes " + todayNumber;
+        vi = "Viernes " + String(date.getDate()).padStart(2, '0');
     }
 
+    arr = ["",lu,ma,mi,ju,vi]// Print Head Days
     let n = 0;
     
     $('.dias_item').each( function() {
 
-        console.log("Iteración # de 6")
+        var tr = $("<tr />");
+        tr.html(`${arr[n]}`)
 
-        if(n == 1 && day == "Monday"){
- 
-            lu = "Lunes " + todayNumber; 
-            ma = "Martes " + (todayNumber+1);
-            mi = "Miercoles " + (todayNumber+2);
-            ju = "Jueves " + (todayNumber+3);
-            vi = "Viernes " + (todayNumber+4);
-            
-
-        }else if(n == 2 && day == "Tuesday"){
-
-            lu = "Lunes";
-            ma = "Martes " + todayNumber;
-            mi = "Miercoles " + (todayNumber+1);
-            ju = "Jueves " + (todayNumber+2);
-            vi = "Viernes " + (todayNumber+3);
-
-        }else if(n == 3 && day == "Wednesday"){
-
-            lu = "Lunes";
-            ma = "Martes ";
-            mi = "Miercoles " + todayNumber;
-            ju = "Jueves " + (todayNumber+1);
-            vi = "Viernes " + (todayNumber+2);
-
-        }else if(n == 4 && day == "Thursday"){
-
-            lu = "Lunes";
-            ma = "Martes ";
-            mi = "Miercoles ";
-            ju = "Jueves " + todayNumber;
-            vi = "Viernes " + (todayNumber+1);
-
-        }else if(n == 5 && day == "Friday"){
-
-            lu = "Lunes";
-            ma = "Martes ";
-            mi = "Miercoles ";
-            ju = "Jueves ";
-            vi = "Viernes " + todayNumber;
-        }
+        $(this).append(tr)
         n++;
 
     })
-
-
 
 
     return semana;
@@ -317,6 +300,7 @@ function main() {
         let count=0;
         if(i == 0){ //-primera iteración (HEAD)
             count = 0;
+
             horasString.forEach((h) => {
                 
                     headCell($(this), h);
@@ -339,11 +323,10 @@ function main() {
 
             count = 0;
             horas = calcHoras(frequency, horario[i].desde, horario[i].hasta);
+
             horas.forEach((h) => {
-                
-                
-                    cell($(this), h);
-                
+            
+                    cell($(this), h, i);// ->   h  ==  1||0
                 
                 j++;
                 count++;

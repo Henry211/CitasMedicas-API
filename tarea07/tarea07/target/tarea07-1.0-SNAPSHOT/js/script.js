@@ -11,7 +11,7 @@ var doctor={nombre:"", cedula:"",password:"",localidad:"",especialidad:"",tarifa
     horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
 */
 
-var doctor={nombre:"", cedula:"",password:"",localidad:"",especialidad:"",tarifa:""};
+var doctor={nombre:"", cedula:"",password:"",localidad:{provincia:""},especialidad:{especialidad:""},tarifa:""};
 
 
 var lunes={checked:false};
@@ -73,6 +73,7 @@ function add(){
   const request = new Request(backend+'/doctores', {method: 'POST', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(doctor)});
   (async ()=>{
       try{
+          console.log("doc->"+JSON.stringify(doctor))
           const response = await fetch(request);
           console.log(response);
           reset();

@@ -26,6 +26,7 @@ public class Doctores {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void create(Doctor p) {  
         try {
+            System.out.println("Entro");
             Service.instance().createMedico(p);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 

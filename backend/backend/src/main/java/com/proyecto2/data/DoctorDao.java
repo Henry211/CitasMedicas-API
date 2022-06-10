@@ -39,9 +39,10 @@ public class DoctorDao {
         stm.setString(4, u.getTarifa());
         stm.setObject(5, u.getLocalidad());
         stm.setObject(6, u.getEspecialidad());
-        byte[] image = new byte[]{0} ;
+        System.out.println("doc-> "+ u);
+        /*byte[] image = new byte[]{0} ;
         InputStream targetStream = new ByteArrayInputStream(image);
-        stm.setBlob(7, targetStream);
+        stm.setBlob(7, targetStream);*/
 
         int count = db.executeUpdate(stm);
         if (count == 0) {

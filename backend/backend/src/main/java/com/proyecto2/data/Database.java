@@ -24,7 +24,7 @@ public class Database {
     private final String database_driver="com.mysql.cj.jdbc.Driver";
     private final String database_server="localhost";
     private final String database_port="3306";
-    private final String database_user="MariaF";
+    private final String database_user="root";
     private final String database_password="root";
     private final String database_name="usuarios2";
     

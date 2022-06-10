@@ -73,6 +73,7 @@ function add(){
   const request = new Request(backend+'/doctores', {method: 'POST', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(doctor)});
   (async ()=>{
       try{
+          console.log("doc->"+JSON.stringify(doctor))
           const response = await fetch(request);
           console.log(response);
           reset();
