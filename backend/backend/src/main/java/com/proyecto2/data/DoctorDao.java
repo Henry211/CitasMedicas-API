@@ -36,7 +36,7 @@ public class DoctorDao {
         stm.setString(1, u.getNombre());
         stm.setString(2, u.getCedula());
         stm.setString(3, u.getPassword());
-        stm.setInt(4, u.getTarifa());
+        stm.setString(4, u.getTarifa());
         stm.setObject(5, u.getLocalidad());
         stm.setObject(6, u.getEspecialidad());
         byte[] image = new byte[]{0} ;
@@ -84,7 +84,7 @@ public class DoctorDao {
         String sql = "update medico set tarifa=?,nombre_provincia=?,nombre_especialidad=?"
                 + "where idMedicos=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setInt(1, u.getTarifa());
+        stm.setString(1, u.getTarifa());
         stm.setObject(2, u.getLocalidad().getProvincia());
         stm.setObject(3, u.getEspecialidad().getEspecialidad());
         //para imagen por base de datos
@@ -143,7 +143,7 @@ public class DoctorDao {
             c.setCedula(rs.getString(alias + ".idMedicos"));
             c.setNombre(rs.getString(alias + ".nombre"));
             c.setPassword(rs.getString(alias + ".clave"));
-            c.setTarifa(rs.getInt(alias + ".tarifa"));
+            c.setTarifa(rs.getString(alias + ".tarifa"));
             String str = rs.getString(alias + ".nombre_provincia");
             Ciudad ciuu = new Ciudad(str);
             c.setLocalidad(ciuu);
