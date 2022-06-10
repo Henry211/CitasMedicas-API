@@ -11,7 +11,7 @@ var doctor={nombre:"", cedula:"",password:"",localidad:"",especialidad:"",tarifa
     horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
 */
 
-var doctor={nombre:"", cedula:"",password:"",localidad:"",especialidad:"",tarifa:""};
+var doctor={nombre:"", cedula:"",password:"",localidad:{provincia:""},especialidad:{especialidad:""},tarifa:""};
 
 
 var lunes={checked:false};
