@@ -50,7 +50,7 @@ public class DoctorDao {
     }
     
     // el Login
-    public Doctor read(Doctor u) throws Exception {
+   /* public Doctor read(Doctor u) throws Exception {
         String sql = "select * from medico c where idMedicos=? and clave =?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getCedula());
@@ -61,6 +61,21 @@ public class DoctorDao {
             return c;
         } else {
             throw new Exception("Medico existente");
+        }
+    }*/
+         
+    public Doctor read(String cedula, String clave) throws Exception{
+        String sql = "select * from medico c where idMedicos=? and clave=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, cedula);
+        stm.setString(2, clave);
+        ResultSet rs =  db.executeQuery(stm);
+        if (rs.next()) {
+            Doctor c = from(rs, "c"); 
+            return c;
+        }
+        else{
+            throw new Exception ("Medico no existe");
         }
     }
     

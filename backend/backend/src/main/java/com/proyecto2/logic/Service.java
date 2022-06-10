@@ -54,8 +54,8 @@ public class Service {
     }
 
     //medico
-    public Doctor medicoLogin(Doctor medico) throws Exception {
-        return mDao.read(medico);
+    public Doctor medicoLogin(String cedula, String clave) throws Exception {
+        return mDao.read(cedula,clave);
     }
 
     public void editarMedico(Doctor medico) throws Exception {
