@@ -22,44 +22,40 @@ import javax.ws.rs.POST;
 @Path("/doctores")
 public class Doctores {
     
-    @POST
+   @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void create(Doctor p) {  
         try {
-            System.out.println("Entro");
             Service.instance().createMedico(p);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
     }
     
-    @GET
+       @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Doctor read(String cedula, String clave) {
-        try{
-            return Service.instance().medicoLogin(cedula, clave);
-        } catch (Exception ex) {
-            throw new NotAcceptableException(); 
-        }
-    }     
-    /*
+    public List<Doctor> read() throws Exception { 
+        return Service.instance().findAllMedicos();
+    } 
+    
     @GET
     @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Doctor read(@PathParam("cedula") String cedula) {
+    public Doctor read(@PathParam("cedula") String cedula, String clave) {
         try {
-            return Service.instance().medicoLogin(cedula);
+            return Service.instance().medicoLogin(cedula, clave);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
-    }*/
-/*
+    }
+ 
+
     @PUT
     @Path("{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathParam("cedula") String cedula, Doctor p) {  
         try {
-            Service.instance().personasUPDATE(p);
+            Service.instance().editarMedico(p);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -67,13 +63,13 @@ public class Doctores {
 
     @DELETE
     @Path("{cedula}")
-    public void delete(@PathParam("cedula") String cedula) {
+    public void delete(@PathParam("cedula") String cedula,Doctor p) {
         try {
-            Service.instance().personasDELETE(cedula);
+            Service.instance().borraMedico(p);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
     }
-  */
+  
 }
 

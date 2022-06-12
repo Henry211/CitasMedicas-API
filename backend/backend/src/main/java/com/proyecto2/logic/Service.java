@@ -65,6 +65,13 @@ public class Service {
     public void createMedico(Doctor medico) throws Exception {
         mDao.create(medico);
     }
+     public void borraMedico(Doctor medico) throws Exception {
+        mDao.delete(medico);
+    }
+     
+     public ArrayList<Doctor> findAllMedicos() throws Exception {
+        return mDao.findAll();
+    }
 
 }
 
