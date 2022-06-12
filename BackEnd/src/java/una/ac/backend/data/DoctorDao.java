@@ -29,17 +29,20 @@ public class DoctorDao {
     //registrar medico
     public void create(Doctor u) throws Exception {
 
-        String sql = "insert into medico(nombre,idMedicos,clave,tarifa,nombre_provincia,nombre_especialidad) "
-                + "values(?,?,?,?,?,?)";
+        String sql = "insert into medico(nombre,idMedicos,clave,tarifa) "
+                + "values(?,?,?,?)";
 
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getNombre());
-        stm.setString(2, u.getCedula());
+        stm.setString(2, u.getId());
         stm.setString(3, u.getPassword());
         stm.setString(4, u.getTarifa());
-        stm.setObject(5, u.getLocalidad().getProvincia());
-        stm.setObject(6, u.getEspecialidad().getEspecialidad());
-        System.out.println("doc-> "+ u);
+        //stm.setObject(5, u.getLocalidad().getProvincia());
+        //stm.setObject(6, u.getEspecialidad().getEspecialidad());
+        System.out.println("docName-> "+ u.getNombre());
+        System.out.println("docName-> "+ u.getId());
+        System.out.println("docName-> "+ u.getPassword());
+        System.out.println("docName-> "+ u.getTarifa());
         /*byte[] image = new byte[]{0} ;
         InputStream targetStream = new ByteArrayInputStream(image);
         stm.setBlob(7, targetStream);*/
@@ -101,12 +104,12 @@ public class DoctorDao {
                 + "where idMedicos=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getTarifa());
-        stm.setObject(2, u.getLocalidad().getProvincia());
-        stm.setObject(3, u.getEspecialidad().getEspecialidad());
+        //stm.setObject(2, u.getLocalidad().getProvincia());
+        //stm.setObject(3, u.getEspecialidad().getEspecialidad());
         //para imagen por base de datos
         //InputStream targetStream = new ByteArrayInputStream(u.getImage());
        // stm.setBlob(4, targetStream);
-        stm.setString(4, u.getCedula());
+        stm.setString(4, u.getId());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medico no existe");
@@ -117,7 +120,7 @@ public class DoctorDao {
     public void delete(Doctor c) throws Exception {
         String sql = "delete from medico where idMedicos=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, c.getCedula());
+        stm.setString(1, c.getId());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medico no existe");
@@ -156,16 +159,16 @@ public class DoctorDao {
          Doctor from(ResultSet rs, String alias) {
         try {
             Doctor c = new Doctor();
-            c.setCedula(rs.getString(alias + ".idMedicos"));
+            c.setId(rs.getString(alias + ".idMedicos"));
             c.setNombre(rs.getString(alias + ".nombre"));
             c.setPassword(rs.getString(alias + ".clave"));
             c.setTarifa(rs.getString(alias + ".tarifa"));
             String str = rs.getString(alias + ".nombre_provincia");
             Ciudad ciuu = new Ciudad(str);
-            c.setLocalidad(ciuu);
+            //c.setLocalidad(ciuu);
             String str2 = rs.getString(alias + ".nombre_especialidad");
             Especialidad espe = new Especialidad(str2);
-            c.setEspecialidad(espe);
+            //c.setEspecialidad(espe);
             /*
             Blob blob = rs.getBlob(alias + ".image");
             if(blob != null){

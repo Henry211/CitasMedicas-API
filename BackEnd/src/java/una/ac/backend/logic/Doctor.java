@@ -10,28 +10,28 @@ package una.ac.backend.logic;
  */
 public class Doctor {
     String nombre;
-    String cedula;
+    String id;
     String password;
-    Especialidad especialidad;//objeto
-    Ciudad localidad;//objeto
+    //Especialidad especialidad;//objeto
+    //Ciudad localidad;//objeto
     String tarifa;
     // Dia[] horario;
 
     public Doctor() {
     }
     
-    public Doctor(String cedula) {
-        this.cedula = cedula;
+    public Doctor(String id) {
+        this.id = id;
     }
 
-    public Doctor(String nombre, String cedula, String password, Especialidad especialidad, Ciudad localidad, String tarifa) {
+   /* public Doctor(String nombre, String cedula, String clave, Especialidad especialidad, Ciudad localidad, String tarifa) {
         this.nombre = nombre;
         this.cedula = cedula;
-        this.password = password;
+        this.clave = clave;
         this.especialidad = especialidad;
         this.localidad = localidad;
         this.tarifa = tarifa;
-    }
+    }*/
 
  
 
@@ -44,12 +44,12 @@ public class Doctor {
         this.nombre = nombre;
     }
 
-    public String getCedula() {
-        return cedula;
+    public String getId() {
+        return id;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -82,7 +82,7 @@ public class Doctor {
 
     */
     
-    public Especialidad getEspecialidad() {
+    /*public Especialidad getEspecialidad() {
         return especialidad;
     }
 
@@ -98,7 +98,7 @@ public class Doctor {
         this.localidad = localidad;
     }
 
-
+*/
    
 
     

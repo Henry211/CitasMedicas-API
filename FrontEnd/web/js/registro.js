@@ -14,8 +14,8 @@ var jueves = {checked:false};
 var viernes = {checked:false};
 var horario = [lunes,martes,miercoles,jueves,viernes];
 
-var doctor={cedula:"", nombre:"",clave:"", especialidad:{especialidad:"espe"}, fee:"", localidad:{localidad:"loca"},
-                horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
+var doctor={id:"1", nombre:"",password:"",/* especialidad:{especialidad:"espe"}, localidad:{localidad:"loca"}, */tarifa:"1"/*,
+                horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]*/};
 
 
 
@@ -74,10 +74,10 @@ function load(){
     
     //saveSchedule();// -- ojo 
     horario = [lunes,martes,miercoles,jueves,viernes];
-    doctor.horario = horario;
-    doctor.especialidad.especialidad = "Espe";
-    doctor = {cedula:"", nombre:"",clave:"", especialidad:{especialidad:"espe"}, fee:"", localidad:{localidad:"loca"},
-                horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]}
+    //doctor.horario = horario;
+    //doctor.especialidad.especialidad = "Espe";
+    doctor = {id:"19090", nombre:"test",password:"test"/*, especialidad:{especialidad:"espe"}, localidad:{localidad:"loca"}*/, tarifa:"1"/*,
+                horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]*/}
     
     console.log("Doctor->");
     console.log(JSON.stringify(doctor));
@@ -145,8 +145,8 @@ function render(){
 }
 
 function reset(){
-    doctor={cedula:"", nombre:"",clave:"", especialidad:{especialidad:""}, fee:"", localidad:{localidad:""}
-                ,horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
+    doctor={id:"19090", nombre:"",password:"", /*especialidad:{especialidad:""}, fee:"", localidad:{localidad:""},*/ tarifa:"1"
+                /*,horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]*/};
 }
 
 function makeNew(){

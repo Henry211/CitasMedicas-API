@@ -32,6 +32,7 @@ public class Doctores {
     public void create(Doctor doc){
         try{
             Service.instance().createMedico(doc);
+            System.out.println("Doctor->"+doc);
         }catch(Exception e){
             throw new NotAcceptableException();
         }
