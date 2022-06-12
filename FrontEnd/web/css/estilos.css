@@ -156,3 +156,8 @@ button{
 .col-body.active{
     visibility: visible;
 }
+
+#lista{
+    /*text-align: center;*/
+    margin-left: 16%;
+}
