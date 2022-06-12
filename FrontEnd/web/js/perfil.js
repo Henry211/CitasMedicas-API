@@ -6,6 +6,8 @@ var paciente={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
 antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
 examenes:[{id:"1",fecha:"22/11/1997"},{id:"2",fecha:"21/6/1995"}]};
 
+var medico;
+
 
 function verCitasBtn(){
     location.href = 'listaCitas.html';
@@ -23,7 +25,7 @@ function sortBool(tipo,bool){
     
 }
 
-function fillData(){
+function fillPaciente(){
     
     
     paciente = JSON.parse(localStorage.getItem('pacientePerfil'));
@@ -45,10 +47,25 @@ function fillData(){
     })
 }
 
+function fillMedico(){
+    
+    
+    medico = JSON.parse(localStorage.getItem('medicoPerfil'));
+    console.log("medico-> "+ JSON.stringify(medico));
+    
+    $("#nameTxt").append(medico.nombre);
+    $("#idTxt").append("Id: "+medico.id);
+    $("#pesoTxt").append("Peso: "+medico.peso);
+    $("#edadTxt").append("Edad: "+medico.edad);
+
+   
+}
+
 function main(){
     
+    if(localStorage.getItem('medicoPerfil'))    fillMedico();
+    else if(localStorageItem('pacientePerfil')) fillPaciente();
     
-    fillData();
     $("#citasBtn").click(verCitasBtn);
     
 }

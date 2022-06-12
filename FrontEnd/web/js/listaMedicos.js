@@ -12,7 +12,7 @@ examenes:[{id:"1"},{id:"2"}]};
 var stef={cedula:"1", nombre:"Stefanny",clave:"1",peso:"70kg",edad:"24",
 antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
 examenes:[{id:"1"},{id:"2"}]};
-var messi={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
+var paciente={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
 antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
 examenes:[{id:"1"},{id:"2"}]};
 
@@ -24,7 +24,7 @@ function showButton(person){
     //console.log("Has visto a "+id);
     //- Cargar en LocalStorage al Paciente
     //- Cargar Perfil y Leer LocalStorage
-    localStorage.setItem("pacientePerfil",JSON.stringify(person));
+    localStorage.setItem("medicoPerfil",JSON.stringify(person));
     location.href = 'perfil.html';
 
 }
@@ -64,7 +64,7 @@ function main(){
     pacientes.push(elon);
     pacientes.push(winston);
     pacientes.push(stef);
-    pacientes.push(messi);
+    pacientes.push(paciente);
 
     pacientes.forEach( (p) => {
 
