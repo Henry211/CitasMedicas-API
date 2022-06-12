@@ -29,20 +29,18 @@ public class DoctorDao {
     //registrar medico
     public void create(Doctor u) throws Exception {
 
-        String sql = "insert into medico(nombre,idMedicos,clave,tarifa) "
-                + "values(?,?,?,?)";
+        String sql = "insert into medico(nombre,idMedicos,clave,tarifa,nombre_provincia,nombre_especialidad) "
+                + "values(?,?,?,?,?,?)";
 
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getNombre());
         stm.setString(2, u.getId());
         stm.setString(3, u.getPassword());
         stm.setString(4, u.getTarifa());
-        //stm.setObject(5, u.getLocalidad().getProvincia());
-        //stm.setObject(6, u.getEspecialidad().getEspecialidad());
-        System.out.println("docName-> "+ u.getNombre());
-        System.out.println("docName-> "+ u.getId());
-        System.out.println("docName-> "+ u.getPassword());
-        System.out.println("docName-> "+ u.getTarifa());
+        stm.setObject(5, u.getLocalidad().getProvincia());
+        stm.setObject(6, u.getEspecialidad().getEspecialidad());
+        System.out.println("docName-> "+ u.getEspecialidad());
+        
         /*byte[] image = new byte[]{0} ;
         InputStream targetStream = new ByteArrayInputStream(image);
         stm.setBlob(7, targetStream);*/

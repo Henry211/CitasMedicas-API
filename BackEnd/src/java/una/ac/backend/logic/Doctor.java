@@ -12,8 +12,8 @@ public class Doctor {
     String nombre;
     String id;
     String password;
-    //Especialidad especialidad;//objeto
-    //Ciudad localidad;//objeto
+    Especialidad especialidad;//objeto
+    Ciudad localidad;//objeto
     String tarifa;
     // Dia[] horario;
 
@@ -24,14 +24,6 @@ public class Doctor {
         this.id = id;
     }
 
-   /* public Doctor(String nombre, String cedula, String clave, Especialidad especialidad, Ciudad localidad, String tarifa) {
-        this.nombre = nombre;
-        this.cedula = cedula;
-        this.clave = clave;
-        this.especialidad = especialidad;
-        this.localidad = localidad;
-        this.tarifa = tarifa;
-    }*/
 
  
 
@@ -82,7 +74,7 @@ public class Doctor {
 
     */
     
-    /*public Especialidad getEspecialidad() {
+    public Especialidad getEspecialidad() {
         return especialidad;
     }
 
@@ -98,7 +90,7 @@ public class Doctor {
         this.localidad = localidad;
     }
 
-*/
+
    
 
     
