@@ -31,7 +31,7 @@ public class Doctores {
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Doctor doc){
         try{
-            Service.instance().doctorCreate(doc);
+            Service.instance().createMedico(doc);
         }catch(Exception e){
             throw new NotAcceptableException();
         }
@@ -40,7 +40,8 @@ public class Doctores {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Doctor> read(){
-        return Service.instance().doctoresRead();
+        //return Service.instance().doctoresRead();
+        return null;
     }
     
     @GET
@@ -48,7 +49,8 @@ public class Doctores {
     @Produces(MediaType.APPLICATION_JSON)
     public Doctor read(@PathParam("cedula") String cedula){
         try{
-            return Service.instance().doctorRead(cedula);
+            //return Service.instance().doctorRead(cedula);
+            return null;
         }catch(Exception e){
             throw new NotFoundException();
         }
@@ -59,7 +61,8 @@ public class Doctores {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathParam("cedula") String cedula, Doctor d){
         try{
-            Service.instance().doctorUpdate(d);
+            //Service.instance().doctorUpdate(d); 
+            
         }catch(Exception e){
             throw new NotFoundException();
         }
@@ -69,7 +72,7 @@ public class Doctores {
     @Path("{cedula}")
     public void delete(@PathParam("cedula") String cedula){
         try{
-            Service.instance().doctorDelete(cedula);
+            //Service.instance().doctorDelete(cedula);
         } catch(Exception e){
             throw new NotFoundException();
         }

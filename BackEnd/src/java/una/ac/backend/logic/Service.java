@@ -1,74 +1,67 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package una.ac.backend.logic;
 
+import una.ac.backend.data.AdministradorDao;
+import una.ac.backend.data.CitaDao;
+import una.ac.backend.data.CiudadDao;
+import una.ac.backend.data.DoctorDao;
+import una.ac.backend.data.EspecialidadDao;
+import una.ac.backend.data.PacienteDao;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-/**
- *
- * @author Henry
- */
 public class Service {
-    
-    private static Service uniqueInstance;
-    
-    
-    public static Service instance(){
-        if(uniqueInstance == null)
-            uniqueInstance = new Service();
-        return uniqueInstance;
+
+    PacienteDao pDao = new PacienteDao();
+    DoctorDao mDao = new DoctorDao();
+    AdministradorDao aDao = new AdministradorDao();
+    CiudadDao cidDao = new CiudadDao();
+    CitaDao citDao = new CitaDao();
+    EspecialidadDao esDao = new EspecialidadDao();
+    //HorarioDao horDao = new HorarioDao();
+
+    public Service() {
     }
-    
-    HashMap<String, Doctor> doctores;
-    
-    private Service(){
-        doctores = new HashMap<>();
-    }
-    
-    
-    
-    
-    public Doctor doctorCreate(Doctor doc) throws Exception{
-        if(doctores.get(doc.getCedula()) !=  null){
-            throw new Exception("406 - doctor ya existe");
-        }else{
-            System.out.println("Doctor Create methos service");
-            doctores.put(doc.getCedula(),doc);
-            return doc;
+
+    // Singleton implementation
+    private static Service theInstance;
+
+    public static Service instance() {
+        if (theInstance == null) {
+            theInstance = new Service();
         }
+        return theInstance;
     }
-    
-    public List<Doctor> doctoresRead(){
-        return new ArrayList(doctores.values());
+
+    // Service methods
+    //paciente
+   
+
+    public void createPaciente(Paciente paciente) throws Exception {
+        pDao.create(paciente);
     }
-    
-    public Doctor doctorRead(String cedula) throws Exception{
-        if(doctores.get(cedula) != null){
-            return doctores.get(cedula);
-        }else{
-            throw new Exception ("404 - Persona no existe");
-        }
+
+    //administrador
+    public Administrador administradorLogin(Administrador administrador) throws Exception {
+        return aDao.read(administrador);
     }
-    
-    public void doctorUpdate(Doctor doc) throws Exception{
-        if(doctores.get(doc.getCedula()) == null){
-            throw new Exception ("404- doctor no existe");
-        }else{
-            doctores.put(doc.getCedula(), doc);
-        }
+
+    public void createAdministrador(Administrador admi) throws Exception {
+        aDao.create(admi);
     }
-    
-    public void doctorDelete(String cedula) throws Exception{
-        if(doctores.get(cedula) == null){
-            throw new Exception ("404 - doctor no existe");
-        }else{
-            doctores.remove(cedula);
-        }
+
+    //medico
+    public Doctor medicoLogin(String cedula, String clave) throws Exception {
+        return mDao.read(cedula,clave);
     }
-    
-    
+
+    public void editarMedico(Doctor medico) throws Exception {
+        mDao.update(medico);
+    }
+
+    public void createMedico(Doctor medico) throws Exception {
+        mDao.create(medico);
+    }
+
 }
+

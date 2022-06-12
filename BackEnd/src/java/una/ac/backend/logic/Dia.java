@@ -6,28 +6,17 @@ package una.ac.backend.logic;
 
 /**
  *
- * @author Usuario
+ * @author ESCINF
  */
 public class Dia {
     
-    boolean checked;
+    boolean checked = false;
     String desde;
     String hasta;
-    
-    public Dia(boolean checked) {
-        this.checked = checked;
-    }
-
-    public Dia() {
-    }
-    
-    
 
     public Dia(String desde, String hasta) {
         this.desde = desde;
         this.hasta = hasta;
     }
-    
-    
     
 }

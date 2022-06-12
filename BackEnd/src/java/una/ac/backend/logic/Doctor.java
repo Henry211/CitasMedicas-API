@@ -1,81 +1,41 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package una.ac.backend.logic;
 
 /**
  *
- * @author Henry
+ * @author ESCINF
  */
 public class Doctor {
-    
-    String cedula;
     String nombre;
-    String clave;
-    String especialidad;
-    String fee;
-    String localidad;
-    //String horario;
-    Dia[] horario;
+    String cedula;
+    String password;
+    Especialidad especialidad;//objeto
+    Ciudad localidad;//objeto
+    String tarifa;
+    // Dia[] horario;
 
     public Doctor() {
     }
-
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
-
-    public String getFee() {
-        return fee;
-    }
-
-    public void setFee(String fee) {
-        this.fee = fee;
-    }
-
-    public String getLocalidad() {
-        return localidad;
-    }
-
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
-
-    public Dia[] getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Dia[] horario) {
-        this.horario = horario;
-    }
-
-    public Doctor(String cedula, String clave, String nombre, String especialidad, String fee, String localidad/*, Dia[] horario*/ ) {
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.clave = clave;
-        this.especialidad = especialidad;
-        this.fee = fee;
-        this.localidad = localidad;
-        //this.horario = horario;
-    }
-
-   /* public Doctor(String cedula, String nombre, String clave, String estado, String horario) {
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.clave = clave;
-        
-        //this.horario = horario;
-    }*/
     
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
+    public Doctor(String cedula) {
         this.cedula = cedula;
     }
 
+    public Doctor(String nombre, String cedula, String password, Especialidad especialidad, Ciudad localidad, String tarifa) {
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.password = password;
+        this.especialidad = especialidad;
+        this.localidad = localidad;
+        this.tarifa = tarifa;
+    }
+
+ 
+
+   
     public String getNombre() {
         return nombre;
     }
@@ -84,22 +44,66 @@ public class Doctor {
         this.nombre = nombre;
     }
 
-    public String getClave() {
-        return clave;
+    public String getCedula() {
+        return cedula;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
-   
+    public String getPassword() {
+        return password;
+    }
 
-   /* public String getHorario() {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
+    public String getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(String tarifa) {
+        this.tarifa = tarifa;
+    }
+    
+    
+    /*
+    public Dia[] getHorario() {
         return horario;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(Dia[] horario) {
         this.horario = horario;
-    }*/
+    }
+
+    */
+    
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public Ciudad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Ciudad localidad) {
+        this.localidad = localidad;
+    }
+
+
+   
+
+    
+    
+    
+    
     
 }
