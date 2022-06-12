@@ -36,6 +36,7 @@ public class Service {
         if(doctores.get(doc.getCedula()) !=  null){
             throw new Exception("406 - doctor ya existe");
         }else{
+            System.out.println("Doctor Create methos service");
             doctores.put(doc.getCedula(),doc);
             return doc;
         }

@@ -6,15 +6,17 @@ var backend = "http://localhost:8080/BackEnd/api";
 var  doctores = new Array();
 
 
-var doctor={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:"localidad",
-                horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
 
-var horario = [lunes,martes,miercoles,jueves,viernes];
 var lunes = {checked:false};
 var martes = {checked:false};
 var miercoles = {checked:false};
 var jueves = {checked:false};
 var viernes = {checked:false};
+var horario = [lunes,martes,miercoles,jueves,viernes];
+
+var doctor={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:""
+                ,horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
+
 
 
 var id="";
@@ -74,7 +76,7 @@ function load(){
     horario = [lunes,martes,miercoles,jueves,viernes];
     doctor.horario = horario;
 
-    console.log("Persona->");
+    console.log("Doctor->");
     console.log(JSON.stringify(doctor));
 }
 
@@ -108,7 +110,7 @@ function search(){
             const response = await fetch(request);
             
             doctores = await response.json();
-            console.log("Personas-> "+ JSON.stringify(doctores))
+            console.log("Doctores-> "+ JSON.stringify(doctores))
 
             if(existePersona()){ 
                 
@@ -140,8 +142,8 @@ function render(){
 }
 
 function reset(){
-    doctor={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:"localidad",
-                horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
+    doctor={cedula:"", nombre:"",clave:"", especialidad:"", fee:"", localidad:"localidad"
+                ,horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]};
 }
 
 function makeNew(){

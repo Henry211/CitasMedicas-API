@@ -15,14 +15,59 @@ public class Doctor {
     //String horario;
     Dia[] horario;
 
-    public Doctor(String cedula, String nombre, String clave, String estado, String horario) {
+    public Doctor() {
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public String getFee() {
+        return fee;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Dia[] getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Dia[] horario) {
+        this.horario = horario;
+    }
+
+    public Doctor(String cedula, String clave, String nombre, String especialidad, String fee, String localidad/*, Dia[] horario*/ ) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.clave = clave;
+        this.especialidad = especialidad;
+        this.fee = fee;
+        this.localidad = localidad;
+        //this.horario = horario;
+    }
+
+   /* public Doctor(String cedula, String nombre, String clave, String estado, String horario) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.clave = clave;
         
         //this.horario = horario;
-    }
-
+    }*/
+    
     public String getCedula() {
         return cedula;
     }
