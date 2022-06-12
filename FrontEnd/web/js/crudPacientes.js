@@ -41,7 +41,7 @@ function pintar(componente, persona){
     var tr = $("<tr />");
     tr.html(`
                 <div class="card">
-                <h5 class="card-header">Especialidad.</h5>
+                <h5 class="card-header">Paciente</h5>
                 <div class="card-body">
                     <h5 class="card-title"> 
                         ${persona.nombre}
@@ -57,8 +57,8 @@ function pintar(componente, persona){
                                 ... </br>
                             </div>
                         </div></div>
-                        <button type="button" id="verBtn" class="btn btn-primary">Ver</button>
-                        <button type="button" id="borrarBtn" class="btn btn-primary">Eliminar</button>
+                        <button type="button" id="verBtn" class="btn btn-primary cardButton" >Ver</button>
+                        <button type="button" id="borrarBtn" class="btn btn-primary cardButton" >Eliminar</button>
                         </div></div> `);
     tr.find("#verBtn").on("click", ()=> {
             showButton(persona);
@@ -69,6 +69,10 @@ function pintar(componente, persona){
         })
     componente.append(tr);
 
+}
+
+function fillNewPaciente(){
+    location.href = 'newPaciente.html';
 }
 
 function main(){
@@ -85,6 +89,8 @@ function main(){
 
         pintar($("#lista"),p);
     });
+    
+  $("#newBtn").click(fillNewPaciente);
     
 
 }
