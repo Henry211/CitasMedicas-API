@@ -19,6 +19,16 @@ examenes:[{id:"1"},{id:"2"}]};
 var pacientes = new Array();
 
 
+function showButton(person){
+
+    //console.log("Has visto a "+id);
+    //- Cargar en LocalStorage al Paciente
+    //- Cargar Perfil y Leer LocalStorage
+    localStorage.setItem("pacientePerfil",JSON.stringify(person));
+    location.href = 'perfil.html';
+
+}
+
 function pintar(componente, persona){
     var tr = $("<tr />");
     tr.html(`
@@ -39,8 +49,11 @@ function pintar(componente, persona){
                                 ... </br>
                             </div>
                         </div></div>
-                        <button type="button" class="btn btn-primary">Primary</button>
+                        <button type="button" id="verBtn" class="btn btn-primary">Primary</button>
                         </div></div> `);
+    tr.find("#verBtn").on("click", ()=> {
+            showButton(persona);
+        })
     componente.append(tr);
 
 }

@@ -19,9 +19,12 @@ examenes:[{id:"1"},{id:"2"}]};
 var pacientes = new Array();
 
 
-function showButton(id){
+function showButton(person){
 
-    console.log("Has visto a "+id);
+    //console.log("Has visto a "+id);
+    //- Cargar en LocalStorage al Paciente
+    //- Cargar Perfil y Leer LocalStorage
+    localStorage.setItem("pacientePerfil",JSON.stringify(person));
     location.href = 'perfil.html';
 
 }
@@ -49,7 +52,7 @@ function pintar(componente, persona){
                         </div><button type="submit" id="verBtn" class="btn btn-primary">Ver</button>
                         </div></div></div> `);
         tr.find("#verBtn").on("click", ()=> {
-            showButton(persona.nombre);
+            showButton(persona);
         })
         componente.append(tr);
 

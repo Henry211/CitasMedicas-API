@@ -2,7 +2,7 @@
 
 
 
-var messi={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
+var paciente={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
 antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
 examenes:[{id:"1",fecha:"22/11/1997"},{id:"2",fecha:"21/6/1995"}]};
 
@@ -23,23 +23,32 @@ function sortBool(tipo,bool){
     
 }
 
-function main(){
+function fillData(){
     
-    $("#nameTxt").append(messi.nombre);
-    $("#idTxt").append("Id: "+messi.id);
-    $("#pesoTxt").append("Peso: "+messi.peso);
-    $("#edadTxt").append("Edad: "+messi.edad);
+    
+    paciente = JSON.parse(localStorage.getItem('pacientePerfil'));
+    console.log("paciente-> "+ JSON.stringify(paciente));
+    
+    $("#nameTxt").append(paciente.nombre);
+    $("#idTxt").append("Id: "+paciente.id);
+    $("#pesoTxt").append("Peso: "+paciente.peso);
+    $("#edadTxt").append("Edad: "+paciente.edad);
 
-    $("#antecedentesTxt").append("<br><p>Asma: &nbsp&nbsp&nbsp" + sortBool("1",messi.antecedentes[0]) + "</p>");
-    $("#antecedentesTxt").append("<p>Diabetes: &nbsp&nbsp&nbsp" + sortBool("1",messi.antecedentes[1]) + "</p>");
-    $("#antecedentesTxt").append("<p>Alcohol: &nbsp&nbsp&nbsp" + sortBool("2",messi.antecedentes[2]) + "</p>");
-    $("#antecedentesTxt").append("<p>Tabaco: &nbsp&nbsp&nbsp" + sortBool("2",messi.antecedentes[3]) + "</p>");
-    $("#antecedentesTxt").append("<p>Drogas: &nbsp&nbsp&nbsp" + sortBool("2",messi.antecedentes[4]) + "</p>");
+    $("#antecedentesTxt").append("<br><p>Asma: &nbsp&nbsp&nbsp" + sortBool("1",paciente.antecedentes[0]) + "</p>");
+    $("#antecedentesTxt").append("<p>Diabetes: &nbsp&nbsp&nbsp" + sortBool("1",paciente.antecedentes[1]) + "</p>");
+    $("#antecedentesTxt").append("<p>Alcohol: &nbsp&nbsp&nbsp" + sortBool("2",paciente.antecedentes[2]) + "</p>");
+    $("#antecedentesTxt").append("<p>Tabaco: &nbsp&nbsp&nbsp" + sortBool("2",paciente.antecedentes[3]) + "</p>");
+    $("#antecedentesTxt").append("<p>Drogas: &nbsp&nbsp&nbsp" + sortBool("2",paciente.antecedentes[4]) + "</p>");
     
-    messi.examenes.forEach((e)=> {
+    paciente.examenes.forEach((e)=> {
         $("#examenesTxt").append("<p>Exámenes registrados: &nbsp&nbsp&nbsp" + e.fecha);
     })
+}
 
+function main(){
+    
+    
+    fillData();
     $("#citasBtn").click(verCitasBtn);
     
 }
