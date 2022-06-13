@@ -37,14 +37,9 @@ public class DoctorDao {
         stm.setString(2, u.getId());
         stm.setString(3, u.getPassword());
         stm.setString(4, u.getTarifa());
-        stm.setObject(5, u.getLocalidad().getProvincia());
-        stm.setObject(6, u.getEspecialidad().getEspecialidad());
+        stm.setString(5, u.getLocalidad());
+        stm.setString(6, u.getEspecialidad());
         System.out.println("docName-> "+ u.getEspecialidad());
-        
-        /*byte[] image = new byte[]{0} ;
-        InputStream targetStream = new ByteArrayInputStream(image);
-        stm.setBlob(7, targetStream);*/
-
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medico ya existe");
@@ -52,10 +47,10 @@ public class DoctorDao {
     }
     
     // el Login
-   /* public Doctor read(Doctor u) throws Exception {
+    public Doctor read1(Doctor u) throws Exception {
         String sql = "select * from medico c where idMedicos=? and clave =?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, u.getCedula());
+        stm.setString(1, u.getId());
         stm.setString(2, u.getPassword());
         ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
@@ -64,8 +59,8 @@ public class DoctorDao {
         } else {
             throw new Exception("Medico existente");
         }
-    }*/
-         
+    
+    } 
     public Doctor read(String cedula, String clave) throws Exception{
         String sql = "select * from medico c where idMedicos=? and clave=?";
         PreparedStatement stm = db.prepareStatement(sql);
@@ -161,24 +156,11 @@ public class DoctorDao {
             c.setNombre(rs.getString(alias + ".nombre"));
             c.setPassword(rs.getString(alias + ".clave"));
             c.setTarifa(rs.getString(alias + ".tarifa"));
-            String str = rs.getString(alias + ".nombre_provincia");
-            Ciudad ciuu = new Ciudad(str);
-            //c.setLocalidad(ciuu);
-            String str2 = rs.getString(alias + ".nombre_especialidad");
-            Especialidad espe = new Especialidad(str2);
-            //c.setEspecialidad(espe);
-            /*
-            Blob blob = rs.getBlob(alias + ".image");
-            if(blob != null){
-                int blobLength = (int) blob.length();  
-                byte[] blobAsBytes = blob.getBytes(1, blobLength);
-                c.setImage(blobAsBytes);
-                blob.free();
-            }*/
+            c.setEspecialidad(rs.getString(alias + ".nombre_especialidad"));
+            c.setLocalidad(rs.getString( alias + ".nombre_provincia"));
             return c;
         }
     catch ( SQLException ex) {
-            //ex.printStackTrace();
             return null;
         }
     }

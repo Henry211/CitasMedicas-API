@@ -142,8 +142,8 @@ public class CitaDao {
             Paciente pacie = new Paciente(str);
             c.setPaciente(pacie);
             String str2 = rs.getString(alias + ".medico");
-            Doctor espe = new Doctor(str2);
-            c.setMedico(espe);
+           // Doctor espe = new Doctor(str2);
+            //c.setMedico(espe);
             /*
             Blob blob = rs.getBlob(alias + ".image");
             if(blob != null){

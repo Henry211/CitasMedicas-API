@@ -51,8 +51,8 @@ public class Service {
     }
 
     //medico
-    public Doctor medicoLogin(String cedula, String clave) throws Exception {
-        return mDao.read(cedula,clave);
+    public Doctor medicoLogin(Doctor medico) throws Exception {
+        return mDao.read1(medico);
     }
 
     public void editarMedico(Doctor medico) throws Exception {
@@ -62,6 +62,15 @@ public class Service {
     public void createMedico(Doctor medico) throws Exception {
         mDao.create(medico);
     }
+    
+     public ArrayList<Doctor> findAllMedicos() throws Exception {
+        return mDao.findAll();
+    }
+     
+    public void eliminarDoctor(Doctor id) throws Exception {
+        mDao.delete(id);
+    }
+
 
 }
 

@@ -9,25 +9,26 @@ package una.ac.backend.logic;
  * @author ESCINF
  */
 public class Doctor {
-    String nombre;
-    String id;
-    String password;
-    Especialidad especialidad;//objeto
-    Ciudad localidad;//objeto
-    String tarifa;
+    public String nombre;
+    public String id;
+    public String password;
+    public String especialidad;
+    public String localidad;
+    public String tarifa;
     // Dia[] horario;
 
     public Doctor() {
     }
-    
-    public Doctor(String id) {
+
+    public Doctor(String nombre, String id, String password, String especialidad, String localidad, String tarifa) {
+        this.nombre = nombre;
         this.id = id;
+        this.password = password;
+        this.especialidad = especialidad;
+        this.localidad = localidad;
+        this.tarifa = tarifa;
     }
 
-
- 
-
-   
     public String getNombre() {
         return nombre;
     }
@@ -52,7 +53,21 @@ public class Doctor {
         this.password = password;
     }
 
+    public String getEspecialidad() {
+        return especialidad;
+    }
 
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
 
     public String getTarifa() {
         return tarifa;
@@ -61,41 +76,6 @@ public class Doctor {
     public void setTarifa(String tarifa) {
         this.tarifa = tarifa;
     }
-    
-    
-    /*
-    public Dia[] getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Dia[] horario) {
-        this.horario = horario;
-    }
-
-    */
-    
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
-    }
-
-    public Ciudad getLocalidad() {
-        return localidad;
-    }
-
-    public void setLocalidad(Ciudad localidad) {
-        this.localidad = localidad;
-    }
-
-
-   
-
-    
-    
-    
     
     
 }
