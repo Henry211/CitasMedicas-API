@@ -4,6 +4,7 @@
  */
 package una.ac.backend.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,6 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import una.ac.backend.logic.Dia;
 import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Service;
 
@@ -51,7 +53,20 @@ public class Doctores {
     @Produces(MediaType.APPLICATION_JSON)
     public Doctor read(@PathParam("cedula") String cedula,Doctor d){
         try{
+            System.out.println("Entró a read");
             return Service.instance().medicoLogin(d);
+        }catch(Exception e){
+            throw new NotFoundException();
+        }
+    }
+    
+    @GET
+    @Path("/dias/{cedula}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Dia> readDias(@PathParam("cedula") String cedula){
+        try{
+            System.out.println("Entró a dias");
+            return Service.instance().getMedicoDias(cedula);
         }catch(Exception e){
             throw new NotFoundException();
         }

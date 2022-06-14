@@ -74,6 +74,10 @@ public class Service {
      public ArrayList<Paciente> findAllPacientes() throws Exception {
         return pDao.findAll();
     }
+     
+      public ArrayList<Dia> getMedicoDias(String cedula) throws Exception {
+        return mDao.findDays(cedula);
+    }
 
 
 }

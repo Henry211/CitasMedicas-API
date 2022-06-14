@@ -8,6 +8,8 @@ var pacienteToCita;
 let date;
 let iteracionWeek;
 
+var backend = "http://localhost:8080/BackEnd/api";
+
 
 class CitaCell{
     constructor(dia,hora){
@@ -154,9 +156,42 @@ function printDayNames(lu,ma,mi,ju,vi){
 
 }
 
+
+function fetchShedule(){
+    
+    var cedula;
+    console.log("Ejecutando fetchShedule")
+    
+    const request = new Request(backend+'/doctores/dias/'+cedula, {method:'GET', headers: { }});
+    (async ()=> {
+        try{
+            const response = await fetch(request);
+            
+            doctores = await response.json();
+            console.log("Doctores-> "+ JSON.stringify(doctores))
+
+            if(existePersona()){ 
+                
+                //--- LOGIN finalizado
+                console.log("Existe persona!!")
+                mostrarPersona();
+
+            }else{
+                console.log("No existe persona")
+            }
+            
+        }catch(e){
+
+        }
+    })();
+}
+
 function getWeek(dayString){
     
+    var close = {checked:false};
     var week; 
+    
+    week = fetchShedule();
     
     switch(dayString){
 
@@ -305,7 +340,7 @@ function nextWeek(){
     let newDay = nextWeek.toLocaleString('en-us', {weekday: 'long'});
     console.log("NextWeek Str -> "+newDay);
     
-    var horario = validarFecha(1,nextWeek);
+    var horario = validarFecha(1,nextWeek);//--> retorna lo de NextWeek (semana)
 }
 
 
@@ -324,7 +359,7 @@ function main() {
     }
     
 
-    var head = {checked: true, desde: "8:00", hasta: "6:00"};
+    /*var head = {checked: true, desde: "8:00", hasta: "6:00"};
     var lunes = {checked: true, desde: "9:30", hasta: "3:00"};
     var martes = {checked: true, desde: "1:30", hasta: "4:00"};
     var miercoles = {checked: true, desde: "9:30", hasta: "4:00"};
@@ -336,10 +371,10 @@ function main() {
                     {checked: true, desde: "1:30", hasta: "4:00"},
                     {checked: true, desde: "9:30", hasta: "3:00"},
                     {checked: true, desde: "8:30", hasta: "4:30"},
-                    {checked: true, desde: "9:30", hasta: "4:00"}];
+                    {checked: true, desde: "9:30", hasta: "4:00"}];*/
 
     /* 0:lunes  1:martes  2:miercoles  3:jueves  4:viernes*/
-    var horario2 = [head, lunes, martes, miercoles, jueves, viernes];
+    //var horario2 = [head, lunes, martes, miercoles, jueves, viernes];
 
     date = new Date();
     var horario = validarFecha(1,date);
