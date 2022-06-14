@@ -36,11 +36,18 @@ function fillPaciente(){
     console.log("paciente-> "+ JSON.stringify(paciente));
     
     $("#nameTxt").append(paciente.nombre);
-    $("#idTxt").append("Id: "+paciente.id);
+    $("#idTxt").append("Id: "+paciente.cedula);
     $("#pesoTxt").append("Peso: "+paciente.peso);
     $("#edadTxt").append("Edad: "+paciente.edad);
 
-   /* $("#antecedentesTxt").append("<br><p>Asma: &nbsp&nbsp&nbsp" + sortBool("1",paciente.antecedentes[0]) + "</p>");
+    $("#enfermedadesTxt").append("<br> <p>"+paciente.enfermedades)
+    $("#alergiasTxt").append("<br> <p>"+paciente.alergias)
+    $("#cirugiasTxt").append("<br> <p>"+paciente.cirugias)
+    $("#contactoTxt").append("<br> <p>"+paciente.contacto_emergencia)
+
+
+
+    /* $("#antecedentesTxt").append("<br><p>Asma: &nbsp&nbsp&nbsp" + sortBool("1",paciente.antecedentes[0]) + "</p>");
     $("#antecedentesTxt").append("<p>Diabetes: &nbsp&nbsp&nbsp" + sortBool("1",paciente.antecedentes[1]) + "</p>");
     $("#antecedentesTxt").append("<p>Alcohol: &nbsp&nbsp&nbsp" + sortBool("2",paciente.antecedentes[2]) + "</p>");
     $("#antecedentesTxt").append("<p>Tabaco: &nbsp&nbsp&nbsp" + sortBool("2",paciente.antecedentes[3]) + "</p>");
