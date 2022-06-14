@@ -1,34 +1,32 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package una.ac.backend.logic;
 
 /**
  *
- * @author Henry
+ * @author ESCINF
  */
 public class Doctor {
-    
-    String cedula;
-    String nombre;
-    String clave;
-    String especialidad;
-    String fee;
-    String localidad;
-    //String horario;
-    Dia[] horario;
+    public String nombre;
+    public String id;
+    public String password;
+    public String especialidad;
+    public String localidad;
+    public String tarifa;
+    // Dia[] horario;
 
-    public Doctor(String cedula, String nombre, String clave, String estado, String horario) {
-        this.cedula = cedula;
+    public Doctor() {
+    }
+
+    public Doctor(String nombre, String id, String password, String especialidad, String localidad, String tarifa) {
         this.nombre = nombre;
-        this.clave = clave;
-        
-        //this.horario = horario;
-    }
-
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+        this.id = id;
+        this.password = password;
+        this.especialidad = especialidad;
+        this.localidad = localidad;
+        this.tarifa = tarifa;
     }
 
     public String getNombre() {
@@ -39,22 +37,45 @@ public class Doctor {
         this.nombre = nombre;
     }
 
-    public String getClave() {
-        return clave;
+    public String getId() {
+        return id;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setId(String id) {
+        this.id = id;
     }
 
-   
-
-   /* public String getHorario() {
-        return horario;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }*/
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(String tarifa) {
+        this.tarifa = tarifa;
+    }
+    
     
 }

@@ -17,6 +17,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import una.ac.backend.logic.Doctor;
+import una.ac.backend.logic.Paciente;
 import una.ac.backend.logic.Service;
 
 /**
@@ -24,15 +25,15 @@ import una.ac.backend.logic.Service;
  * @author Henry
  */
 
-@Path("/doctores")
-public class Doctores {
+@Path("/pacientes")
+public class Pacientes {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Doctor doc){
+    public void create(Paciente pac){
         try{
-            System.out.println("Doctor->"+doc);
-            Service.instance().createMedico(doc);
+            System.out.println("PAciente->"+pac);
+            Service.instance().createPaciente(pac);
             
         }catch(Exception e){
             throw new NotAcceptableException();
@@ -41,17 +42,18 @@ public class Doctores {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Doctor> read() throws Exception{
-        return Service.instance().findAllMedicos();
+    public List<Paciente> read() throws Exception{
+        return Service.instance().findAllPacientes();
        
     }
     
     @GET
     @Path("{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Doctor read(@PathParam("cedula") String cedula,Doctor d){
+    public Paciente read(@PathParam("cedula") String cedula){
         try{
-            return Service.instance().medicoLogin(d);
+            //return Service.instance().doctorRead(cedula);
+            return null;
         }catch(Exception e){
             throw new NotFoundException();
         }
@@ -60,9 +62,9 @@ public class Doctores {
     @PUT
     @Path("{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathParam("cedula") String cedula, Doctor d){
+    public void update(@PathParam("cedula") String cedula, Paciente p){
         try{
-            Service.instance().editarMedico(d); 
+            //Service.instance().doctorUpdate(d); 
             
         }catch(Exception e){
             throw new NotFoundException();
@@ -71,9 +73,9 @@ public class Doctores {
     
     @DELETE
     @Path("{cedula}")
-    public void delete(@PathParam("cedula") String cedula,Doctor d){
+    public void delete(@PathParam("cedula") String cedula){
         try{
-            Service.instance().eliminarDoctor(d);
+            //Service.instance().doctorDelete(cedula);
         } catch(Exception e){
             throw new NotFoundException();
         }

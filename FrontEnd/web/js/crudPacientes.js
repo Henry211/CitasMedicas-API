@@ -12,29 +12,37 @@ examenes:[{id:"1"},{id:"2"}]};
 var stef={cedula:"1", nombre:"Stefanny",clave:"1",peso:"70kg",edad:"24",
 antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
 examenes:[{id:"1"},{id:"2"}]};
-var paciente={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
+var messi={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
 antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
 examenes:[{id:"1"},{id:"2"}]};
 
 var pacientes = new Array();
 
+var backend = "http://localhost:8080/BackEnd/api";
 
 function showButton(person){
 
     //console.log("Has visto a "+id);
     //- Cargar en LocalStorage al Paciente
     //- Cargar Perfil y Leer LocalStorage
-    localStorage.setItem("medicoPerfil",JSON.stringify(person));
+    localStorage.setItem("pacientePerfil",JSON.stringify(person));
     location.href = 'perfil.html';
 
 }
 
 
+function deleteButton(person){
+    
+    // Mostrar pop-up para confirmación
+    
+    $('#add-modal').modal('show');
+}
+
 function pintar(componente, persona){
     var tr = $("<tr />");
     tr.html(`
                 <div class="card">
-                <h5 class="card-header">Especialidad.</h5>
+                <h5 class="card-header">Paciente</h5>
                 <div class="card-body">
                     <h5 class="card-title"> 
                         ${persona.nombre}
@@ -49,27 +57,63 @@ function pintar(componente, persona){
                             <div class="col">
                                 ... </br>
                             </div>
-                        </div><button type="submit" id="verBtn" class="btn btn-primary">Ver</button>
-                        </div></div></div> `);
-        tr.find("#verBtn").on("click", ()=> {
+                        </div></div>
+                        <button type="button" id="verBtn" class="btn btn-primary cardButton" >Ver</button>
+                        <button type="button" id="borrarBtn" class="btn btn-primary cardButton" >Eliminar</button>
+                        </div></div> `);
+    tr.find("#verBtn").on("click", ()=> {
             showButton(persona);
         })
-        componente.append(tr);
+    
+    tr.find("#borrarBtn").on("click", ()=> {
+            deleteButton(persona);
+        })
+    componente.append(tr);
 
 }
 
-function main(){
+function fillNewPaciente(){
+    location.href = 'newPaciente.html';
+}
 
-    pacientes.push(deep);
-    pacientes.push(elon);
-    pacientes.push(winston);
-    pacientes.push(stef);
-    pacientes.push(paciente);
-
-    pacientes.forEach( (p) => {
-
+function printPaciente(arrayPs){
+ 
+    arrayPs.forEach( (p) => {
+        
+        console.log("tiene pacientes");
         pintar($("#lista"),p);
     });
+}
+
+function cargarPacientes(){
+    
+    var array = new Array();
+
+    const request = new Request(backend+'/pacientes', {method:'GET', headers: { }});
+    (async ()=> {
+        try{
+            const response = await fetch(request);
+            
+            array = await response.json();
+            
+            printPaciente(array);
+        }catch(e){
+
+        }
+    })();
+    
+    console.log("Array2->"+JSON.stringify(array))
+    
+    
+}
+
+function main(){
+    
+    cargarPacientes();
+    console.log("Array3->"+JSON.stringify(pacientes))
+    
+    
+  $("#newBtn").click(fillNewPaciente);
     
 
 }

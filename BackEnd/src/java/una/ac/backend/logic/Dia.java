@@ -6,7 +6,7 @@ package una.ac.backend.logic;
 
 /**
  *
- * @author Usuario
+ * @author ESCINF
  */
 public class Dia {
     
@@ -18,7 +18,5 @@ public class Dia {
         this.desde = desde;
         this.hasta = hasta;
     }
-    
-    
     
 }
