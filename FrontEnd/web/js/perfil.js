@@ -92,7 +92,7 @@ function agendarCita(){
 function editarPaciente(){
     //- pop-up
     
-    
+    document.location = "editar.html"
 }
 
 function main(){

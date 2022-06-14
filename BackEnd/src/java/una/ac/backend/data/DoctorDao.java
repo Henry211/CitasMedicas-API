@@ -128,6 +128,7 @@ public class DoctorDao {
      
      //BORRA UN MEDICO
     public void delete(String cedula) throws Exception {
+        
         String sql = "delete from medico where idMedicos=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);

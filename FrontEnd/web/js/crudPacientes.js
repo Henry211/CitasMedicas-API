@@ -83,7 +83,6 @@ function printPaciente(arrayPs){
  
     arrayPs.forEach( (p) => {
         
-        console.log("tiene pacientes");
         pintar($("#lista"),p);
     });
 }
@@ -114,10 +113,10 @@ function cargarPacientes(){
 function main(){
     
     cargarPacientes();
-    console.log("Array3->"+JSON.stringify(pacientes))
+    console.log("Array3->"+JSON.stringify(pacientes));
     
     
-  $("#newBtn").click(fillNewPaciente);
+    $("#newBtn").click(fillNewPaciente);
     
 
 }
