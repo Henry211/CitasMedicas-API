@@ -83,6 +83,17 @@ public class PacienteDao {
         }
         return resultado;
     }
+      
+      public void delete(String cedula) throws Exception {
+          System.out.println("BorrarPAciente");
+        String sql = "delete from paciente where cedula=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, cedula);
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Paciente no existe");
+        }
+    }
     
         Paciente from(ResultSet rs, String alias){
         try {

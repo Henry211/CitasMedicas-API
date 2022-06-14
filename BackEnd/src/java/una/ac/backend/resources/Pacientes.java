@@ -88,7 +88,8 @@ public class Pacientes {
     @Path("{cedula}")
     public void delete(@PathParam("cedula") String cedula){
         try{
-            //Service.instance().doctorDelete(cedula);
+            System.out.println("BorrarPAciente");
+            Service.instance().pacienteDelete(cedula);
         } catch(Exception e){
             throw new NotFoundException();
         }

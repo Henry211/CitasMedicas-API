@@ -127,10 +127,10 @@ public class DoctorDao {
      }
      
      //BORRA UN MEDICO
-    public void delete(Doctor c) throws Exception {
+    public void delete(String cedula) throws Exception {
         String sql = "delete from medico where idMedicos=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, c.getId());
+        stm.setString(1, cedula);
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medico no existe");

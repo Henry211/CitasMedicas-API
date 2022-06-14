@@ -71,8 +71,8 @@ public class Service {
         return mDao.findAll();
     }
      
-    public void eliminarDoctor(Doctor id) throws Exception {
-        mDao.delete(id);
+    public void doctorDelete(String doc) throws Exception {
+        mDao.delete(doc);
     }
     
      public ArrayList<Paciente> findAllPacientes() throws Exception {
@@ -81,6 +81,10 @@ public class Service {
      
       public ArrayList<Dia> getMedicoDias(String cedula) throws Exception {
         return mDao.findDays(cedula);
+    }
+      
+    public void pacienteDelete(String pac) throws Exception {
+        pDao.delete(pac);
     }
 
 

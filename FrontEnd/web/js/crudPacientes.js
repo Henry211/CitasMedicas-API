@@ -1,21 +1,4 @@
 
-
-var deep={cedula:"1", nombre:"Jhony Deep",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var winston={cedula:"1", nombre:"Winston Churchill",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var elon={cedula:"1", nombre:"Elon Musk",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var stef={cedula:"1", nombre:"Stefanny",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var messi={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-
 var pacientes = new Array();
 
 var backend = "http://localhost:8080/BackEnd/api";
@@ -31,11 +14,31 @@ function showButton(person){
 }
 
 
+function fetchDelete(id){
+    
+    const request = new Request(backend+'/pacientes/'+id, 
+        {method: 'DELETE', headers: {'Content-type': 'application/json; charset=UTF-8' }});
+    (async ()=>{
+        try{
+            console.log("deleting..."+id)
+            const response = await fetch(request);
+            //fetchAndList();
+            
+        }
+        catch(e){
+            errorMessage(NET_ERR,$("#add-modal #errorDiv"));
+        } 
+    })();
+}
+
+
 function deleteButton(person){
     
     // Mostrar pop-up para confirmación
     
     $('#add-modal').modal('show');
+    $('#applyDelete').click(fetchDelete(person.cedula));
+    $('#add-modal').modal('hide');
 }
 
 function pintar(componente, persona){
@@ -95,6 +98,7 @@ function cargarPacientes(){
             const response = await fetch(request);
             
             array = await response.json();
+            console.log("Array2->"+JSON.stringify(array))
             
             printPaciente(array);
         }catch(e){
@@ -102,7 +106,7 @@ function cargarPacientes(){
         }
     })();
     
-    console.log("Array2->"+JSON.stringify(array))
+    
     
     
 }
