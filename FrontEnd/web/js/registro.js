@@ -14,7 +14,7 @@ var jueves = {checked:false};
 var viernes = {checked:false};
 var horario = [lunes,martes,miercoles,jueves,viernes];
 
-var doctor={id:"1", nombre:"",password:"", especialidad:{especialidad:"espe"}, localidad:{localidad:"loca"}, tarifa:"1"/*,
+var doctor={id:"1", nombre:"",password:"", especialidad:"espe", localidad:"loca", tarifa:"1"/*,
                 horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]*/};
 
 
@@ -29,9 +29,9 @@ function mostrarPersona(){
     /* $("#listado").html(""); */
    /*  personas.forEach( (p)=>{row($("#listado"),p);});	 */
    
-   document.getElementById("cedula").value = doctor.cedula;
+   document.getElementById("id").value = doctor.id;
    document.getElementById("nombre").value = doctor.nombre;
-   document.getElementById("clave").value = doctor.clave;
+   document.getElementById("password").value = doctor.password;
 
    //$('#add-modal').modal('show');
   }  
@@ -40,9 +40,9 @@ function existePersona(){
       let existe=false;
 
       doctores.forEach( (p)=> {
-          if(p.cedula == doctor.cedula && p.clave == doctor.clave){
+          if(p.id == doctor.id && p.password == doctor.password){
             existe = true;
-            console.log("ced: "+ p.cedula + " - ced: " + doctor.cedula)
+            console.log("ced: "+ p.id + " - ced: " + doctor.id)
             doctor = p;            
           } 
       })
@@ -136,7 +136,7 @@ function render(){
     /* $("#cedula").val(persona.cedula);
     $("#cedula").val(persona.clave); */
 
-    $("#cedula").prop("readonly", false);
+    $("#id").prop("readonly", false);
     
     //*******************--------------------******************* */
       add();
@@ -145,8 +145,7 @@ function render(){
 }
 
 function reset(){
-    doctor={id:"19090", nombre:"",password:"", especialidad:{especialidad:""}, fee:"", localidad:{localidad:""}, tarifa:"1"
-                /*,horario:[ {checked:false}, {checked:false}, {checked:false}, {checked:false}, {checked:false}]*/};
+    doctor={id:"1934090", nombre:"",password:"", especialidad:"", localidad:"", tarifa:"1"};
 }
 
 function makeNew(){
@@ -242,11 +241,11 @@ function checkLocalStorage(){
 
         doctor = JSON.parse(localStorage.getItem('doctor'));
         
-        document.querySelector('#cedula').value = doctor.cedula;
+        document.querySelector('#id').value = doctor.id;
         document.querySelector('#nombre').value = doctor.nombre;
-        document.querySelector('#clave').value = doctor.clave;
+        document.querySelector('#password').value = doctor.password;
         document.querySelector('#especialidad').value = doctor.especialidad;
-        document.querySelector('#fee').value = doctor.fee;
+        document.querySelector('#tarifa').value = doctor.tarifa;
         document.querySelector('#localidad').value = doctor.localidad;
 
         //-- add schedule

@@ -26,22 +26,22 @@ public class DoctorDao {
     public DoctorDao() {
         db = Database.instance();
     }
-     
-    //registrar medico
     public void create(Doctor u) throws Exception {
 
-        String sql = "insert into medico(tipo,nombre,idMedicos,clave,tarifa,nombre_provincia,nombre_especialidad) "
-                + "values(?,?,?,?,?,?,?)";
+        String sql = "insert into medico(nombre,idMedicos,clave,tarifa) "
+                + "values(?,?,?,?)";
 
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, u.getTipo());
-        stm.setString(2, u.getNombre());
-        stm.setString(3, u.getId());
-        stm.setString(4, u.getPassword());
-        stm.setString(5, u.getTarifa());
-        stm.setString(6, u.getLocalidad());
-        stm.setString(7, u.getEspecialidad());
-        System.out.println("docName-> "+ u.getEspecialidad());
+        //stm.setString(1, u.getTipo());
+        stm.setString(1, u.getNombre());
+        stm.setString(2, u.getId());
+        stm.setString(3, u.getPassword());
+        stm.setString(4, u.getTarifa());
+        
+        System.out.println("docName-> "+ u.getNombre());
+        System.out.println("docId-> "+ u.getId());
+        System.out.println("docPassword-> "+ u.getPassword());
+        System.out.println("docTarifa-> "+ u.getTarifa());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medico ya existe");
