@@ -31,6 +31,18 @@ function iteracionDay(i){
     }
 }
 
+function findPaciente(dia,hora){
+    
+    let cita={hora:"",dia:""};
+    cita.hora = hora;
+    cita.dia = dia;
+    
+    //- Cargar en LocalStorage al Paciente
+    //- Cargar Perfil y Leer LocalStorage
+    localStorage.setItem("cita-paciente",JSON.stringify(cita));
+    location.href = 'listaPacientes.html';
+}
+
 function cell(col, hora, iteracion) {
     var tr = $("<tr />");
     var dayLetter = iteracionDay(iteracion);
@@ -43,12 +55,14 @@ function cell(col, hora, iteracion) {
                     <div class="hora-row ableButton">
                         <!-- <a class="item"> </a> -->
         <!--                        <button type="button" id="makeBtn" class="btn-primary cardButton" >${arr[iteracion]}</button>
-         -->                <button type="button" class="cardButton">Click Me</button>
+         -->                <button type="button" id="makeBtn" class="cardButton">cita</button>
                     </div>
                 </div> 
             </div>`);
         tr.find("#makeBtn").on("click", ()=> {
-            showButton(persona);
+            console.log("it->"+ arr[iteracion])
+            console.log("hora->"+ hora)
+            findPaciente(arr[iteracion],hora);
         })
         col.append(tr);
     } else { // false -> Botón inhabilitado
