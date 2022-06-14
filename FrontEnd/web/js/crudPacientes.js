@@ -18,6 +18,7 @@ examenes:[{id:"1"},{id:"2"}]};
 
 var pacientes = new Array();
 
+var backend = "http://localhost:8080/BackEnd/api";
 
 function showButton(person){
 
@@ -75,6 +76,15 @@ function fillNewPaciente(){
     location.href = 'newPaciente.html';
 }
 
+function printPaciente(arrayPs){
+ 
+    arrayPs.forEach( (p) => {
+        
+        console.log("tiene pacientes");
+        pintar($("#lista"),p);
+    });
+}
+
 function cargarPacientes(){
     
     var array = new Array();
@@ -86,25 +96,22 @@ function cargarPacientes(){
             
             array = await response.json();
             
-            mostrarPersona();
+            printPaciente(array);
         }catch(e){
 
         }
     })();
     
+    console.log("Array2->"+JSON.stringify(array))
     
-    return array;
     
 }
 
 function main(){
     
-    pacientes = cargarPacientes();
-
-    pacientes.forEach( (p) => {
-
-        pintar($("#lista"),p);
-    });
+    cargarPacientes();
+    console.log("Array3->"+JSON.stringify(pacientes))
+    
     
   $("#newBtn").click(fillNewPaciente);
     

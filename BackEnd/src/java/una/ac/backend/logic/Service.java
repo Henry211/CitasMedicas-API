@@ -70,6 +70,10 @@ public class Service {
     public void eliminarDoctor(Doctor id) throws Exception {
         mDao.delete(id);
     }
+    
+     public ArrayList<Paciente> findAllPacientes() throws Exception {
+        return pDao.findAll();
+    }
 
 
 }

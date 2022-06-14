@@ -30,9 +30,10 @@ public class PacienteDao {
         stm.setString(1, u.getNombre());
         stm.setString(2, u.getCedula());
         stm.setString(3, u.getEnfermedad());
+        System.out.println("->"+u.getEnfermedad());
         stm.setString(4, u.getAlergias());
         stm.setString(5, u.getCirugia());
-        stm.setString(6, u.getContacEmergencia());
+        stm.setString(6, u.getContactoEmergencia());
         int count=db.executeUpdate(stm);
         if (count==0){
             throw new Exception("Paciente ya existe");
@@ -91,7 +92,7 @@ public class PacienteDao {
             c.setEnfermedad(rs.getString(alias+".enfermedades"));
             c.setAlergias(rs.getString(alias+".alergias"));
             c.setCirugia(rs.getString(alias+".cirugias"));
-            c.setContacEmergencia(rs.getString(alias+".contacto_emergencia"));
+            c.setContactoEmergencia(rs.getString(alias+".contacto_emergencia"));
             return c;
         } catch (SQLException ex) {
             return null;

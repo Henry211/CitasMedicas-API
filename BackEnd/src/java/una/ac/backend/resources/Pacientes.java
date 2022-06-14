@@ -32,8 +32,8 @@ public class Pacientes {
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Paciente pac){
         try{
-            System.out.println("Doctor->"+pac);
-            //Service.instance().createMedico(pac);
+            System.out.println("PAciente->"+pac);
+            Service.instance().createPaciente(pac);
             
         }catch(Exception e){
             throw new NotAcceptableException();
@@ -42,9 +42,9 @@ public class Pacientes {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Paciente> read(){
-        //return Service.instance().doctoresRead();
-        return null;
+    public List<Paciente> read() throws Exception{
+        return Service.instance().findAllPacientes();
+       
     }
     
     @GET

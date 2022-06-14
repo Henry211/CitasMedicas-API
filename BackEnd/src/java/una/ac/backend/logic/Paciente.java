@@ -12,9 +12,9 @@ public class Paciente {
     String nombre;
     String cedula;
     String enfermedad;
-    String Alergias;
+    String alergias;
     String cirugia;
-    String contacEmergencia;
+    String contactoEmergencia;
 
     public Paciente() {
     }
@@ -48,11 +48,11 @@ public class Paciente {
     }
 
     public String getAlergias() {
-        return Alergias;
+        return alergias;
     }
 
     public void setAlergias(String Alergias) {
-        this.Alergias = Alergias;
+        this.alergias = Alergias;
     }
 
     public String getCirugia() {
@@ -63,12 +63,12 @@ public class Paciente {
         this.cirugia = cirugia;
     }
 
-    public String getContacEmergencia() {
-        return contacEmergencia;
+    public String getContactoEmergencia() {
+        return contactoEmergencia;
     }
 
-    public void setContacEmergencia(String contacEmergencia) {
-        this.contacEmergencia = contacEmergencia;
+    public void setContactoEmergencia(String contactoEmergencia) {
+        this.contactoEmergencia = contactoEmergencia;
     }
     
     
