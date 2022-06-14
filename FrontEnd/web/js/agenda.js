@@ -41,12 +41,15 @@ function cell(col, hora, iteracion) {
             <div class="horas">        
                 <div class="calendario_dia" draggable="true">                  
                     <div class="hora-row ableButton">
-                        ${arr[iteracion]} 
-                         
                         <!-- <a class="item"> </a> -->
+        <!--                        <button type="button" id="makeBtn" class="btn-primary cardButton" >${arr[iteracion]}</button>
+         -->                <button type="button" class="cardButton">Click Me</button>
                     </div>
                 </div> 
             </div>`);
+        tr.find("#makeBtn").on("click", ()=> {
+            showButton(persona);
+        })
         col.append(tr);
     } else { // false -> Botón inhabilitado
        
@@ -134,18 +137,15 @@ function printDayNames(lu,ma,mi,ju,vi){
 
 }
 
-function validarFecha(dateStr, locale){
-
-    let date = new Date();
-    let day = date.toLocaleString('en-us', {weekday: 'long'});
-    console.log(day);
-    var semana;
-
-    switch(day){
+function getWeek(dayString){
+    
+    var week; 
+    
+    switch(dayString){
 
         case "Monday":
 
-            semana = [{checked: true, desde: "8:00", hasta: "6:00"},//- Head
+            week = [{checked: true, desde: "8:00", hasta: "6:00"},//- Head
             {checked: true, desde: "9:30", hasta: "3:00"},
             {checked: true, desde: "1:30", hasta: "4:00"},
             {checked: true, desde: "9:30", hasta: "3:00"},
@@ -155,7 +155,7 @@ function validarFecha(dateStr, locale){
             break;
         case "Tuesday":
 
-            semana = [{checked: true, desde: "8:00", hasta: "6:00"},
+            week = [{checked: true, desde: "8:00", hasta: "6:00"},
             {checked: false},
             {checked: true, desde: "1:30", hasta: "4:00"},
             {checked: true, desde: "9:30", hasta: "3:00"},
@@ -165,7 +165,7 @@ function validarFecha(dateStr, locale){
             break;
         case "Wednesday":
 
-            semana = [{checked: true, desde: "8:00", hasta: "6:00"},
+            week = [{checked: true, desde: "8:00", hasta: "6:00"},
             {checked: false},
             {checked: false},
             {checked: true, desde: "9:30", hasta: "3:00"},
@@ -175,7 +175,7 @@ function validarFecha(dateStr, locale){
             break;
         case "Thursday":
 
-            semana = [{checked: true, desde: "8:00", hasta: "6:00"},
+            week = [{checked: true, desde: "8:00", hasta: "6:00"},
             {checked: false},
             {checked: false},
             {checked: false},
@@ -185,7 +185,7 @@ function validarFecha(dateStr, locale){
             break;
         case "Friday":
 
-            semana = [{checked: true, desde: "8:00", hasta: "6:00"},
+            week = [{checked: true, desde: "8:00", hasta: "6:00"},
             {checked: false},
             {checked: false},
             {checked: false},
@@ -193,8 +193,22 @@ function validarFecha(dateStr, locale){
             {checked: true, desde: "9:30", hasta: "4:00"}];
 
             break;
+            
+        
 
     }
+    
+    return week;
+}
+
+function validarFecha(weekCount){
+
+    let date = new Date();
+    let day = date.toLocaleString('en-us', {weekday: 'long'});
+    console.log(day);
+    var semana = getWeek(day);
+
+    
 
     let lu,ma,mi,ju,vi;//- To print Head Days
 
@@ -258,6 +272,17 @@ function validarFecha(dateStr, locale){
     
 }
 
+function nextWeek(){
+    
+    //- set to -> 'arr'
+    // li,ma,mi,ju,vi
+    var today = new Date();
+    var nextWeek = new Date( today.getDate()+7);
+    console.log("NextWeek --> "+ nextWeek.getMonth());
+}
+
+
+
 
 
 
@@ -288,7 +313,7 @@ function main() {
     /* 0:lunes  1:martes  2:miercoles  3:jueves  4:viernes*/
     var horario2 = [head, lunes, martes, miercoles, jueves, viernes];
 
-    var horario = validarFecha();
+    var horario = validarFecha(1);
     let i = 0;
     let j = 0;
     let frequency = 1; //-  1 x 30min = 30min
@@ -297,10 +322,10 @@ function main() {
     let horasString = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
 
 
-    
+    $("#nextBtn").click(nextWeek);
 
 
-    $(".col-Lunes").each(function () {
+    $(".col-main").each(function () {
         console.log("day-count + " + i + " " + JSON.stringify(horario[i]))
 
         let count=0;

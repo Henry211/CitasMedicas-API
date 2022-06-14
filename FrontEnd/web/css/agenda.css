@@ -54,7 +54,7 @@ body{
     border-top: 1px solid gray;
     border-left: 1px solid lightsteelblue;
     border-right: 1px solid lightsteelblue;
-    padding: 0px 20px;
+    padding: 0px 34px;
     color: black;
     height: 50px;
 }
@@ -65,17 +65,20 @@ body{
     border-radius: 15%;
     background-color:cornflowerblue;
     width: 100px;
+    height: 30px;
     text-align: center;
-    margin-left: 30px;
-    margin-top: 15px;
+    margin-left: 15px;
+   
 }
 
 .ableButton{
     background-color: lightseagreen;
+    /*habilitar el boton*/
 }
 
 .unableButton{
     background-color: lightslategray;
+    /* HAcer el boton inhabilitado */
 }
 
 .unableDay{
@@ -131,3 +134,16 @@ body{
     /* overflow: hidden; */
 }
 
+.cardButton{
+    /*list-style: none;
+     text-align: center;
+     background-color: #01AAAD;
+     width: 150px;margin:0;
+     line-height: 60px;*/
+    color:whitesmoke;
+    background-color: lightseagreen;
+   border-radius: 15%;
+    height: 40px;
+    width: 100px;
+    margin-top: 5px;
+}

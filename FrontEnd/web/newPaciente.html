@@ -11,7 +11,7 @@
     </head>
     <body>
         </br>
-        <form method="POST" name="Update" action="/proyecto1P4/presentation/medico/perfil/update" enctype = "multipart/form-data">
+        <form method="POST" name="Update" id="formulario" action="" enctype = "multipart/form-data">
 
             <section class="d-flex justify-content-center">
                 <div class="card col-md-5 pad">
@@ -23,19 +23,19 @@
 
                         <div class="mb-2">
                             <label for="nombre">Nombre Paciente:</label>
-                            <input type="text" id="motivo" class="form-control" name="motivo" placeholder="Nombre"/> 
+                            <input type="text" id="nombreId" class="form-control form-group" name="motivo" placeholder="Nombre"/> 
                             
                             <label for="cedula">Cedula: </label>
-                            <input type="text" id="motivo" class="form-control" name="motivo" placeholder="Cedula"/> 
+                            <input type="text" id="cedulaId" class="form-control form-group" name="motivo" placeholder="Cedula"/> 
                             
                             <label for="edad">Edad:</label>
-                            <input type="text" id="motivo" class="form-control" name="motivo" placeholder="Edad"/> 
+                            <input type="text" id="edadId" class="form-control form-group" name="motivo" placeholder="Edad"/> 
                             
                             <label for="cedula">Nota antecedentes medicos </label>
-                            <input type="text" id="motivo" class="form-control" name="motivo" placeholder="Antecedentes..."/> 
+                            <input type="text" id="antecedentesId" class="form-control form-group" name="motivo" placeholder="Antecedentes..."/> 
                             
                             <label for="edad">Nota padecimientos</label>
-                            <input type="text" id="motivo" class="form-control" name="motivo" placeholder="Padecimientos..."/> 
+                            <input type="text" id="padecimientosId" class="form-control form-group" name="motivo" placeholder="Padecimientos..."/> 
                                                        
                             
                         </div>
@@ -65,6 +65,8 @@
             </section>
 
         </form>
+        
+        <<script src="js/newPaciente.js"></script>
 
     </body>
 </html>

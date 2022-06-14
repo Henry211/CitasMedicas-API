@@ -75,15 +75,31 @@ function fillNewPaciente(){
     location.href = 'newPaciente.html';
 }
 
-function main(){
-
+function cargarPacientes(){
     
+    var array = new Array();
 
-    pacientes.push(deep);
-    pacientes.push(elon);
-    pacientes.push(winston);
-    pacientes.push(stef);
-    pacientes.push(messi);
+    const request = new Request(backend+'/pacientes', {method:'GET', headers: { }});
+    (async ()=> {
+        try{
+            const response = await fetch(request);
+            
+            array = await response.json();
+            
+            mostrarPersona();
+        }catch(e){
+
+        }
+    })();
+    
+    
+    return array;
+    
+}
+
+function main(){
+    
+    pacientes = cargarPacientes();
 
     pacientes.forEach( (p) => {
 
