@@ -5,6 +5,9 @@ var especial = false;
 
 var pacienteToCita;
 
+let date;
+let iteracionWeek;
+
 
 class CitaCell{
     constructor(dia,hora){
@@ -215,12 +218,13 @@ function getWeek(dayString){
     return week;
 }
 
-function validarFecha(weekCount){
+function validarFecha(weekCount,fecha){
 
-    let date = new Date();
-    let day = date.toLocaleString('en-us', {weekday: 'long'});
+    //fecha = new Date();
+    let day = fecha.toLocaleString('en-us', {weekday: 'long'});
     console.log(day);
-    var semana = getWeek(day);
+    console.log("fecha->"+fecha);
+    var semana = getWeek(day);//-json días pasados
 
     
 
@@ -228,36 +232,36 @@ function validarFecha(weekCount){
 
     if(day == "Monday"){
  
-        lu = "Lunes " + String(date.getDate()).padStart(2, '0'); 
-        ma = "Martes " + String(date.getDate()+1).padStart(2, '0');
-        mi = "Miercoles " + String(date.getDate()+2).padStart(2, '0');
-        ju = "Jueves " + String(date.getDate()+3).padStart(2, '0');
-        vi = "Viernes " + String(date.getDate()+4).padStart(2, '0');
+        lu = "Lunes " + String(fecha.getDate()).padStart(2, '0'); 
+        ma = "Martes " + String(fecha.getDate()+1).padStart(2, '0');
+        mi = "Miercoles " + String(fecha.getDate()+2).padStart(2, '0');
+        ju = "Jueves " + String(fecha.getDate()+3).padStart(2, '0');
+        vi = "Viernes " + String(fecha.getDate()+4).padStart(2, '0');
         
 
     }else if(day == "Tuesday"){
 
         lu = "Lunes";
-        ma = "Martes " + String(date.getDate()).padStart(2, '0');
-        mi = "Miercoles " + String(date.getDate()+1).padStart(2, '0');
-        ju = "Jueves " + String(date.getDate()+2).padStart(2, '0');
-        vi = "Viernes " + String(date.getDate()+3).padStart(2, '0');
+        ma = "Martes " + String(fecha.getDate()).padStart(2, '0');
+        mi = "Miercoles " + String(fecha.getDate()+1).padStart(2, '0');
+        ju = "Jueves " + String(fecha.getDate()+2).padStart(2, '0');
+        vi = "Viernes " + String(fecha.getDate()+3).padStart(2, '0');
 
     }else if(day == "Wednesday"){
 
         lu = "Lunes";
         ma = "Martes ";
-        mi = "Miercoles " + String(date.getDate()).padStart(2, '0');
-        ju = "Jueves " + String(date.getDate()+1).padStart(2, '0');
-        vi = "Viernes " + String(date.getDate()+2).padStart(2, '0');
+        mi = "Miercoles " + String(fecha.getDate()).padStart(2, '0');
+        ju = "Jueves " + String(fecha.getDate()+1).padStart(2, '0');
+        vi = "Viernes " + String(fecha.getDate()+2).padStart(2, '0');
 
     }else if(day == "Thursday"){
 
         lu = "Lunes";
         ma = "Martes ";
         mi = "Miercoles ";
-        ju = "Jueves " + String(date.getDate()).padStart(2, '0');
-        vi = "Viernes " + String(date.getDate()+1).padStart(2, '0');
+        ju = "Jueves " + String(fecha.getDate()).padStart(2, '0');
+        vi = "Viernes " + String(fecha.getDate()+1).padStart(2, '0');
 
     }else if(day == "Friday"){
 
@@ -265,12 +269,14 @@ function validarFecha(weekCount){
         ma = "Martes ";
         mi = "Miercoles ";
         ju = "Jueves ";
-        vi = "Viernes " + String(date.getDate()).padStart(2, '0');
+        vi = "Viernes " + String(fecha.getDate()).padStart(2, '0');
     }
 
     arr = ["",lu,ma,mi,ju,vi]// Print Head Days
     let n = 0;
     
+    
+    $('.dias_item').html('');
     $('.dias_item').each( function() {
 
         var tr = $("<tr />");
@@ -288,11 +294,18 @@ function validarFecha(weekCount){
 
 function nextWeek(){
     
-    //- set to -> 'arr'
-    // li,ma,mi,ju,vi
-    var today = new Date();
-    var nextWeek = new Date( today.getDate()+7);
-    console.log("NextWeek --> "+ nextWeek.getMonth());
+    iteracionWeek = iteracionWeek + 1;
+    let num = 7*iteracionWeek;
+    date = new Date();
+    console.log("today  --> "+ date);
+    //var nextWeek = new Date( date.getDate()+7);
+    var nextWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate()+num);
+
+    
+    let newDay = nextWeek.toLocaleString('en-us', {weekday: 'long'});
+    console.log("NextWeek Str -> "+newDay);
+    
+    var horario = validarFecha(1,nextWeek);
 }
 
 
@@ -302,6 +315,7 @@ function nextWeek(){
 
 function main() {
 
+    iteracionWeek = 0;
     
     if(localStorage.getItem('pacienteToCita')){
         pacienteToCita = localStorage.getItem('pacienteToCita')
@@ -327,7 +341,9 @@ function main() {
     /* 0:lunes  1:martes  2:miercoles  3:jueves  4:viernes*/
     var horario2 = [head, lunes, martes, miercoles, jueves, viernes];
 
-    var horario = validarFecha(1);
+    date = new Date();
+    var horario = validarFecha(1,date);
+    
     let i = 0;
     let j = 0;
     let frequency = 1; //-  1 x 30min = 30min
