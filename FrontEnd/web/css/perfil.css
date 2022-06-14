@@ -25,3 +25,13 @@
     margin-left: 80px;
 }
 
+.modal-content{
+    background-color: #3b4652 ;
+    opacity: .85;
+    padding: 0 30px;
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+    
+    border-radius:15px;
+    
+}
+

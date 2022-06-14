@@ -61,12 +61,29 @@ function fillMedico(){
    
 }
 
+function agendarCita(){
+    
+    localStorage.setItem("pacienteToCita",JSON.stringify(paciente));
+    location.href = 'agenda.html';
+    
+}
+
+function editarPaciente(){
+    //- pop-up
+    
+    
+}
+
 function main(){
     
     if(localStorage.getItem('medicoPerfil'))    fillMedico();
     else if(localStorageItem('pacientePerfil')) fillPaciente();
     
+    //$('#add-modal').modal('show');// Editar en poop-up
+    
     $("#citasBtn").click(verCitasBtn);
+    $("#agendar").click(agendarCita);
+    $("#editar").click(editarPaciente);
     
 }
 

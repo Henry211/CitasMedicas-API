@@ -1,6 +1,10 @@
 
 let arr;
 
+var especial = false;
+
+var pacienteToCita;
+
 
 class CitaCell{
     constructor(dia,hora){
@@ -260,8 +264,11 @@ function validarFecha(dateStr, locale){
 function main() {
 
     
-
-    
+    if(localStorage.getItem('pacienteToCita')){
+        pacienteToCita = localStorage.getItem('pacienteToCita')
+        especial = true;
+        console.log("Vista Especial")
+    }
     
 
     var head = {checked: true, desde: "8:00", hasta: "6:00"};
@@ -282,7 +289,6 @@ function main() {
     var horario2 = [head, lunes, martes, miercoles, jueves, viernes];
 
     var horario = validarFecha();
-
     let i = 0;
     let j = 0;
     let frequency = 1; //-  1 x 30min = 30min

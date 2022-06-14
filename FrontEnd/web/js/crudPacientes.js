@@ -29,6 +29,14 @@ function showButton(person){
 
 }
 
+
+function deleteButton(person){
+    
+    // Mostrar pop-up para confirmación
+    
+    $('#add-modal').modal('show');
+}
+
 function pintar(componente, persona){
     var tr = $("<tr />");
     tr.html(`
@@ -49,10 +57,15 @@ function pintar(componente, persona){
                                 ... </br>
                             </div>
                         </div></div>
-                        <button type="button" id="verBtn" class="btn btn-primary">Primary</button>
+                        <button type="button" id="verBtn" class="btn btn-primary">Ver</button>
+                        <button type="button" id="borrarBtn" class="btn btn-primary">Eliminar</button>
                         </div></div> `);
     tr.find("#verBtn").on("click", ()=> {
             showButton(persona);
+        })
+    
+    tr.find("#borrarBtn").on("click", ()=> {
+            deleteButton(persona);
         })
     componente.append(tr);
 
@@ -60,9 +73,7 @@ function pintar(componente, persona){
 
 function main(){
 
-    let name='Henry';
-    let cedula='24';
-    let clave='24';
+    
 
     pacientes.push(deep);
     pacientes.push(elon);
