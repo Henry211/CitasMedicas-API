@@ -9,17 +9,41 @@ package una.ac.backend.logic;
  * @author ESCINF
  */
 public class Horario {
-    boolean checked;
-    int desde;
-    int hasta;
 
-    public Horario(boolean checked, int desde, int hasta) {
+
+    String idDoctor;
+    int id;
+    boolean checked = false;
+    String desde;
+    String hasta;
+    
+    
+    public Horario(){}
+    public Horario(String idDoctor, int id,boolean checked, String desde, String hasta) {
+        this.idDoctor = idDoctor;
+        this.id = id;
         this.checked = checked;
         this.desde = desde;
         this.hasta = hasta;
     }
+
     
-    
+        
+    public String getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(String idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isChecked() {
         return checked;
@@ -29,21 +53,23 @@ public class Horario {
         this.checked = checked;
     }
 
-    public int getDesde() {
+    public String getDesde() {
         return desde;
     }
 
-    public void setDesde(int desde) {
+    public void setDesde(String desde) {
         this.desde = desde;
     }
 
-    public int getHasta() {
+    public String getHasta() {
         return hasta;
     }
 
-    public void setHasta(int hasta) {
+    public void setHasta(String hasta) {
         this.hasta = hasta;
     }
+
+ 
     
     
     

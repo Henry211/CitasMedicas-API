@@ -165,7 +165,8 @@ public class DoctorDao {
         return resultado;
     }
      
-         Doctor from(ResultSet rs, String alias) {
+         
+     Doctor from(ResultSet rs, String alias) {
         try {
             Doctor c = new Doctor();
             c.setId(rs.getString(alias + ".idMedicos"));
