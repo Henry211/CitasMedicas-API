@@ -129,7 +129,7 @@ function unDay(col,hora){// días del pasado
 
 
 function calcHoras(frequency, desde, hasta) {
-    /*count cells = 21 when frequency = 30min  (8am->6pm)*/
+    /* count cells = 21 when frequency = 30min  (8am->6pm) */
     let horas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let horasString;
     
@@ -202,13 +202,13 @@ function printElements(fetchSemana){
             })
             count++;
         } else
-        if (!fetchSemana[i].checked) { // false
+        if (!fetchSemana[i].checked) { // false | gray box ( - )
             // print gray boxes
             console.log("ha sido false **!!!**");
 
             invalidColumn.forEach((c) => {
                 
-                unDay($(this), c);
+                unDay($(this), c);// caja con  ( O.S )
             
             j++;
         })
@@ -216,7 +216,7 @@ function printElements(fetchSemana){
             console.log("ha sido true**");
             count = 0;
             
-            // -- horas = arreglo de '1' y '0'
+            // -- horas = arreglo de '1' y '0'  || (rango de fecha en que atiende)
             horas = calcHoras(frequency, fetchSemana[i].desde, fetchSemana[i].hasta);
 
             horas.forEach((h) => {
@@ -247,8 +247,8 @@ function fetchShedule(dayString){
             fetchSemana = await response.json();
             console.log("Semana one-> "+ JSON.stringify(fetchSemana))
 
-            loadShedule(dayString,fetchSemana);
-            printElements(fetchSemana);
+            loadShedule(dayString,fetchSemana);// este metodo carga a 'fetchSemana'
+            printElements(fetchSemana); // fetchSemana como parametro
             
         }catch(e){
 
@@ -331,35 +331,28 @@ function loadShedule(dayString,fetchSemana){
     switch(dayString){
 
         case "Monday":
-
-            /*week = [{checked: true, desde: "8:00", hasta: "6:00"},//- Head
-            {checked: true, desde: "9:30", hasta: "3:00"},
-            {checked: true, desde: "1:30", hasta: "4:00"},
-            {checked: true, desde: "9:30", hasta: "3:00"},
-            {checked: true, desde: "8:30", hasta: "4:30"},
-            {checked: true, desde: "9:30", hasta: "4:00"}];*/
             
-            prepareWeek(fetchSemana,1,0,0,0,0);
+            prepareWeek(fetchSemana,0,0,0,0,0);
 
             break;
         case "Tuesday":
             
-                prepareWeek(fetchSemana,1,1,0,0,0);
+            prepareWeek(fetchSemana,1,0,0,0,0);
 
             break;
         case "Wednesday":
 
-            prepareWeek(fetchSemana,1,1,1,0,0);
+            prepareWeek(fetchSemana,1,1,0,0,0);
 
             break;
         case "Thursday":
 
-            prepareWeek(fetchSemana,1,1,1,1,0);
+            prepareWeek(fetchSemana,1,1,1,0,0);
 
             break;
         case "Friday":
 
-            prepareWeek(fetchSemana,1,1,1,1,1);
+            prepareWeek(fetchSemana,1,1,1,1,0);
 
             break;
     }

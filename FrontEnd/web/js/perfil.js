@@ -92,6 +92,7 @@ function agendarCita(){
 function editarPaciente(){
     //- pop-up
     
+    localStorage.setItem("pacientePerfil",JSON.stringify(paciente));
     document.location = "editar.html"
 }
 
