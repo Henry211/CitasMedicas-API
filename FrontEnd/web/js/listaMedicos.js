@@ -49,9 +49,9 @@ function pintar(componente, persona){
                             <div class="col">
                                 ... </br>
                             </div>
-                        </div><button type="submit" id="verBtn" class="btn btn-primary">Ver</button>
+                        </div><button type="submit" id="aceptarBtn" class="btn btn-primary">Aceptar Solicitud</button>
                         </div></div></div> `);
-        tr.find("#verBtn").on("click", ()=> {
+        tr.find("#aceptarBtn").on("click", ()=> {
             showButton(persona);
         })
         componente.append(tr);

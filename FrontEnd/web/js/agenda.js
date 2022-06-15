@@ -121,12 +121,23 @@ function unDay(col,hora){// días del pasado
 
 }
 
+
 function calcHoras(frequency, desde, hasta) {
     /*count cells = 21 when frequency = 30min  (8am->6pm)*/
     let horas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    let horasString = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
+    let horasString;
+    
+    console.log("Frequemy: "+frequency);
+    if(frequency == 30){
+        horasString  = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
+    }else if(frequency == 60){
+        horasString = ["8:00","9:00","10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00","5:00","6:00"];
+    }
+    
     let validRange = false; //true into range
     let i = 0;
+    
+    console.log("Calc horas:   desde-"+ desde + "    hasta-"+hasta);
     horasString.forEach((h) => {
 
         if (h == desde) {
@@ -161,7 +172,7 @@ function printElements(fetchSemana){
     
     let i = 0;
     let j = 0;
-    let frequency = 1; //-  1 x 30min = 30min
+    let frequency = 30; //-  1 x 30min = 30min
     let horas;
     let invalidColumn = ["_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_"];
     let horasString = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
@@ -196,13 +207,15 @@ function printElements(fetchSemana){
             j++;
         })
         } else { // true
-
+            console.log("ha sido true**");
             count = 0;
+            
+            // -- horas = arreglo de '1' y '0'
             horas = calcHoras(frequency, fetchSemana[i].desde, fetchSemana[i].hasta);
 
             horas.forEach((h) => {
             
-                    cell($(this), h, i);// ->   h  ==  1||0
+                    cell($(this), h, i);// ->     h  ==  1 || 0
                 
                 j++;
                 count++;
@@ -240,9 +253,72 @@ function fetchShedule(dayString){
     
 }
 
+
+
+function prepareWeek(theWeek,boolL,boolM,boolI,boolJ,boolV){
+            
+            var dayHead = {checked: true, desde: "8:00", hasta: "6:00"};
+            var close = {checked:false};
+    
+            console.log("Week 1: "+ JSON.stringify(fetchSemana));
+            
+            console.log("adding head")
+            fetchSemana.splice(0,0,dayHead);
+            console.log("Week 2: "+ JSON.stringify(fetchSemana));
+            
+            
+        if(boolL){    
+            console.log("adding close")
+            fetchSemana.splice(1,0,close);
+            console.log("Week 3: "+JSON.stringify(fetchSemana));
+            
+            console.log("deleting previous")
+            fetchSemana.splice(2,1);
+            console.log("Week 4: "+ JSON.stringify(fetchSemana));
+        }
+        if(boolM){    
+            console.log("adding close")
+            fetchSemana.splice(2,0,close);
+            console.log("Week 3: "+JSON.stringify(theWeek));
+            
+            console.log("deleting previous")
+            fetchSemana.splice(3,1);
+            console.log("Week 4: "+ JSON.stringify(theWeek));
+        }
+        if(boolI){    
+            console.log("adding close")
+            fetchSemana.splice(3,0,close);
+            console.log("Week 3: "+JSON.stringify(theWeek));
+            
+            console.log("deleting previous")
+            fetchSemana.splice(4,1);
+            console.log("Week 4: "+ JSON.stringify(theWeek));
+        }
+        if(boolJ){    
+            console.log("adding close")
+            fetchSemana.splice(4,0,close);
+            console.log("Week 3: "+JSON.stringify(theWeek));
+            
+            console.log("deleting previous")
+            fetchSemana.splice(5,1);
+            console.log("Week 4: "+ JSON.stringify(theWeek));
+        }
+        if(boolV){    
+            console.log("adding close")
+            fetchSemana.splice(5,0,close);
+            console.log("Week 3: "+JSON.stringify(theWeek));
+            
+            console.log("deleting previous")
+            fetchSemana.splice(6,1);
+            console.log("Week 4: "+ JSON.stringify(theWeek));
+        }
+            
+            
+}
+
 function loadShedule(dayString,fetchSemana){
     
-    var dayHead = {checked: true, desde: "8:00", hasta: "6:00"};
+    
     console.log("Semana two-> "+ JSON.stringify(fetchSemana))
     console.log("dayString-> "+ dayString)
     
@@ -257,56 +333,27 @@ function loadShedule(dayString,fetchSemana){
             {checked: true, desde: "8:30", hasta: "4:30"},
             {checked: true, desde: "9:30", hasta: "4:00"}];*/
             
-            console.log("Week 1: "+ fetchSemana);
-            fetchSemana.splice(0,0,dayHead);
-            console.log("Week 2: "+ fetchSemana);
+            prepareWeek(fetchSemana,1,0,0,0,0);
 
             break;
         case "Tuesday":
-/*
-            week = [{checked: true, desde: "8:00", hasta: "6:00"},
-            {checked: false},
-            {checked: true, desde: "1:30", hasta: "4:00"},
-            {checked: true, desde: "9:30", hasta: "3:00"},
-            {checked: true, desde: "8:30", hasta: "4:30"},
-            {checked: true, desde: "9:30", hasta: "4:00"}];*/
-                
-            console.log("Week 1: "+ fetchSemana);
-            fetchSemana.splice(0,0,{checked: true, desde: "8:00", hasta: "6:00"});
-            console.log("Week 2: "+ fetchSemana);
             
-            fetchSemana.splice(1,0,close);
-            console.log("Week 3: "+fetchSemana);
+                prepareWeek(fetchSemana,1,1,0,0,0);
 
             break;
         case "Wednesday":
 
-            week = [{checked: true, desde: "8:00", hasta: "6:00"},
-            {checked: false},
-            {checked: false},
-            {checked: true, desde: "9:30", hasta: "3:00"},
-            {checked: true, desde: "8:30", hasta: "4:30"},
-            {checked: true, desde: "9:30", hasta: "4:00"}];
+            prepareWeek(fetchSemana,1,1,1,0,0);
 
             break;
         case "Thursday":
 
-            week = [{checked: true, desde: "8:00", hasta: "6:00"},
-            {checked: false},
-            {checked: false},
-            {checked: false},
-            {checked: true, desde: "8:30", hasta: "4:30"},
-            {checked: true, desde: "9:30", hasta: "4:00"}];
+            prepareWeek(fetchSemana,1,1,1,1,0);
 
             break;
         case "Friday":
 
-            week = [{checked: true, desde: "8:00", hasta: "6:00"},
-            {checked: false},
-            {checked: false},
-            {checked: false},
-            {checked: false},
-            {checked: true, desde: "9:30", hasta: "4:00"}];
+            prepareWeek(fetchSemana,1,1,1,1,1);
 
             break;
     }
@@ -317,7 +364,7 @@ function loadShedule(dayString,fetchSemana){
 
 function getWeek(dayString){
     
-    var close = {checked:false};
+    
     var week; 
     
     fetchShedule(dayString);

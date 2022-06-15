@@ -55,6 +55,8 @@ function loadHeader(){
                 </div>
             </nav>
         </div></header> `;
+    
+    
 }
 
 $(loadHeader);
