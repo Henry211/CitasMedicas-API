@@ -53,7 +53,7 @@ public class Doctores {
     @Produces(MediaType.APPLICATION_JSON)
     public Doctor read(@PathParam("cedula") String cedula,Doctor d){
         try{
-            System.out.println("Entró a read");
+            
             return Service.instance().medicoLogin(d);
         }catch(Exception e){
             throw new NotFoundException();

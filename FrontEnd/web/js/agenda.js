@@ -7,6 +7,7 @@ var pacienteToCita;
 
 let date;
 let iteracionWeek;
+var fetchSemana;
 
 var backend = "http://localhost:8080/BackEnd/api";
 
@@ -156,63 +157,126 @@ function printDayNames(lu,ma,mi,ju,vi){
 
 }
 
-
-function fetchShedule(){
+function printElements(fetchSemana){
     
-    var cedula;
-    console.log("Ejecutando fetchShedule")
+    let i = 0;
+    let j = 0;
+    let frequency = 1; //-  1 x 30min = 30min
+    let horas;
+    let invalidColumn = ["_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_"];
+    let horasString = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
+
+
+    $("#nextBtn").click(nextWeek);
+
+
+    $(".col-main").each(function () {
+        //console.log("day-count + " + i + " " + JSON.stringify(horario[i]))
+
+        let count=0;
+        if(i == 0){ //-primera iteración (HEAD)
+            count = 0;
+
+            horasString.forEach((h) => {
+                
+                    headCell($(this), h);
+                
+                j++;
+            })
+            count++;
+        } else
+        if (!fetchSemana[i].checked) { // false
+            // print gray boxes
+            console.log("ha sido false **!!!**");
+
+            invalidColumn.forEach((c) => {
+                
+                unDay($(this), c);
+            
+            j++;
+        })
+        } else { // true
+
+            count = 0;
+            horas = calcHoras(frequency, fetchSemana[i].desde, fetchSemana[i].hasta);
+
+            horas.forEach((h) => {
+            
+                    cell($(this), h, i);// ->   h  ==  1||0
+                
+                j++;
+                count++;
+            })
+            
+        }
+
+        i++;
+    })
+    
+}
+
+
+function fetchShedule(dayString){
+    
+    var cedula="2222";
     
     const request = new Request(backend+'/doctores/dias/'+cedula, {method:'GET', headers: { }});
     (async ()=> {
         try{
             const response = await fetch(request);
             
-            doctores = await response.json();
-            console.log("Doctores-> "+ JSON.stringify(doctores))
+            fetchSemana = await response.json();
+            console.log("Semana one-> "+ JSON.stringify(fetchSemana))
 
-            if(existePersona()){ 
-                
-                //--- LOGIN finalizado
-                console.log("Existe persona!!")
-                mostrarPersona();
-
-            }else{
-                console.log("No existe persona")
-            }
+            loadShedule(dayString,fetchSemana);
+            printElements(fetchSemana);
             
         }catch(e){
 
         }
     })();
+    
+    
+    
 }
 
-function getWeek(dayString){
+function loadShedule(dayString,fetchSemana){
     
-    var close = {checked:false};
-    var week; 
-    
-    week = fetchShedule();
+    var dayHead = {checked: true, desde: "8:00", hasta: "6:00"};
+    console.log("Semana two-> "+ JSON.stringify(fetchSemana))
+    console.log("dayString-> "+ dayString)
     
     switch(dayString){
 
         case "Monday":
 
-            week = [{checked: true, desde: "8:00", hasta: "6:00"},//- Head
+            /*week = [{checked: true, desde: "8:00", hasta: "6:00"},//- Head
             {checked: true, desde: "9:30", hasta: "3:00"},
             {checked: true, desde: "1:30", hasta: "4:00"},
             {checked: true, desde: "9:30", hasta: "3:00"},
             {checked: true, desde: "8:30", hasta: "4:30"},
-            {checked: true, desde: "9:30", hasta: "4:00"}];
+            {checked: true, desde: "9:30", hasta: "4:00"}];*/
+            
+            console.log("Week 1: "+ fetchSemana);
+            fetchSemana.splice(0,0,dayHead);
+            console.log("Week 2: "+ fetchSemana);
 
             break;
         case "Tuesday":
-
+/*
             week = [{checked: true, desde: "8:00", hasta: "6:00"},
             {checked: false},
             {checked: true, desde: "1:30", hasta: "4:00"},
             {checked: true, desde: "9:30", hasta: "3:00"},
             {checked: true, desde: "8:30", hasta: "4:30"},
-            {checked: true, desde: "9:30", hasta: "4:00"}];
+            {checked: true, desde: "9:30", hasta: "4:00"}];*/
+                
+            console.log("Week 1: "+ fetchSemana);
+            fetchSemana.splice(0,0,{checked: true, desde: "8:00", hasta: "6:00"});
+            console.log("Week 2: "+ fetchSemana);
+            
+            fetchSemana.splice(1,0,close);
+            console.log("Week 3: "+fetchSemana);
 
             break;
         case "Wednesday":
@@ -245,10 +309,20 @@ function getWeek(dayString){
             {checked: true, desde: "9:30", hasta: "4:00"}];
 
             break;
-            
-        
-
     }
+    
+    
+    
+}
+
+function getWeek(dayString){
+    
+    var close = {checked:false};
+    var week; 
+    
+    fetchShedule(dayString);
+    week = fetchSemana;
+    
     
     return week;
 }
@@ -379,59 +453,7 @@ function main() {
     date = new Date();
     var horario = validarFecha(1,date);
     
-    let i = 0;
-    let j = 0;
-    let frequency = 1; //-  1 x 30min = 30min
-    let horas;
-    let invalidColumn = ["_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_"];
-    let horasString = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
-
-
-    $("#nextBtn").click(nextWeek);
-
-
-    $(".col-main").each(function () {
-        console.log("day-count + " + i + " " + JSON.stringify(horario[i]))
-
-        let count=0;
-        if(i == 0){ //-primera iteración (HEAD)
-            count = 0;
-
-            horasString.forEach((h) => {
-                
-                    headCell($(this), h);
-                
-                j++;
-            })
-            count++;
-        } else
-        if (!horario[i].checked) { // false
-            // print gray boxes
-            console.log("ha sido false **!!!**");
-
-            invalidColumn.forEach((c) => {
-                
-                unDay($(this), c);
-            
-            j++;
-        })
-        } else { // true
-
-            count = 0;
-            horas = calcHoras(frequency, horario[i].desde, horario[i].hasta);
-
-            horas.forEach((h) => {
-            
-                    cell($(this), h, i);// ->   h  ==  1||0
-                
-                j++;
-                count++;
-            })
-            
-        }
-
-        i++;
-    })
+    
 
 }
 
