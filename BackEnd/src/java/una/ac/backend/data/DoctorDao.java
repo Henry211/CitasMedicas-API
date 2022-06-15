@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import una.ac.backend.logic.Dia;
-import una.ac.backend.logic.Horario;
 
 /**
  *
@@ -31,17 +30,18 @@ public class DoctorDao {
     //registrar medico
     public void create(Doctor u) throws Exception {
 
-        String sql = "insert into medico(nombre,idMedicos,clave,tarifa,nombre_provincia,nombre_especialidad) "
-                + "values(?,?,?,?,?,?)";
+        String sql = "insert into medico(tipo,nombre,idMedicos,clave,tarifa,nombre_provincia,nombre_especialidad) "
+                + "values(?,?,?,?,?,?,?)";
 
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, u.getNombre());
-        stm.setString(2, u.getId());
-        stm.setString(3, u.getPassword());
-        stm.setString(4, u.getTarifa());
-        stm.setString(5, u.getLocalidad());
-        stm.setString(6, u.getEspecialidad());
-        
+        stm.setString(1, u.getTipo());
+        stm.setString(2, u.getNombre());
+        stm.setString(3, u.getId());
+        stm.setString(4, u.getPassword());
+        stm.setString(5, u.getTarifa());
+        stm.setString(6, u.getLocalidad());
+        stm.setString(7, u.getEspecialidad());
+        System.out.println("docName-> "+ u.getEspecialidad());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medico ya existe");
@@ -79,22 +79,18 @@ public class DoctorDao {
     }
     
     public ArrayList<Dia> findDays(String cedula) throws Exception{
-        
-        ArrayList<Dia> horario = new ArrayList<>();
-        System.out.println("HA entrado a findDAys");
-        
-        String sql = "select * from slot d where idDoctor=? ";
+        String sql = "select * from medico c where idMedicos=? and clave=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);
-        ResultSet rs = (ResultSet) db.executeQuery(stm);
-        Dia d;
-        while (rs.next()) {
-            d = fromDay(rs,"d");
-            System.out.println("day->"+d);
-            horario.add(d);
-        } 
-        
-        return horario;
+       
+        ResultSet rs =  db.executeQuery(stm);
+        if (rs.next()) {
+            Doctor c = from(rs, "c"); 
+            return null;
+        }
+        else{
+            throw new Exception ("Medico no existe");
+        }
     }
     
     //busca por id
@@ -174,6 +170,7 @@ public class DoctorDao {
      Doctor from(ResultSet rs, String alias) {
         try {
             Doctor c = new Doctor();
+            c.setTipo(rs.getString(alias + ".tipo"));
             c.setId(rs.getString(alias + ".idMedicos"));
             c.setNombre(rs.getString(alias + ".nombre"));
             c.setPassword(rs.getString(alias + ".clave"));
@@ -185,23 +182,6 @@ public class DoctorDao {
     catch ( SQLException ex) {
             return null;
         }
-    }
-     
-     
-     Dia fromDay(ResultSet rs, String alias) {
-        try {
-            Dia d = new Dia();
- 
-            d.setChecked(rs.getBoolean(alias+".checked"));  
-            System.out.println("desde: "+rs.getString(alias+".desde") );
-            d.setDesde(rs.getString(alias+".desde"));
-            d.setHasta(rs.getString(alias+".hasta"));
-            
-            return d;
-        }catch(Exception e){
-           return null; 
-        }
-        
     }
     
     

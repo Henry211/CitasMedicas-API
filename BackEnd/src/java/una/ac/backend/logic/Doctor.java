@@ -9,6 +9,9 @@ package una.ac.backend.logic;
  * @author ESCINF
  */
 public class Doctor {
+
+
+    public String tipo;
     public String nombre;
     public String id;
     public String password;
@@ -20,7 +23,8 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String nombre, String id, String password, String especialidad, String localidad, String tarifa) {
+    public Doctor(String tipo,String nombre, String id, String password, String especialidad, String localidad, String tarifa) {
+        this.tipo = tipo;
         this.nombre = nombre;
         this.id = id;
         this.password = password;
@@ -29,6 +33,14 @@ public class Doctor {
         this.tarifa = tarifa;
     }
 
+        
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
     public String getNombre() {
         return nombre;
     }

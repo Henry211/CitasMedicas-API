@@ -79,7 +79,6 @@ public class HorarioDao {
         try {
             Horario c = new Horario();
             c.setIdDoctor(rs.getString(alias + ".idDoctor"));
-            c.setId(rs.getInt(alias + ".id"));
             c.setChecked(rs.getBoolean(alias+ ".checked"));
             c.setDesde(rs.getString(alias + ".desde"));
             c.setHasta(rs.getString(alias + ".hasta"));

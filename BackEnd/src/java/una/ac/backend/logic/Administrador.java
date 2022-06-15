@@ -9,6 +9,8 @@ package una.ac.backend.logic;
  * @author ESCINF
  */
 public class Administrador {
+
+   String tipo; 
    String nombre;
    String id;
    String clave;
@@ -18,13 +20,21 @@ public class Administrador {
    
    
 
-    public Administrador(String nombre, String id, String clave) {
+    public Administrador(String tipo,String nombre, String id, String clave) {
+        this.tipo = tipo;
         this.nombre = nombre;
         this.id = id;
         this.clave = clave;
     }
 
    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
    
     public String getNombre() {
         return nombre;

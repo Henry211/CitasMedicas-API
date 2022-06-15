@@ -21,12 +21,13 @@ public class AdministradorDao {
     }
 
      public void create(Administrador u) throws Exception{
-        String sql="insert into administrador (nombre, id,clave) "+
-                "values(?,?,?)";
+        String sql="insert into administrador (tipo, nombre, id,clave) "+
+                "values(?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, u.getId());
-        stm.setString(2, u.getNombre());
-        stm.setString(3, u.getClave());
+        stm.setString(1, u.getTipo());
+        stm.setString(2, u.getId());
+        stm.setString(3, u.getNombre());
+        stm.setString(4, u.getClave());
       
         int count=db.executeUpdate(stm);
         if (count==0){
@@ -88,6 +89,7 @@ public class AdministradorDao {
     Administrador from(ResultSet rs, String alias){
         try {
             Administrador c= new Administrador();
+            c.setTipo(rs.getString(alias + ".tipo"));
             c.setId(rs.getString(alias+".id"));
             c.setNombre(rs.getString(alias+".nombre"));
             c.setClave(rs.getString(alias+".clave"));
