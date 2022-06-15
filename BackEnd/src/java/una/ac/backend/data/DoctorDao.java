@@ -79,18 +79,18 @@ public class DoctorDao {
     }
     
     public ArrayList<Dia> findDays(String cedula) throws Exception{
-        String sql = "select * from medico c where idMedicos=? and clave=?";
+        ArrayList<Dia> horario = new ArrayList<>();
+        String sql = "select * from slot d where idDoctor=? ";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);
-       
-        ResultSet rs =  db.executeQuery(stm);
-        if (rs.next()) {
-            Doctor c = from(rs, "c"); 
-            return null;
-        }
-        else{
-            throw new Exception ("Medico no existe");
-        }
+        ResultSet rs = (ResultSet) db.executeQuery(stm);
+        Dia d;
+        while (rs.next()) {
+            d = fromDay(rs,"d");
+            horario.add(d);
+        } 
+        
+        return horario;
     }
     
     //busca por id
@@ -182,6 +182,23 @@ public class DoctorDao {
     catch ( SQLException ex) {
             return null;
         }
+    }
+     
+     
+     Dia fromDay(ResultSet rs, String alias) {
+        try {
+            Dia d = new Dia();
+ 
+            d.setChecked(rs.getBoolean(alias+".checked"));  
+            System.out.println("desde: "+rs.getString(alias+".desde") );
+            d.setDesde(rs.getString(alias+".desde"));
+            d.setHasta(rs.getString(alias+".hasta"));
+            
+            return d;
+        }catch(Exception e){
+           return null; 
+        }
+        
     }
     
     
