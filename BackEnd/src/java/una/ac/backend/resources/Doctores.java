@@ -17,9 +17,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import una.ac.backend.logic.Dia;
-import una.ac.backend.logic.Doctor;
-import una.ac.backend.logic.Service;
+import una.ac.cr.backend.logic.Dia;
+import una.ac.cr.backend.logic.Doctor;
+import una.ac.cr.backend.logic.Service;
 
 /**
  *
