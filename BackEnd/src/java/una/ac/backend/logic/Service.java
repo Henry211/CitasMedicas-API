@@ -1,12 +1,12 @@
 
-package una.ac.cr.backend.logic;
+package una.ac.backend.logic;
 
-import una.ac.cr.backend.data.AdministradorDao;
-import una.ac.cr.backend.data.CitaDao;
-import una.ac.cr.backend.data.CiudadDao;
-import una.ac.cr.backend.data.DoctorDao;
-import una.ac.cr.backend.data.EspecialidadDao;
-import una.ac.cr.backend.data.PacienteDao;
+import una.ac.backend.data.AdministradorDao;
+import una.ac.backend.data.CitaDao;
+import una.ac.backend.data.CiudadDao;
+import una.ac.backend.data.DoctorDao;
+import una.ac.backend.data.EspecialidadDao;
+import una.ac.backend.data.PacienteDao;
 import java.util.ArrayList;
 import java.util.List;
 

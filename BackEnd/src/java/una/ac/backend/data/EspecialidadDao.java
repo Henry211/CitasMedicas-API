@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package una.ac.cr.backend.data;
+package una.ac.backend.data;
 
-import una.ac.cr.backend.logic.Especialidad;
+import una.ac.backend.logic.Especialidad;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -16,10 +16,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import una.ac.cr.backend.logic.Cita;
-import una.ac.cr.backend.logic.Doctor;
-import una.ac.cr.backend.logic.Paciente;
-import una.ac.cr.backend.logic.Service;
+import una.ac.backend.logic.Cita;
+import una.ac.backend.logic.Doctor;
+import una.ac.backend.logic.Paciente;
+import una.ac.backend.logic.Service;
 
 /**
  *
