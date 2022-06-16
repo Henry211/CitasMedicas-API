@@ -45,7 +45,7 @@ function findPaciente(dia,hora){
     
     //- Cargar en LocalStorage al Paciente
     //- Cargar Perfil y Leer LocalStorage
-    localStorage.setItem("cita-paciente",JSON.stringify(cita));
+    localStorage.setItem("citaToPaciente",JSON.stringify(cita));
     location.href = 'listaPacientes.html';
 }
 
@@ -66,9 +66,15 @@ function cell(col, hora, iteracion) {
                 </div> 
             </div>`);
         tr.find("#makeBtn").on("click", ()=> {
+            
             console.log("it->"+ arr[iteracion])
             console.log("hora->"+ hora)
-            findPaciente(arr[iteracion],hora);
+            if(especial){
+                location.href = 'makeCita.html';
+            }else{
+                findPaciente(arr[iteracion],hora);
+            }
+            
         })
         col.append(tr);
     } else { // false -> Botón inhabilitado
@@ -472,6 +478,7 @@ function nextWeek(){
 function main() {
 
     iteracionWeek = 0;
+    
     
     if(localStorage.getItem('pacienteToCita')){
         pacienteToCita = localStorage.getItem('pacienteToCita')

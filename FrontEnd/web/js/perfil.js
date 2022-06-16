@@ -78,7 +78,14 @@ function fillMedico(){
 function agendarCita(){
     
     localStorage.setItem("pacienteToCita",JSON.stringify(paciente));
-    location.href = 'agenda.html';
+    
+    //- if(ya está la fecha) --> Detalle de cita y crear
+    if(localStorage.getItem('citaToPaciente')){
+        location.href = 'makeCita.html';
+    }else{
+        location.href = 'agenda.html';
+    }
+    
     
 }
 
@@ -96,8 +103,8 @@ function main(){
     //$('#add-modal').modal('show');// Editar en poop-up
     
     $("#citasBtn").click(verCitasBtn);
-    $("#agendar").click(agendarCita);
-    $("#editar").click(editarPaciente);
+    $("#agendarBtn").click(agendarCita);
+    $("#editarBtn").click(editarPaciente);
     
 }
 
