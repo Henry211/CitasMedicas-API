@@ -40,6 +40,10 @@ public class Service {
     public void createPaciente(Paciente paciente) throws Exception {
         pDao.create(paciente);
     }
+    
+    public void createCita(Cita cita) throws Exception {
+        citDao.create(cita);
+    }
 
     //administrador
     public Administrador administradorLogin(Administrador administrador) throws Exception {

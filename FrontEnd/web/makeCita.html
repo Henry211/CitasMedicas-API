@@ -7,10 +7,14 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="css/estilos.css">
       
+        <!--Material Design Bootstrap-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>       
+
     </head>
     <body>
         </br>
-        <form method="POST" name="Update" action="/proyecto1P4/presentation/medico/perfil/update" enctype = "multipart/form-data">
+        <form >
 
             <section class="d-flex justify-content-center">
                 <div class="card col-md-5 pad">
@@ -22,13 +26,13 @@
 
                         <div class="mb-2">
                             <label for="nombre">Nombre Paciente:</label>
-                            <p id="namePaciente">...</p>
+                            <p id="namePaciente"></p>
                             
                             <label for="cedula">Cedula: </label>
-                            <p id="cedulaPaciente">...</p><!-- comment -->
+                            <p id="cedulaPaciente"></p><!-- comment -->
                             
                             <label for="edad">Edad:</label>
-                            <p id="edadPaciente">...</p>
+                            <p id="edadPaciente"></p>
                                                        
                             
                         </div>
@@ -40,10 +44,10 @@
                             
                         <div class="mb-2">
                             <label for="dia">Día:</label>
-                            <p id="dia">...</p>
+                            <p id="diaCita"></p>
                             
                             <label for="hora">Hora </label>
-                            <p id="hora">...</p>
+                            <p id="horaCita"></p>
                                                        
                             
                         </div>
@@ -55,7 +59,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <button  type="submit" name="guardar" class="btn-editForm btn-primary"> <i class="fas fa-sign-in-alt"></i> Guardar</button>
+                                <button  type="button" id="guardarBtn" class="btn-editForm btn-primary"> <i class="fas fa-sign-in-alt"></i> Guardar</button>
 
                             </div>
                             <div class="col">
@@ -72,6 +76,7 @@
 
         </form>
 
+        <script src="js/makeCita.js"></script>
     </body>
 </html>
 

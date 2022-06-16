@@ -27,19 +27,19 @@ public class CitaDao {
     //registrar medico
     public void create(Cita u) throws Exception {
 
-        String sql = "insert into cita(idCita,estado,dateStr,horaStr,paciente,medico) "
-                + "values(?,?,?,?,?,?)";
+        String sql = "insert into cita(idCita,estado,dateStr,horaStr) "
+                + "values(?,?,?,?)";
 
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setInt(1, u.getIdCita());
+        stm.setInt(1, 3131233);
         stm.setString(2, u.getEstado());
         stm.setString(3, u.getDateStr());
         stm.setString(4, u.getHoraStr());
-        stm.setObject(5, u.getPaciente());
-        stm.setObject(6, u.getMedico());
+        //stm.setObject(5, u.getPaciente());
+        //stm.setObject(6, u.getMedico());
         byte[] image = new byte[]{0} ;
         InputStream targetStream = new ByteArrayInputStream(image);
-        stm.setBlob(7, targetStream);
+        //stm.setBlob(7, targetStream);
 
         int count = db.executeUpdate(stm);
         if (count == 0) {

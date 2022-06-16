@@ -16,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import una.ac.backend.logic.Cita;
 import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Paciente;
 import una.ac.backend.logic.Service;
@@ -32,8 +33,20 @@ public class Pacientes {
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Paciente pac){
         try{
-            System.out.println("PAciente->"+pac);
             Service.instance().createPaciente(pac);
+            
+        }catch(Exception e){
+            throw new NotAcceptableException();
+        }
+    }
+    
+    @POST
+    @Path("/cita")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createCita(Cita cita){
+        try{
+            System.out.println("CreateCita: "+cita);
+            Service.instance().createCita(cita);
             
         }catch(Exception e){
             throw new NotAcceptableException();
