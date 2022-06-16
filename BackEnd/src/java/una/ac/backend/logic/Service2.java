@@ -1,5 +1,3 @@
-package una.ac.cr.backend.logic;
-
 /*
 package una.ac.backend.logic;
 
