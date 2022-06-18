@@ -6,28 +6,29 @@ package una.ac.backend.logic;
 
 import java.time.LocalDateTime;
 
-/**
- *
- * @author ESCINF
- */
 public class Cita {
     int idCita;
     String estado;
-    LocalDateTime fecha;
     String dateStr;
     String horaStr;
+    String signo;
+    String diagnostico;
+    String medicina;
     Paciente paciente;
     Doctor medico;
 
+            
     public Cita() {
     }
 
-    public Cita(int idCita, String estado, LocalDateTime fecha, String dateStr, String horaStr, Paciente paciente, Doctor medico) {
+    public Cita(int idCita, String estado, String dateStr, String horaStr, String signo, String diagnostico, String medicina, Paciente paciente, Doctor medico) {
         this.idCita = idCita;
         this.estado = estado;
-        this.fecha = fecha;
         this.dateStr = dateStr;
         this.horaStr = horaStr;
+        this.signo = signo;
+        this.diagnostico = diagnostico;
+        this.medicina = medicina;
         this.paciente = paciente;
         this.medico = medico;
     }
@@ -56,12 +57,12 @@ public class Cita {
         this.estado = estado;
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public String getFecha() {
+        return dateStr;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+    public void setFecha(String dateStr) {
+        this.dateStr = dateStr;
     }
 
     public String getDateStr() {
@@ -70,6 +71,31 @@ public class Cita {
 
     public void setDateStr(String dateStr) {
         this.dateStr = dateStr;
+    }
+    
+    
+    public String getSigno() {
+        return signo;
+    }
+
+    public void setSigno(String signos) {
+        this.signo = signos;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
+    public String getMedicina() {
+        return medicina;
+    }
+
+    public void setMedicina(String medicina) {
+        this.medicina = medicina;
     }
 
     public String getHoraStr() {
@@ -120,9 +146,9 @@ public class Cita {
 
     @Override
     public String toString() {
-        return "Cita{" + "idCita=" + idCita + ", estado=" + estado + ", fecha=" + fecha + ", dateStr=" + dateStr + ", horaStr=" + horaStr + ", paciente=" + paciente + ", medico=" + medico + '}';
+        return "Cita{" + "idCita=" + idCita + ", estado=" + estado + ", dateStr=" + dateStr + ", horaStr=" + horaStr + ", signo=" + signo + ", diagnostiico" + diagnostico + ", medicina" + medicina + ", paciente=" + paciente + ", medico=" + medico + '}';
     }
     
-    
+    //String signos, String diagnostico, String medicina,
     
 }
