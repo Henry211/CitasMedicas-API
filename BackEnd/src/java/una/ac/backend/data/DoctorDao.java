@@ -28,15 +28,18 @@ public class DoctorDao {
     }
     public void create(Doctor u) throws Exception {
 
-        String sql = "insert into medico(nombre,idMedicos,clave,tarifa) "
-                + "values(?,?,?,?)";
+        String sql = "insert into medico(tipo,nombre,estado,idMedicos,clave,tarifa,nombre_provincia,nombre_especialidad)) "
+                + "values(?,?,?,?,?,?,?,?)";
 
         PreparedStatement stm = db.prepareStatement(sql);
-        //stm.setString(1, u.getTipo());
-        stm.setString(1, u.getNombre());
-        stm.setString(2, u.getId());
-        stm.setString(3, u.getPassword());
-        stm.setString(4, u.getTarifa());
+        stm.setString(1, u.getTipo());
+        stm.setString(2, u.getNombre());
+        stm.setString(3, u.getEstado());
+        stm.setString(4, u.getId());
+        stm.setString(5, u.getPassword());
+        stm.setString(6, u.getTarifa());
+        stm.setString(7, u.getLocalidad());
+        stm.setString(8, u.getEspecialidad());
         
         System.out.println("docName-> "+ u.getNombre());
         System.out.println("docId-> "+ u.getId());
@@ -114,8 +117,8 @@ public class DoctorDao {
                 + "where idMedicos=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getTarifa());
-        //stm.setObject(2, u.getLocalidad().getProvincia());
-        //stm.setObject(3, u.getEspecialidad().getEspecialidad());
+        stm.setString(2, u.getLocalidad());
+        stm.setString(3, u.getEspecialidad());
         //para imagen por base de datos
         //InputStream targetStream = new ByteArrayInputStream(u.getImage());
        // stm.setBlob(4, targetStream);
@@ -151,7 +154,24 @@ public class DoctorDao {
         return "Clave actualizada exitosamente";
     }
     
-     public ArrayList<Doctor> findAll() {
+         
+    public ArrayList<Doctor> findPendientes() {
+        ArrayList<Doctor> resultado = new ArrayList<>();
+        try {
+            String sql = "select * from medico c where c.estado ='Pendiente' ";
+            PreparedStatement stm = db.prepareStatement(sql);
+            ResultSet rs = db.executeQuery(stm);
+            Doctor c;
+            while (rs.next()) {
+                c = from(rs, "c");
+                resultado.add(c);
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+     
+    public ArrayList<Doctor> findAll() {
         ArrayList<Doctor> resultado = new ArrayList<>();
         try {
             String sql = "select * from medico ";

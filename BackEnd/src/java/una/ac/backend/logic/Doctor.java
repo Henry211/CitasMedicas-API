@@ -13,6 +13,7 @@ public class Doctor {
 
     public String tipo;
     public String nombre;
+    public String estado;
     public String id;
     public String password;
     public String especialidad;
@@ -23,9 +24,10 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String tipo,String nombre, String id, String password, String especialidad, String localidad, String tarifa) {
+    public Doctor(String tipo,String nombre, String estado, String id, String password, String especialidad, String localidad, String tarifa) {
         this.tipo = tipo;
         this.nombre = nombre;
+        this.estado = estado;
         this.id = id;
         this.password = password;
         this.especialidad = especialidad;
@@ -33,6 +35,14 @@ public class Doctor {
         this.tarifa = tarifa;
     }
 
+        
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
         
     public String getTipo() {
         return tipo;
