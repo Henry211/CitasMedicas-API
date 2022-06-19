@@ -9,6 +9,7 @@ import una.ac.backend.data.EspecialidadDao;
 import una.ac.backend.data.PacienteDao;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Service {
 
@@ -19,6 +20,7 @@ public class Service {
     CitaDao citDao = new CitaDao();
     EspecialidadDao esDao = new EspecialidadDao();
     //HorarioDao horDao = new HorarioDao();
+    static Map<String,Usuario> usuarios;
 
     public Service() {
     }
@@ -33,8 +35,11 @@ public class Service {
         return theInstance;
     }
 
-    // Service methods
-    //paciente
+    public static Usuario get(Usuario id)throws Exception{
+        Usuario result = usuarios.get(id.getId()); // usuario**
+        if (result==null) throw new Exception("Usuario no existe");
+        return result;
+    }   
    
 
     public void createPaciente(Paciente paciente) throws Exception {

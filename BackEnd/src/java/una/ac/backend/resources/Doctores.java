@@ -51,10 +51,10 @@ public class Doctores {
     @GET
     @Path("{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Doctor read(@PathParam("cedula") String cedula,Doctor d){
+    public Doctor read(@PathParam("cedula") String cedula){
         try{
             
-            return Service.instance().medicoLogin(d);
+            return null;//Service.instance().medicoLogin(d);
         }catch(Exception e){
             throw new NotFoundException();
         }

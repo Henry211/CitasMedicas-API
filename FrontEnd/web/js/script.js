@@ -1,8 +1,7 @@
 
 
 var backend = "http://localhost:8080/BackEnd/api";
-//var backend = "https://crudcrud.com/api/80909ca5f735420688ef880f614e5345";
-var  doctores = new Array();
+var doctores = new Array();
 var doctor={cedula:"", nombre:"",clave:""};
 var id="";
 
@@ -56,7 +55,7 @@ function load(){
     //---  Set Persona, antes del request.  !!
     doctor = Object.fromEntries( (new FormData($("#formulario").get(0))).entries());
 
-    console.log("Persona->");
+    console.log("Doctosh->");
     console.log(JSON.stringify(doctor));
 }
 
@@ -120,9 +119,42 @@ function render(){
     
     //*******************--------------------******************* */
     //add();
-    search();
+    //search();
+    login();
     //--------------------------------------------------------
 }
+
+function login(){
+        if (!loginValidar()) return;
+        usuario = {
+            id: $("#cedula").val(),
+            clave: $("#clave").val()
+        };
+    
+        //load();
+        console.log(JSON.stringify(usuario))
+        
+        let request = new Request(backend+'/login', {method: 'POST', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(usuario)});
+        (async ()=>{
+            const response = await fetch(request);
+            //if (!response.ok) {errorMessage(response.status,$("#loginDialog #errorDiv"));return;}
+            usuario = await response.json();
+            sessionStorage.setItem('user', JSON.stringify(usuario)); //- SESSION
+            $('#loginDialog').modal('hide');            
+           switch(usuario.rol){
+               case 'ADM': document.location = url+"listado.html"+ "?t="+Math.random(); break;
+               case 'CLI': document.location = url+"about.html"; break;
+           }                           
+        })(); 
+    
+  }
+  
+  
+ function loginValidar(){
+        /*$("#loginForm").addClass("was-validated");
+        return $("#loginForm").get(0).checkValidity(); */
+     return true;
+ }
 
 function reset(){
     doctor={cedula:"", nombre:"",sexo:""};

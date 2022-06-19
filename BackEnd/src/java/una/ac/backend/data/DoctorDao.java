@@ -180,6 +180,7 @@ public class DoctorDao {
             Doctor c;
             while (rs.next()) {
                 c = from(rs, "c");
+                System.out.println("Doc->"); // - error al getNombre del medico
                 resultado.add(c);
             }
         } catch (SQLException ex) {
@@ -194,6 +195,7 @@ public class DoctorDao {
             c.setTipo(rs.getString(alias + ".tipo"));
             c.setId(rs.getString(alias + ".idMedicos"));
             c.setNombre(rs.getString(alias + ".nombre"));
+            System.out.println("nombre: "+c.getNombre());
             c.setPassword(rs.getString(alias + ".clave"));
             c.setTarifa(rs.getString(alias + ".tarifa"));
             c.setEspecialidad(rs.getString(alias + ".nombre_especialidad"));

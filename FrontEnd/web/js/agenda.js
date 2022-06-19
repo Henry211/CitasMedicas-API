@@ -328,7 +328,7 @@ function loadShedule(dayString,fetchSemana){
     console.log("Semana two-> "+ JSON.stringify(fetchSemana))
     console.log("dayString-> "+ dayString)
     
-    switch(dayString){
+    switch(dayString){ // 1 = día del pasado || 0 = día presente o del futuro
 
         case "Monday":
             

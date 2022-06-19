@@ -8,7 +8,7 @@ package una.ac.backend.logic;
  *
  * @author ESCINF
  */
-public class Administrador {
+public class Administrador extends Usuario {
 
    String tipo; 
    String nombre;
