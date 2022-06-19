@@ -94,6 +94,25 @@ public class PacienteDao {
             throw new Exception("Paciente no existe");
         }
     }
+      
+      
+      
+    public void update(Paciente u) throws Exception {
+        String sql = "update paciente set nombre=?, enfermedades=?, alergias=?, cirugias=?, contacto_emergencia=? "
+                + "where cedula=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, u.getNombre());
+        stm.setString(2, u.getEnfermedad());
+        stm.setString(3, u.getAlergias());
+        stm.setString(4, u.getCirugia());
+        stm.setString(5, u.getContactoEmergencia());
+        stm.setString(6, u.getCedula());
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Cita no existe");
+        }
+    }
+
     
         Paciente from(ResultSet rs, String alias){
         try {
