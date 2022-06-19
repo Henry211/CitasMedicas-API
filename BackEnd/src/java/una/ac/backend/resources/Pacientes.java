@@ -85,7 +85,7 @@ public class Pacientes {
     public void update(@PathParam("cedula") String cedula, Paciente p){
         try{
             System.out.println("Update hey");
-            //Service.instance().doctorUpdate(d); 
+            //Service.instance().pacienteUpdate(p); 
             
         }catch(Exception e){
             throw new NotFoundException();

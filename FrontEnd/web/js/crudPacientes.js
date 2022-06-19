@@ -15,7 +15,7 @@ function showButton(person){
             const response = await fetch(request);
             
             person = await response.json();
-            console.log("Array2->"+JSON.stringify(person))
+            console.log("paciente->"+JSON.stringify(person))
             
             localStorage.setItem("pacientePerfil",JSON.stringify(person));
             location.href = 'perfil.html';

@@ -22,6 +22,8 @@ function fetchUpdate(){
 
 function saveUpdate(){
     
+    console.log("Button pressed")
+    
     paciente.nombre = $("#nombreId").val();
     paciente.cedula = $("#cedulaId").val();
     paciente.edad = $("#edadId").val();
@@ -37,7 +39,7 @@ function saveUpdate(){
 
 function main(){
     
-    console.log("Cargando main")
+    console.log("Cargando main..")
     
     paciente = JSON.parse(localStorage.getItem('pacientePerfil'));
     

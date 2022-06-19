@@ -95,6 +95,10 @@ public class Service {
     public Paciente pacienteByCedula(String cedula) throws Exception {
         return pDao.read(cedula);
     }
+    
+    public void pacienteUpdate(Paciente paciente) throws Exception {
+        //pDao.update(paciente);
+    }
 
 
 }
