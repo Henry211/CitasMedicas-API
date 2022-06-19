@@ -4,7 +4,6 @@
  */
 package una.ac.backend.authentication;
 
-import com.progra.personas.logic.Usuario;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,6 +13,7 @@ import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticatio
 import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import una.ac.backend.logic.Usuario;
 
 /**
  *

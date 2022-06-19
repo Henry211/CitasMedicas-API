@@ -8,8 +8,36 @@ function showButton(person){
     //console.log("Has visto a "+id);
     //- Cargar en LocalStorage al Paciente
     //- Cargar Perfil y Leer LocalStorage
-    localStorage.setItem("pacientePerfil",JSON.stringify(person));
-    location.href = 'perfil.html';
+    
+    const request = new Request(backend+'/pacientes/'+person.cedula, {method:'GET', headers: { }});
+    (async ()=> {
+        try{
+            const response = await fetch(request);
+            
+            person = await response.json();
+            console.log("Array2->"+JSON.stringify(person))
+            
+            localStorage.setItem("pacientePerfil",JSON.stringify(person));
+            location.href = 'perfil.html';
+            
+           
+        }catch(e){
+
+        }
+    })();
+    
+    /*function edit(cedula){
+    let request = new Request(url+'api/personas/'+cedula, {method: 'GET', headers: { }});
+    (async ()=>{
+        const response = await fetch(request);
+        if (!response.ok) {errorMessage(response.status,$("#buscarDiv #errorDiv"));return;}
+        persona = await response.json();
+        mode='E'; //editing
+        render();        
+    })();         
+  }*/
+    
+    
 
 }
 

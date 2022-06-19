@@ -5,6 +5,7 @@
 package una.ac.backend.resources;
 
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -30,6 +31,7 @@ import una.ac.backend.logic.Service;
 public class Pacientes {
     
     @POST
+    @RolesAllowed({"DOC"})  
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Paciente pac){
         try{
@@ -41,6 +43,7 @@ public class Pacientes {
     }
     
     @POST
+    @RolesAllowed({"DOC"}) 
     @Path("/cita")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createCita(Cita cita){
@@ -54,6 +57,7 @@ public class Pacientes {
     }
     
     @GET
+    //@RolesAllowed({"DOC"}) 
     @Produces(MediaType.APPLICATION_JSON)
     public List<Paciente> read() throws Exception{
         return Service.instance().findAllPacientes();
@@ -61,22 +65,26 @@ public class Pacientes {
     }
     
     @GET
+    //@RolesAllowed({"DOC"}) 
     @Path("{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
     public Paciente read(@PathParam("cedula") String cedula){
         try{
-            //return Service.instance().doctorRead(cedula);
-            return null;
+            System.out.println("hey");
+            return Service.instance().pacienteByCedula(cedula);
+           
         }catch(Exception e){
             throw new NotFoundException();
         }
     }
     
     @PUT
+    //@RolesAllowed({"DOC"}) 
     @Path("{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathParam("cedula") String cedula, Paciente p){
         try{
+            System.out.println("Update hey");
             //Service.instance().doctorUpdate(d); 
             
         }catch(Exception e){
@@ -85,6 +93,7 @@ public class Pacientes {
     }
     
     @DELETE
+    @RolesAllowed({"DOC"}) 
     @Path("{cedula}")
     public void delete(@PathParam("cedula") String cedula){
         try{

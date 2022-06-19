@@ -6,6 +6,7 @@ package una.ac.backend.resources;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -41,7 +42,9 @@ public class Doctores {
         }
     }
     
+      
     @GET
+    @RolesAllowed({"ADM"})  //-- listar medicos para aceptar registros
     @Produces(MediaType.APPLICATION_JSON)
     public List<Doctor> read() throws Exception{
         return Service.instance().findAllMedicos();

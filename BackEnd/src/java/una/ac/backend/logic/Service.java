@@ -91,6 +91,10 @@ public class Service {
     public void pacienteDelete(String pac) throws Exception {
         pDao.delete(pac);
     }
+    
+    public Paciente pacienteByCedula(String cedula) throws Exception {
+        return pDao.read(cedula);
+    }
 
 
 }
