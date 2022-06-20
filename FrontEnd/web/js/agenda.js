@@ -480,9 +480,6 @@ function prepareWeek(theWeek,boolL,boolM,boolI,boolJ,boolV){
 function loadShedule(dayString,fetchSemana){
     
     
-    console.log("Semana two-> "+ JSON.stringify(fetchSemana))
-    console.log("dayString-> "+ dayString)
-    
     switch(dayString){ // 1 = día del pasado || 0 = día presente o del futuro
 
         case "Monday":
@@ -532,6 +529,10 @@ function validarFecha(weekCount,fecha){
 
     //fecha = new Date();
     let day = fecha.toLocaleString('en-us', {weekday: 'long'});
+    let mes = fecha.toLocaleString('en-us', {month: 'long'});
+
+    console.log("mes: "+mes);
+    document.getElementById("mesTitle").innerHTML = "mess";
     
 
     
