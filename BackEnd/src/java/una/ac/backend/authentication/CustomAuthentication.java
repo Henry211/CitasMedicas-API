@@ -20,6 +20,7 @@ import una.ac.backend.logic.Usuario;
  *
  * @author Henry
  */
+/*
 @ApplicationScoped
 public class CustomAuthentication 
   implements HttpAuthenticationMechanism {
@@ -31,10 +32,11 @@ public class CustomAuthentication
            if(user!=null)
               return httpMsgContext.notifyContainerAboutLogin(
                 new Principal() { @Override public String getName() { return user.getNombre();}},
-                new HashSet<>(Arrays.asList(new String[]{user.getTipo()})));
+                new HashSet<>(Arrays.asList(new String[]{"CLI"})));
            else
               return httpMsgContext.notifyContainerAboutLogin(
                 new Principal() { @Override public String getName() { return "none";}},
                 new HashSet<>());               
     }
 }
+*/

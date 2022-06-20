@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="tool">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/tool/itext7-kernel-7.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/tool/itext7-io-7.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/tool/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/tool/mysql-connector-java-8.0.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/tool/itext7-layout-7.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/tool/jersey-media-multipart-3.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
