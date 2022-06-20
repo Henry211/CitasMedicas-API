@@ -40,7 +40,7 @@ function iteracionDay(i){
 }
 
 function findPaciente(dia,hora){    // día & hora
-    console.log("FINDPACIENTE")
+
     let cita={hora:"",dia:""};
     cita.hora = hora;
     cita.dia = dia;
@@ -77,49 +77,51 @@ function occupiedCell(dayColumn,iteracion){
 
 }
 
-function cell(col, hora, iteracion, horasString, ocupadas) {// con la iteración puedo saber la hora
+function cell(col, hora, iteracionDeSemana, horasString, ocupadas, iteracionDeHora) {// con la iteración puedo saber la hora
     var tr = $("<tr />");
-    var dayLetter = iteracionDay(iteracion);
+    var dayLetter = iteracionDay(iteracionDeSemana);
     
     
+    console.log("iteracion de Hora: "+ iteracionDeHora)
+    console.log("iteracion de Semana: "+ iteracionDeSemana)
 
-    if (hora && !ocupadas[iteracion]) { // true -> Botón habilitado
+    if (hora && !ocupadas[iteracionDeHora]) { // true -> Botón habilitado
         
         tr.html(`
             <div class="horas">        
                 <div class="calendario_dia" draggable="true">                  
                     <div class="hora-row ableButton">
-                       <button type="button" id="makeBtn" class="cardButton">cita</button>
+                       <button type="button" id="makeBtn" class="agendarButton">agendar</button>
                     </div>
                 </div> 
             </div>`);
         tr.find("#makeBtn").on("click", ()=> {
             
-            console.log("it->"+ arrayDiasSemana[iteracion])
-            console.log("hora->"+ horasString[iteracion])
+            console.log("it->"+ arrayDiasSemana[iteracionDeSemana])
+            console.log("hora->"+ horasString[iteracionDeSemana])
             if(especial){
                 location.href = 'makeCita.html';
             }else{
-                findPaciente(arrayDiasSemana[iteracion],horasString[iteracion]);// día & hora
+                findPaciente(arrayDiasSemana[iteracionDeSemana],horasString[iteracionDeHora]);// día & hora
             }
             
         })
         col.append(tr);
     }
     
-    else if(ocupadas[iteracion]){
+    else if(ocupadas[iteracionDeHora]){
         tr.html(`
             <div class="horas">        
                 <div class="calendario_dia" draggable="true">                  
-                    <div class="hora-row ableButton">
-                       <button type="button" id="atenderBtn" class="cardButton">atender</button>
+                    <div class="hora-row busyButton">
+                       <button type="button" id="atenderBtn" class="atenderButton">atender</button>
                     </div>
                 </div> 
             </div>`);
         tr.find("#atenderBtn").on("click", ()=> {
             
-            console.log("it->"+ arrayDiasSemana[iteracion])
-            console.log("hora->"+ horasString[iteracion])
+            console.log("it->"+ arrayDiasSemana[iteracionDeSemana])
+            console.log("hora->"+ horasString[iteracionDeSemana])
             
             location.href = 'afterCita.html';
             
@@ -222,30 +224,32 @@ function printDayNames(lu,ma,mi,ju,vi){
 }
 
 function existeCita(toAnalize,citasFromDB){
-    console.log("toAnalize: "+toAnalize+"<-");
+    
+    console.log("Analizando si existe cita en la fecha: "+ toAnalize)
+    var b = 0;
     var fromDB;
     citasFromDB.forEach((c) => {
       
        fromDB = c.dateStr + " "+c.horaStr;
-       console.log("--citaFromDB: "+ fromDB+"<-");
+       console.log("citaFromDB: "+ fromDB+"<-");
        if(toAnalize == fromDB){
            console.log("TRUE!!")
-           return true;
+           b = 1;
        }
     })
-    return false;
+    if(b == 1) return true;
+    else return false;
 }
 
 function calcOcupadas(frequency,iteracion){ 
     
-    console.log("citaValidate()...");
+    console.log("calcOcupadas() array of 1,1,0,1,0,0...");
     //-- usar citasDeMedico
     
     /* count cells = 21 when frequency = 30min  (8am->6pm) */
     let ocupadas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let horasString;
     
-    console.log("Frequemy: "+frequency);
     if(frequency == 30){
         horasString  = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
     }else if(frequency == 60){
@@ -253,26 +257,25 @@ function calcOcupadas(frequency,iteracion){
     }
     
     let i = 0;
-    
-    console.log(arrayDiasSemana[iteracion]);
-    let strDate;
+    console.log("arrayDiasSemana[iteracion] = "+arrayDiasSemana[iteracion]);
     var citasFromDB = JSON.stringify(citasDeMedico);
     
     horasString.forEach((h) => {
     // comparar cada elemento (se recorren todas las citas existentes)
-        console.log("citasDeMedico->"+ citasFromDB);
         
-        var str = arrayDiasSemana[iteracion] +" "+ h;/// arrayDiasSEmana[iteracion] viene mal
-        console.log("compare ->"+str+ " -*- "+citasFromDB);
+        var str = arrayDiasSemana[iteracion] +" "+ h;/// arrayDiasSEmana[iteracion] viene mal 
         
-        if(existeCita(str,citasDeMedico)){
-            console.log("ENTRO!")
+        if(existeCita(str,citasDeMedico) == 1){
+            console.log("ENTRO en ocupada!  setting ocupadas[i] = 1")
+            //console.log("")
             ocupadas[i] = 1;
         }
         
         i++;
     })
-
+    
+    
+    console.log("return ocupadasArray = "+ ocupadas);
     return ocupadas;
 }
 
@@ -368,7 +371,7 @@ function printElements(fetchSemana){
                 
                     // VALIDAR aquí si la cita ya existe
             //        if(citaValidate(30,i)){//- params (frequency y iteracion)
-                        cell($(this), h, i, horasString, ocupadas);// ->     h  ==  1 || 0    i == 1,2,3,4,5 (l,m,i,j,v)
+                        cell($(this), h, i, horasString, ocupadas,count);// ->     h  ==  1 || 0    i == 1,2,3,4,5 (l,m,i,j,v)
             //        }else{
                         // cita ocupada
             //            occupiedCell($(this),i);

@@ -76,6 +76,10 @@ body{
     /*habilitar el boton*/
 }
 
+.busyButton{
+    background-color: lightsalmon;
+}
+
 .unableButton{
     background-color: lightslategray;
     /* HAcer el boton inhabilitado */
@@ -134,7 +138,7 @@ body{
     /* overflow: hidden; */
 }
 
-.cardButton{
+.agendarButton{
     /*list-style: none;
      text-align: center;
      background-color: #01AAAD;
@@ -142,6 +146,20 @@ body{
      line-height: 60px;*/
     color:whitesmoke;
     background-color: lightseagreen;
+   border-radius: 15%;
+    height: 40px;
+    width: 100px;
+    margin-top: 5px;
+}
+
+.atenderButton{
+    /*list-style: none;
+     text-align: center;
+     background-color: #01AAAD;
+     width: 150px;margin:0;
+     line-height: 60px;*/
+    color:whitesmoke;
+    background-color: lightsalmon;
    border-radius: 15%;
     height: 40px;
     width: 100px;
