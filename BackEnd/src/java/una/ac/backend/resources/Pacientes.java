@@ -34,7 +34,6 @@ public class Pacientes {
     HttpServletRequest request;
     
     @POST
-    //@RolesAllowed({"DOC"})  
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Paciente pac){
         try{
@@ -46,7 +45,6 @@ public class Pacientes {
     }
     
     @POST
-    //@RolesAllowed({"DOC"}) 
     @Path("/cita/{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createCita(@PathParam("cedula") String cedula, Cita cita){
@@ -70,7 +68,6 @@ public class Pacientes {
     }
     
     @GET
-    //@RolesAllowed({"DOC"}) 
     @Produces(MediaType.APPLICATION_JSON)
     public List<Paciente> read() throws Exception{
         return Service.instance().findAllPacientes();
@@ -78,7 +75,6 @@ public class Pacientes {
     }
     
     @GET
-    //@RolesAllowed({"DOC"}) 
     @Path("{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
     public Paciente read(@PathParam("cedula") String cedula){
@@ -92,7 +88,6 @@ public class Pacientes {
     }
     
     @PUT
-    //@RolesAllowed({"DOC"}) 
     @Path("{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathParam("cedula") String cedula, Paciente p){
@@ -106,7 +101,6 @@ public class Pacientes {
     }
     
     @DELETE
-    @RolesAllowed({"DOC"}) 
     @Path("{cedula}")
     public void delete(@PathParam("cedula") String cedula){
         try{
