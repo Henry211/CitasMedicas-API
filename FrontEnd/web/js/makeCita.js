@@ -5,8 +5,6 @@ var backend = "http://localhost:8080/BackEnd/api";
 
 function fillData(){
 
-    localStoreage.removeItem('pacienteToCita');
-    
     paciente = JSON.parse(localStorage.getItem('pacienteToCita'));
     date = JSON.parse(localStorage.getItem('citaToPaciente'));
         
@@ -52,7 +50,6 @@ function fetchGuardar(){
 function main(){
     
     fillData();
-    alert("HEY")
     
     $('#guardarBtn').click(fetchGuardar);
 }

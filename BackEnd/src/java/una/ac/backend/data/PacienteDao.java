@@ -112,9 +112,11 @@ public class PacienteDao {
     }
 
     public void update(Paciente u) throws Exception {
+        System.out.println("update method PacienteDAO...........");
         String sql = "update paciente set nombre=?, peso=?, edad=?, enfermedades=?, alergias=?, cirugias=?, contacto_emergencia=? "
                 + "where cedula=?";
         PreparedStatement stm = db.prepareStatement(sql);
+        System.out.println("Paciente->"+ u);
         stm.setString(1, u.getNombre());
         stm.setString(2, u.getPeso());
         stm.setString(3, u.getEdad());

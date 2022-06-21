@@ -141,7 +141,7 @@ public class Service {
     }
     
     public void pacienteUpdate(Paciente paciente) throws Exception {
-        //pDao.update(paciente);
+        pDao.update(paciente);
     }
     
      public ArrayList<Cita> findCitasByCedula(String cedula) throws Exception {
