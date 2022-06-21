@@ -57,7 +57,6 @@ public class Doctores {
     }
     
     @GET
-    @RolesAllowed({"ADM"})  //-- listar medicos para aceptar registros
     @Produces(MediaType.APPLICATION_JSON)
     public List<Doctor> read() throws Exception {
         return Service.instance().findAllMedicos();
@@ -101,7 +100,6 @@ public class Doctores {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"ADM"})  
     public void update(Doctor p) {  
         try {
             Service.instance().editarMedico(p);
@@ -118,6 +116,20 @@ public class Doctores {
         try {
             
             return Service.instance().getMedicoDias(cedula);
+        } catch (Exception e) {
+            throw new NotFoundException();
+        
+        }
+    }
+    
+    
+    @GET
+    @Path("/afterCita/{hora}/{dia}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Cita afterCita(@PathParam("hora") String hora, @PathParam("dia") String dia) {
+        try {
+            System.out.println("hora: "+ hora + ",  dia: "+dia);
+            return null;
         } catch (Exception e) {
             throw new NotFoundException();
         
