@@ -5,6 +5,8 @@ var backend = "http://localhost:8080/BackEnd/api";
 
 function fillData(){
 
+    localStoreage.removeItem('pacienteToCita');
+    
     paciente = JSON.parse(localStorage.getItem('pacienteToCita'));
     date = JSON.parse(localStorage.getItem('citaToPaciente'));
         
@@ -29,6 +31,9 @@ function fillData(){
 function fetchGuardar(){
     
     
+    location.href = 'agenda.html';
+    console.log("Guardando cita...")
+    
     const request = new Request(backend+'/pacientes/cita/'+paciente.cedula, // Pasarle por parametro el id paciente 
             {method: 'POST', 
                 headers: { 'Content-Type': 'application/json'},
@@ -47,6 +52,7 @@ function fetchGuardar(){
 function main(){
     
     fillData();
+    alert("HEY")
     
     $('#guardarBtn').click(fetchGuardar);
 }

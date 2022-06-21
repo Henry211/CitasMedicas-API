@@ -15,18 +15,19 @@ import java.util.ArrayList;
  * @author ESCINF
  */
 public class PacienteDao {
-       Database db;
+
+    Database db;
 
     public PacienteDao() {
-        db= Database.instance();
+        db = Database.instance();
     }
-      
+
     //inserta pacientes
-     public void create(Paciente u) throws Exception{
-        String sql="insert into paciente (nombre,cedula,peso,edad,enfermedades,alergias,cirugias,contacto_emergencia) "+
-                "values(?,?,?,?,?,?,?,?)";
+    public void create(Paciente u) throws Exception {
+        String sql = "insert into paciente (nombre,cedula,peso,edad,enfermedades,alergias,cirugias,contacto_emergencia) "
+                + "values(?,?,?,?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-     
+
         stm.setString(1, u.getNombre());
         stm.setString(2, u.getCedula());
         stm.setString(3, u.getPeso());
@@ -35,58 +36,58 @@ public class PacienteDao {
         stm.setString(6, u.getAlergias());
         stm.setString(7, u.getCirugias());
         stm.setString(8, u.getContacto_emergencia());
-        int count=db.executeUpdate(stm);
-        if (count==0){
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
             throw new Exception("Paciente ya existe");
         }
     }
-     //trae pacientes 
-     public Paciente select(Paciente u) throws Exception{
+    //trae pacientes 
+
+    public Paciente select(Paciente u) throws Exception {
         String sql = "select * from paciente";
         PreparedStatement stm = db.prepareStatement(sql);
-        ResultSet rs =  db.executeQuery(stm);
+        ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
-            Paciente c = from(rs, "c"); 
+            Paciente c = from(rs, "c");
             return c;
-        }
-        else{
-            throw new Exception ("Paciente existente");
+        } else {
+            throw new Exception("Paciente existente");
         }
     }
-     //trae pacientes por cedula
-     public Paciente read(String u) throws Exception{
+    //trae pacientes por cedula
+
+    public Paciente read(String u) throws Exception {
         String sql = "select * from paciente c where c.cedula=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u);
-        ResultSet rs =  db.executeQuery(stm);
+        ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
-            Paciente c = from(rs, "c"); 
+            Paciente c = from(rs, "c");
             return c;
-        }
-        else{
-            throw new Exception ("Paciente no existe");
+        } else {
+            throw new Exception("Paciente no existe");
         }
     }
-     
-      public Paciente byCitaId(String id) throws Exception{
-        String sql = "select * from paciente c where c.cedula=?";
+
+    public Paciente byCitaId(String u) throws Exception {
+        String sql = "select * from paciente c inner join "
+                + "cita m on c.cedula= m.Paciente_cedula where m.idCitas=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, id);
-        ResultSet rs =  db.executeQuery(stm);
+        stm.setString(1, u);
+        ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
-            Paciente c = from(rs, "c"); 
+            Paciente c = from(rs, "c");
             return c;
-        }
-        else{
-            throw new Exception ("Paciente no existe");
+        } else {
+            throw new Exception("Cita no existe");
         }
     }
-     
-     //Lista TODOS LOS PACIENTES
-      public ArrayList<Paciente> findAll() {
+
+    //Lista TODOS LOS PACIENTES
+    public ArrayList<Paciente> findAll() {
         ArrayList<Paciente> resultado = new ArrayList<>();
         try {
-            String sql = "select * from paciente c";
+            String sql = "select * from paciente c;";
             PreparedStatement stm = db.prepareStatement(sql);
             ResultSet rs = db.executeQuery(stm);
             Paciente c;
@@ -98,9 +99,9 @@ public class PacienteDao {
         }
         return resultado;
     }
-      
-      public void delete(String cedula) throws Exception {
-          System.out.println("BorrarPAciente");
+
+    public void delete(String cedula) throws Exception {
+        System.out.println("BorrarPAciente");
         String sql = "delete from paciente where cedula=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);
@@ -109,9 +110,7 @@ public class PacienteDao {
             throw new Exception("Paciente no existe");
         }
     }
-      
-      
-      
+
     public void update(Paciente u) throws Exception {
         String sql = "update paciente set nombre=?, peso=?, edad=?, enfermedades=?, alergias=?, cirugias=?, contacto_emergencia=? "
                 + "where cedula=?";
@@ -130,23 +129,21 @@ public class PacienteDao {
         }
     }
 
-    
-        Paciente from(ResultSet rs, String alias){
+    Paciente from(ResultSet rs, String alias) {
         try {
-            Paciente c= new Paciente();
-            c.setCedula(rs.getString(alias+".cedula"));
-            c.setNombre(rs.getString(alias+".nombre"));
-            c.setPeso(rs.getString(alias+".peso"));
-            c.setEdad(rs.getString(alias+".edad"));
-            c.setEnfermedades(rs.getString(alias+".enfermedades"));
-            c.setAlergias(rs.getString(alias+".alergias"));
-            c.setCirugias(rs.getString(alias+".cirugias"));
-            c.setContacto_emergencia(rs.getString(alias+".contacto_emergencia"));
+            Paciente c = new Paciente();
+            c.setCedula(rs.getString(alias + ".cedula"));
+            c.setNombre(rs.getString(alias + ".nombre"));
+            c.setPeso(rs.getString(alias + ".peso"));
+            c.setEdad(rs.getString(alias + ".edad"));
+            c.setEnfermedades(rs.getString(alias + ".enfermedades"));
+            c.setAlergias(rs.getString(alias + ".alergias"));
+            c.setCirugias(rs.getString(alias + ".cirugias"));
+            c.setContacto_emergencia(rs.getString(alias + ".contacto_emergencia"));
             return c;
         } catch (SQLException ex) {
             return null;
         }
     }
-       
-    
+
 }

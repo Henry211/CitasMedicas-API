@@ -133,12 +133,13 @@ public class Doctores {
 
     //----------
     @GET
-    @Path("/dias/{cedula}")
+    @Path("/dias")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Dia> readDias(@PathParam("cedula") String cedula) {
+    public ArrayList<Dia> readDias() {
         try {
-
-            return Service.instance().getMedicoDias(cedula);
+            Doctor user = (Doctor) request.getSession(true).getAttribute("user");
+            String idMedico = user.getId();
+            return Service.instance().getMedicoDias(idMedico);
         } catch (Exception e) {
             throw new NotFoundException();
 

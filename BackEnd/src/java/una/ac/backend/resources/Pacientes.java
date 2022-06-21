@@ -70,6 +70,7 @@ public class Pacientes {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Paciente> read() throws Exception{
+        System.out.println("read pacientes..");
         return Service.instance().findAllPacientes();
        
     }

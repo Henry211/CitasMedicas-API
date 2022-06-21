@@ -159,11 +159,9 @@ function login(){
             // lo importante es setearlo en el session de backend
             console.log("user->"+ JSON.stringify(usuario));
             sessionStorage.setItem('user', JSON.stringify(usuario)); //- SESSION
-            $('#loginDialog').modal('hide');            
-           switch(usuario.rol){
-               case 'Medico': document.location = url+"listado.html"+ "?t="+Math.random(); break;
-               case 'Administrador': document.location = url+"about.html"; break;
-           }                           
+            location.href = 'agenda.html';
+            console.log("change route")
+                                     
         })();   
   }
   

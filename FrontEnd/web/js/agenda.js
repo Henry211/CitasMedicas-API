@@ -386,9 +386,7 @@ function printElements(fetchSemana) {
 
 function fetchShedule(dayString) {
 
-    var cedula = "2222";
-
-    const request = new Request(backend + '/doctores/dias/' + cedula, {method: 'GET', headers: {}});
+    const request = new Request(backend + '/doctores/dias', {method: 'GET', headers: {}});
     (async () => {
         try {
             const response = await fetch(request);
@@ -627,6 +625,9 @@ function main() {
         especial = true;
         console.log("Vista Especial")
     }
+    
+    localStorage.removeItem('citaToPaciente');
+    localStorage.removeItem('atenderCita');
 
     date = new Date();
 
