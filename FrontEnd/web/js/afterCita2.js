@@ -14,7 +14,24 @@ function fillData(){
     //**************
 }
 
-function fetchPacienteData(pac){
+function fetchPacienteData(idCita){
+    
+    const request = new Request(backend+'/pacientes/byCitaId/'+idCita, {method:'GET', headers: { }});
+    (async ()=> {
+        try{
+            const response = await fetch(request);
+            
+            paciente = await response.json();
+            console.log("paciente->"+JSON.stringify(paciente))
+            
+            fillData();
+            
+            //localStorage.setItem("pacientePerfil",JSON.stringify(person));          
+           
+        }catch(e){
+
+        }
+    })();
     
 }
 
@@ -30,15 +47,34 @@ function fetchCitaData(citaSimple){
             cita = await response.json();
             console.log("cita->"+JSON.stringify(cita))
             
-            fetchPacienteData(cita.paciente);
-            fillData();
+            fetchPacienteData(cita.idCita);
             
-            //localStorage.setItem("pacientePerfil",JSON.stringify(person));          
-           
         }catch(e){
 
         }
     })();
+}
+
+
+function guardarBtn(){
+    
+    // UPDATE cita
+    
+    var newCita = {signos:"",diagnostico:"",prescripcion:"",estado:false};
+    
+    const request = new Request(backend+'/doctores/updateCita', 
+        {method: 'PUT', headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(newCita)});
+    (async ()=>{
+        try{
+            const response = await fetch(request);
+            //if (!response.ok) {errorMessage(response.status,$("#add-modal #errorDiv"));return;}
+            
+        }
+        catch(e){
+            errorMessage(NET_ERR,$("#add-modal #errorDiv"));
+        } 
+    })();   
 }
 
 function main(){
@@ -46,7 +82,15 @@ function main(){
     var citaSimple = localStorage.getItem("atenderCita");
     console.log("cita: "+ citaSimple);
     
-    fetchCitaData(JSON.parse(citaSimple));
+    cita = localStorage.getItem("verCita");
+    
+    console.log("cita->"+cita)
+            
+    fetchPacienteData(cita.paciente);
+            //fillData();
+    //fetchCitaData(JSON.parse(citaSimple));
+    
+    $("#guardarBtn").click(guardarBtn);
     
 }
 

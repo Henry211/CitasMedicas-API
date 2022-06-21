@@ -57,7 +57,6 @@ function printCitas(array) {
 
 function showButton(c){
     
-    console.log("SHOW BUTTON "+ c.idCita)
     const request = new Request(backend+'/doctores/citaById/'+c.idCita, {method:'GET', headers: { }});
     (async ()=> {
         try{
@@ -66,8 +65,9 @@ function showButton(c){
             c = await response.json();
             console.log("cita**->"+JSON.stringify(c))
             
-            //localStorage.setItem("pacientePerfil",JSON.stringify(c));
-            //location.href = 'perfil.html';
+            
+            localStorage.setItem("verCita",JSON.stringify(c));
+            location.href = 'afterCita.html';
             
            
         }catch(e){

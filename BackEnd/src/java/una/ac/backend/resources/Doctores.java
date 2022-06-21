@@ -119,6 +119,17 @@ public class Doctores {
             throw new NotFoundException();
         }
     }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/updateCita")
+    public void updateCita(Cita c) {
+        try {
+            Service.instance().updateCita(c);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
 
     //----------
     @GET

@@ -79,8 +79,20 @@ public class Pacientes {
     @Produces(MediaType.APPLICATION_JSON)
     public Paciente read(@PathParam("cedula") String cedula){
         try{
-            System.out.println("hey");
             return Service.instance().pacienteByCedula(cedula);
+           
+        }catch(Exception e){
+            throw new NotFoundException();
+        }
+    }
+    
+    @GET
+    @Path("/byCitaId/{idCita}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Paciente byCitaId(@PathParam("idCita") String idCita){
+        try{
+            System.out.println("byCitaId");
+            return Service.instance().pacienteByCitaId(idCita);
            
         }catch(Exception e){
             throw new NotFoundException();

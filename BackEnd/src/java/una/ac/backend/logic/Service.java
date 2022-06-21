@@ -103,6 +103,10 @@ public class Service {
     public void editarMedico(Doctor medico) throws Exception {
         mDao.update(medico);
     }
+    
+    public void updateCita(Cita cita) throws Exception {
+        citDao.update(cita);
+    }
 
     public void createMedico(Doctor medico) throws Exception {
         mDao.create(medico);
@@ -130,6 +134,10 @@ public class Service {
     
     public Paciente pacienteByCedula(String cedula) throws Exception {
         return pDao.read(cedula);
+    }
+    
+    public Paciente pacienteByCitaId(String idCita) throws Exception {
+        return pDao.byCitaId(idCita);
     }
     
     public void pacienteUpdate(Paciente paciente) throws Exception {

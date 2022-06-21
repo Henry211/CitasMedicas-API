@@ -68,6 +68,20 @@ public class PacienteDao {
         }
     }
      
+      public Paciente byCitaId(String id) throws Exception{
+        String sql = "select * from paciente c where c.cedula=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, id);
+        ResultSet rs =  db.executeQuery(stm);
+        if (rs.next()) {
+            Paciente c = from(rs, "c"); 
+            return c;
+        }
+        else{
+            throw new Exception ("Paciente no existe");
+        }
+    }
+     
      //Lista TODOS LOS PACIENTES
       public ArrayList<Paciente> findAll() {
         ArrayList<Paciente> resultado = new ArrayList<>();
