@@ -102,9 +102,10 @@ public class PacienteDao {
 
     public void delete(String cedula) throws Exception {
         System.out.println("BorrarPAciente");
-        String sql = "delete from paciente where cedula=?";
+        String sql = "delete from paciente where cedula=?;";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);
+        System.out.println("SQL->"+stm);
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Paciente no existe");
