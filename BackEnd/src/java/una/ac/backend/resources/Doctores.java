@@ -36,14 +36,14 @@ import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Horario;
 import una.ac.backend.logic.Service;
 
-
 @Path("/doctores")
 public class Doctores {
-    String location="C:/AAA/images/";
-    
+
+    String location = "C:/AAA/images/";
+
     @Context
     HttpServletRequest request;
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Doctor doc) {
@@ -55,14 +55,27 @@ public class Doctores {
             throw new NotAcceptableException();
         }
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Doctor> read() throws Exception {
         return Service.instance().findAllMedicos();
 
     }
+
+    @GET
+    @Path("/citaById/{idCita}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Cita citaById(@PathParam("idCita") String idCita) {
+        try {
+            System.out.println("VER CITA -"+idCita);
+            return Service.instance().citaById(idCita);
+        } catch (Exception e) {
+            throw new NotFoundException();
+        }
+    }
 //----------------Imagen
+
     @GET
     @Path("{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,69 +87,66 @@ public class Doctores {
             throw new NotFoundException();
         }
     }
-    
+
     @GET
     @Path("{cedula}/imagen")
     @Produces("image/png")
     public Response getImge(@PathParam("cedula") String cedula) throws IOException {
-        File file = new File(location+cedula);
+        File file = new File(location + cedula);
         ResponseBuilder response = Response.ok((Object) file);
         return response.build();
-    }    
-    
-        
+    }
+
     @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA) 
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Path("{cedula}/imagen")
-    public void addImage(@PathParam("cedula") String cedula, @FormDataParam("imagen") InputStream in) {  
-        try{
-                OutputStream out = new FileOutputStream(new File(location + cedula));
-                in.transferTo(out);
-                out.close();
-            } catch (Exception ex) {
-                throw new NotAcceptableException(); 
-            }
+    public void addImage(@PathParam("cedula") String cedula, @FormDataParam("imagen") InputStream in) {
+        try {
+            OutputStream out = new FileOutputStream(new File(location + cedula));
+            in.transferTo(out);
+            out.close();
+        } catch (Exception ex) {
+            throw new NotAcceptableException();
+        }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Doctor p) {  
+    public void update(Doctor p) {
         try {
             Service.instance().editarMedico(p);
         } catch (Exception ex) {
-            throw new NotFoundException(); 
+            throw new NotFoundException();
         }
     }
-    
+
     //----------
     @GET
     @Path("/dias/{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Dia> readDias(@PathParam("cedula") String cedula) {
         try {
-            
+
             return Service.instance().getMedicoDias(cedula);
         } catch (Exception e) {
             throw new NotFoundException();
-        
+
         }
     }
-    
-    
+
     @GET
     @Path("/afterCita/{hora}/{dia}")
     @Produces(MediaType.APPLICATION_JSON)
     public Cita afterCita(@PathParam("hora") String hora, @PathParam("dia") String dia) {
         try {
-            System.out.println("hora: "+ hora + ",  dia: "+dia);
+            System.out.println("hora: " + hora + ",  dia: " + dia);
             return null;
         } catch (Exception e) {
             throw new NotFoundException();
-        
+
         }
     }
-    
-    
+
     @GET
     @Path("/citasExistentes")
     @Produces(MediaType.APPLICATION_JSON)
@@ -147,7 +157,7 @@ public class Doctores {
             return Service.instance().findCitasByCedula(idMedico);
         } catch (Exception e) {
             throw new NotFoundException();
-        
+
         }
     }
 

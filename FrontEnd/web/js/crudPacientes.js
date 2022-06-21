@@ -26,16 +26,7 @@ function showButton(person){
         }
     })();
     
-    /*function edit(cedula){
-    let request = new Request(url+'api/personas/'+cedula, {method: 'GET', headers: { }});
-    (async ()=>{
-        const response = await fetch(request);
-        if (!response.ok) {errorMessage(response.status,$("#buscarDiv #errorDiv"));return;}
-        persona = await response.json();
-        mode='E'; //editing
-        render();        
-    })();         
-  }*/
+
     
     
 

@@ -139,6 +139,10 @@ public class Service {
      public ArrayList<Cita> findCitasByCedula(String cedula) throws Exception {
         return citDao.readByMedico(cedula);
     }
+     
+      public Cita citaById(String idCita) throws Exception {
+        return citDao.readById(idCita);
+    }
     
     
 

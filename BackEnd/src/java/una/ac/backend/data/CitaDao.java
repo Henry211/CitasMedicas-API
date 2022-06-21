@@ -92,13 +92,15 @@ public class CitaDao {
     }
     
     // selec por id 
-    public Cita read(Cita u) throws Exception {
-        String sql = "select * from cita c where idCitas=?";
+    public Cita readById(String idCita) throws Exception {
+        String sql = "select * from cita c where idCitas=?;";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setInt(1, u.getIdCita());
+        stm.setString(1, idCita);
         ResultSet rs = db.executeQuery(stm);
+        System.out.println("SQL "+rs);
         if (rs.next()) {
             Cita c = from(rs, "c");
+            System.out.println("Cita:: "+c);
             return c;
         } else {
             throw new Exception("Cita existente");
@@ -178,13 +180,18 @@ public class CitaDao {
         try {
             Cita c = new Cita();
             c.setIdCita(rs.getInt(alias + ".idCitas"));
+            
             c.setEstado(rs.getString(alias + ".estado"));
-            c.setDateStr(rs.getString(alias + ".dateStr"));
-            c.setHoraStr(rs.getString(alias + ".horaStr"));
-            String str = rs.getString(alias + ".paciente");
-            Paciente pacie = new Paciente(str);
-            c.setPaciente(pacie);
-            String str2 = rs.getString(alias + ".medico");
+            
+            c.setDateStr(rs.getString(alias + ".dia"));// ERROR en dateSTR
+            
+            c.setHoraStr(rs.getString(alias + ".hora"));
+            //String str = rs.getString(alias + ".paciente");
+            //Paciente pacie = new Paciente(str);
+            
+            //System.out.println("idCita:-> "+ pacie.getCedula());
+            //c.setPaciente(pacie);
+            //String str2 = rs.getString(alias + ".medico");
            // Doctor espe = new Doctor(str2);
             //c.setMedico(espe);
             /*
