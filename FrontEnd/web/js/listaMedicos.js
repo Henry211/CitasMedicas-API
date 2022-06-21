@@ -1,22 +1,6 @@
 
-
-var deep={cedula:"1", nombre:"Jhony Deep",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var winston={cedula:"1", nombre:"Winston Churchill",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var elon={cedula:"1", nombre:"Elon Musk",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var stef={cedula:"1", nombre:"Stefanny",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-var paciente={cedula:"1", nombre:"Messi",clave:"1",peso:"70kg",edad:"24",
-antecedentes:[{asma:false},{diabetes:false},{alcohol:false},{tabaco:false},{drogas:false}],
-examenes:[{id:"1"},{id:"2"}]};
-
-var pacientes = new Array();
+var backend = "http://localhost:8080/BackEnd/api";
+var medicos = new Array();
 
 
 function showButton(person){
@@ -58,18 +42,33 @@ function pintar(componente, persona){
 
 }
 
+function fetchMedicos(){
+    
+    const request = new Request(backend + '/doctores', {method: 'GET', headers: {}});
+    (async () => {
+        try {
+            const response = await fetch(request);
+
+            medicos = await response.json();
+            console.log("medicos->" + JSON.stringify(medicos))
+
+            medicos.forEach( (p) => {
+
+                pintar($("#lista"),p);
+            });
+
+        } catch (e) {
+
+        }
+    })();
+        
+}
+
 function main(){
 
-    pacientes.push(deep);
-    pacientes.push(elon);
-    pacientes.push(winston);
-    pacientes.push(stef);
-    pacientes.push(paciente);
-
-    pacientes.forEach( (p) => {
-
-        pintar($("#lista"),p);
-    });
+    fetchMedicos();
+    
+    
     
 
 }

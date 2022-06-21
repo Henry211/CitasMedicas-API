@@ -18,7 +18,7 @@ function showButton(person){
             console.log("paciente->"+JSON.stringify(person))
             
             localStorage.setItem("pacientePerfil",JSON.stringify(person));
-            localStoreage.removeItem('pacienteToCita');
+            //localStoreage.removeItem('pacienteToCita');
             location.href = 'perfil.html';
             
            
