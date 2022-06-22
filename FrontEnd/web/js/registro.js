@@ -102,35 +102,7 @@ function add(){
 
 }
 
-function search(){
-    console.log("Search method");
 
-    load(); //- persona loaded
-
-    const request = new Request(backend+'/doctores', {method:'GET', headers: { }});
-    (async ()=> {
-        try{
-            const response = await fetch(request);
-            
-            doctores = await response.json();
-            console.log("Doctores-> "+ JSON.stringify(doctores))
-
-            if(existePersona()){ 
-                
-                //--- LOGIN finalizado
-                console.log("Existe persona!!")
-                mostrarPersona();
-
-            }else{
-                console.log("No existe persona")
-            }
-            
-        }catch(e){
-
-        }
-    })();
-
-}
 
 function render(){
     /* $("#cedula").val(persona.cedula);

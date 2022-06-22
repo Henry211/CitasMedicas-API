@@ -140,8 +140,9 @@ function login(){
         let request = new Request(backend+'/login/doctor', {method: 'POST', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(doctor)});
         (async ()=>{
             const response = await fetch(request);
-            //if (!response.ok) {errorMessage(response.status,$("#loginDialog #errorDiv"));return;}
+            if (!response.ok) {errorMessage(response.status,$("#loginDialog #errorDiv"));return;}
             usuario = await response.json();
+            // lo importante es setearlo en el session de backend
             console.log("user->"+ JSON.stringify(usuario));
             sessionStorage.setItem('user', JSON.stringify(usuario)); //- SESSION
             $('#loginDialog').modal('hide');            
