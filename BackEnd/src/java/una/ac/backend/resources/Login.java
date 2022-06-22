@@ -1,4 +1,3 @@
-
 package una.ac.backend.resources;
 
 import javax.annotation.security.PermitAll;
@@ -12,8 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import una.ac.backend.logic.Administrador;
+import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Service;
-import una.ac.backend.logic.Usuario;
 
 /**
  *
@@ -23,33 +23,63 @@ import una.ac.backend.logic.Usuario;
 @PermitAll
 
 public class Login {
-    
+
     @Context
     HttpServletRequest request;
+
     
     @POST
+    @Path("/doctor")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)    
-    public Usuario login(Usuario usuario) {  
-            Usuario logged=null;
-                        
-            try {
-                System.out.println("POST login 1");
-                logged= Service.instance().get(usuario);
-                System.out.println("POST login 2");
-                if(!logged.getPassword().equals(usuario.getPassword())) throw new Exception("Clave incorrecta");
-                request.getSession(true).setAttribute("user", logged);
-                return logged;
-            } catch (Exception ex) {
-                throw new NotFoundException();
-            }  
+    @Produces(MediaType.APPLICATION_JSON)
+    public Doctor loginDoc(Doctor user) {
+        Doctor logged = null;
+       
+
+        try {    
+
+                logged = Service.instance().getDoc(user);             
+            
+
+            //logged = Service.instance().get(user);
+           
+            request.getSession(true).setAttribute("user", logged);
+            return logged;
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
     }
     
-    @DELETE 
-    public void logout() {  
+    
+    @POST
+    @Path("/admin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Administrador loginAdmin(Administrador user) {
+        Administrador logged = null;
+        
+
+        try {
+            System.out.println("POST login 1");
+            
+
+            logged = Service.instance().getAdmin(user);                
+            
+
+            //logged = Service.instance().get(user);
+           
+            request.getSession(true).setAttribute("user", logged);
+            return logged;
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
+
+    @DELETE
+    public void logout() {
         HttpSession session = request.getSession(true);
-        session.removeAttribute("user");           
+        session.removeAttribute("user");
         session.invalidate();
     }
-    
+
 }

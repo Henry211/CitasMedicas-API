@@ -13,6 +13,7 @@ import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticatio
 import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Usuario;
 
 /**
@@ -26,11 +27,11 @@ public class CustomAuthentication
     @Override
     public AuthenticationStatus validateRequest(HttpServletRequest request,HttpServletResponse response,HttpMessageContext httpMsgContext) 
        {
-           Usuario user=(Usuario) request.getSession().getAttribute("user"); //-- SESSION
+           Doctor user=(Doctor) request.getSession().getAttribute("user"); //-- SESSION
            if(user!=null)
               return httpMsgContext.notifyContainerAboutLogin(
                 new Principal() { @Override public String getName() { return user.getNombre();}},
-                new HashSet<>(Arrays.asList(new String[]{user.getRol()})));
+                new HashSet<>(Arrays.asList(new String[]{user.getTipo()})));
            else
               return httpMsgContext.notifyContainerAboutLogin(
                 new Principal() { @Override public String getName() { return "none";}},

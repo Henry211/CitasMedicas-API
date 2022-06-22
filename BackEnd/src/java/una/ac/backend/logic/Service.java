@@ -20,7 +20,7 @@ public class Service {
     CitaDao citDao = new CitaDao();
     EspecialidadDao esDao = new EspecialidadDao();
     //HorarioDao horDao = new HorarioDao();
-    static Map<String,Usuario> usuarios;
+    
 
     public Service() {
     }
@@ -35,11 +35,28 @@ public class Service {
         return theInstance;
     }
 
-    public static Usuario get(Usuario id)throws Exception{
-        Usuario result = usuarios.get(id.getId()); // usuario**
+    public /*static*/ Doctor getDoc(Doctor user)throws Exception{
+        System.out.println("Logueando doc");            
+        // switch 'radio btn' ( doc-admin )
+        
+        Doctor result = mDao.read(user.getId(), user.getPassword());
         if (result==null) throw new Exception("Usuario no existe");
+        
         return result;
-    }   
+    } 
+    
+    
+    
+    public /*static*/ Administrador getAdmin(Administrador user)throws Exception{
+        System.out.println("Logueando admin");
+       
+            // switch 'radio btn' ( doc-admin )
+        
+        Administrador result = aDao.read(user.getNombre(), user.getClave());
+        if (result==null) throw new Exception("Usuario no existe");
+        
+        return result;
+    } 
    
 
     public void createPaciente(Paciente paciente) throws Exception {
@@ -51,9 +68,9 @@ public class Service {
     }
 
     //administrador
-    public Administrador administradorLogin(Administrador administrador) throws Exception {
+   /* public Administrador administradorLogin(Administrador administrador) throws Exception {
         return aDao.read(administrador);
-    }
+    }*/
 
     public void createAdministrador(Administrador admi) throws Exception {
         aDao.create(admi);

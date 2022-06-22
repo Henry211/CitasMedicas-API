@@ -71,6 +71,7 @@ public class DoctorDao {
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);
         stm.setString(2, clave);
+        System.out.println("sql->"+ stm);
         ResultSet rs =  db.executeQuery(stm);
         if (rs.next()) {
             Doctor c = from(rs, "c"); 
@@ -192,7 +193,6 @@ public class DoctorDao {
      Doctor from(ResultSet rs, String alias) {
         try {
             Doctor c = new Doctor();
-            c.setTipo(rs.getString(alias + ".tipo"));
             c.setId(rs.getString(alias + ".idMedicos"));
             c.setNombre(rs.getString(alias + ".nombre"));
             System.out.println("nombre: "+c.getNombre());

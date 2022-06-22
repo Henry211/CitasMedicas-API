@@ -35,11 +35,11 @@ public class AdministradorDao {
         }
     }
     
-    public Administrador read(Administrador u) throws Exception{
+    public Administrador read(String cedula,String clave) throws Exception{
         String sql = "select * from administrador c where id=? and clave =?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, u.getId());
-        stm.setString(2, u.getClave());
+        stm.setString(1, cedula);
+        stm.setString(2, clave);
         ResultSet rs =  db.executeQuery(stm);
         if (rs.next()) {
             Administrador c = from(rs, "c"); 

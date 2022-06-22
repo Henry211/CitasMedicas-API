@@ -8,7 +8,7 @@ package una.ac.backend.logic;
  *
  * @author ESCINF
  */
-public class Doctor extends Usuario{
+public class Doctor {
 
 
     public String tipo;

@@ -125,28 +125,31 @@ function render(){
 }
 
 function login(){
-        if (!loginValidar()) return;
-        usuario = {
-            id: $("#cedula").val(),
-            clave: $("#clave").val()
-        };
     
+    rolValue = $("input[name=rol]");
+    
+        if (!loginValidar()) return;
+        doctor = {
+            id: $("#cedula").val(),
+            password: $("#clave").val()
+        };
+
         //load();
-        console.log(JSON.stringify(usuario))
+        console.log( "User Credencials: "+ JSON.stringify(doctor))
         
-        let request = new Request(backend+'/login', {method: 'POST', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(usuario)});
+        let request = new Request(backend+'/login/doctor', {method: 'POST', headers: { 'Content-Type': 'application/json'},body: JSON.stringify(doctor)});
         (async ()=>{
             const response = await fetch(request);
             //if (!response.ok) {errorMessage(response.status,$("#loginDialog #errorDiv"));return;}
             usuario = await response.json();
+            console.log("user->"+ JSON.stringify(usuario));
             sessionStorage.setItem('user', JSON.stringify(usuario)); //- SESSION
             $('#loginDialog').modal('hide');            
            switch(usuario.rol){
-               case 'ADM': document.location = url+"listado.html"+ "?t="+Math.random(); break;
-               case 'CLI': document.location = url+"about.html"; break;
+               case 'Medico': document.location = url+"listado.html"+ "?t="+Math.random(); break;
+               case 'Administrador': document.location = url+"about.html"; break;
            }                           
-        })(); 
-    
+        })();   
   }
   
   
