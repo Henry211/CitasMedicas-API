@@ -43,7 +43,7 @@ public class Pacientes {
     }
     
     @POST
-    @RolesAllowed({"DOC"}) 
+    //@RolesAllowed({"DOC"}) 
     @Path("/cita")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createCita(Cita cita){

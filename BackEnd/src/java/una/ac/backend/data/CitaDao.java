@@ -12,10 +12,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Context;
 
 public class CitaDao {
     Database db;
-
+    
+    /*@Context
+    HttpServletRequest request;
+       
+    HttpSession session = request.getSession(true);
+    */// AQUI DA ERROR -- (no carga la agenda)
     public CitaDao() {
         db = Database.instance();
     }
@@ -25,22 +33,25 @@ public class CitaDao {
     //el id no se coloca es auto_increment
     public void create(Cita u) throws Exception {
 
-        String sql = "insert into cita(estado,dia,hora,signo,diagnostico,medicina,Paciente_cedula,Medico_idMedico) "
-                + "values(?,?,?,?,?,?,?,?)";
-
+        String sql = "insert into cita(estado,dia,hora,Medico_idMedico,Paciente_cedula) "
+                + "values(?,?,?,?,?)";
+         //Doctor user=(Doctor) request.getSession().getAttribute("user");
+         System.out.println("creando cita.."+ u);
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getEstado());
         stm.setString(2, u.getDateStr());
         stm.setString(3, u.getHoraStr());
-        stm.setString(4, u.getSigno());
-        stm.setString(5, u.getDiagnostico());
+        //stm.setString(4, u.getSigno());
+        /*stm.setString(5, u.getDiagnostico());
         stm.setString(6, u.getMedicina());
-        stm.setObject(7, u.getPaciente());
-        stm.setObject(8, u.getMedico());
+        stm.setObject(7, u.getPaciente());*/
+        stm.setString(4, "2222");  //LLAMAR AL USUARIO DE LA SESIÓN
+        stm.setString(5, "333");
         //byte[] image = new byte[]{0} ;
         //nputStream targetStream = new ByteArrayInputStream(image);
         //stm.setBlob(7, targetStream);
         int count = db.executeUpdate(stm);
+        System.out.println("cita creada: "+ stm);
         if (count == 0) {
             throw new Exception("Cita ya existe");
         }
