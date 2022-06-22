@@ -20,81 +20,92 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import una.ac.backend.logic.Dia;
 import una.ac.backend.logic.Doctor;
+import una.ac.backend.logic.Horario;
 import una.ac.backend.logic.Service;
 
 /**
  *
  * @author Henry
  */
-
 @Path("/doctores")
 public class Doctores {
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Doctor doc){
-        try{
-            System.out.println("Doctor->"+doc);
+    public void create(Doctor doc) {
+        try {
+            System.out.println("Doctor->" + doc);
             Service.instance().createMedico(doc);
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             throw new NotAcceptableException();
         }
     }
-    
-      
+
     @GET
     @RolesAllowed({"ADM"})  //-- listar medicos para aceptar registros
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Doctor> read() throws Exception{
+    public List<Doctor> read() throws Exception {
         return Service.instance().findAllMedicos();
-       
+
     }
-    
+
     @GET
     @Path("{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Doctor read(@PathParam("cedula") String cedula){
-        try{
-            
+    public Doctor read(@PathParam("cedula") String cedula) {
+        try {
+
             return null;//Service.instance().medicoLogin(d);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new NotFoundException();
         }
     }
-    
+
     @GET
     @Path("/dias/{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Dia> readDias(@PathParam("cedula") String cedula){
-        try{
+    public ArrayList<Dia> readDias(@PathParam("cedula") String cedula) {
+        try {
             System.out.println("Entró a dias");
             return Service.instance().getMedicoDias(cedula);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new NotFoundException();
         }
     }
-    
+
+    @PUT
+    @Path("/horario")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateHorario(@PathParam("cedula") String cedula, Horario horario) {
+        try {
+            // Service.instance().editarMedico(d); 
+
+        } catch (Exception e) {
+            throw new NotFoundException();
+        }
+    }
+
     @PUT
     @Path("{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathParam("cedula") String cedula, Doctor d){
-        try{
-            Service.instance().editarMedico(d); 
-            
-        }catch(Exception e){
+    public void update(@PathParam("cedula") String cedula, Doctor d) {
+        try {
+            Service.instance().editarMedico(d);
+
+        } catch (Exception e) {
             throw new NotFoundException();
         }
     }
-    
+
     @DELETE
     @Path("{cedula}")
-    public void delete(@PathParam("cedula") String cedula){
-        try{
+    public void delete(@PathParam("cedula") String cedula) {
+        try {
             Service.instance().doctorDelete(cedula);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new NotFoundException();
         }
     }
-    
+
 }

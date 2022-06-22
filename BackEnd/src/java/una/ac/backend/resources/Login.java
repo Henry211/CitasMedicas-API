@@ -39,10 +39,7 @@ public class Login {
         try {    
 
                 logged = Service.instance().getDoc(user);             
-            
-
-            //logged = Service.instance().get(user);
-           
+                
             request.getSession(true).setAttribute("user", logged);
             return logged;
         } catch (Exception ex) {
@@ -64,10 +61,7 @@ public class Login {
             
 
             logged = Service.instance().getAdmin(user);                
-            
 
-            //logged = Service.instance().get(user);
-           
             request.getSession(true).setAttribute("user", logged);
             return logged;
         } catch (Exception ex) {

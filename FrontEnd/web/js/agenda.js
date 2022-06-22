@@ -54,6 +54,12 @@ function cell(col, hora, iteracion) {
     var dayLetter = iteracionDay(iteracion);
 
     if (hora) { // true -> Botón habilitado
+        
+        //TODO: validar aquí si el campo está ocupado
+        
+        //#1- llamar lista de citas de BD
+        //#2- validar que no exista una con 'fecha' y 'hora' iguales
+        //#3- if exists => crear 'cell' para "asistir a cita"
 
         tr.html(`
             <div class="horas">        
