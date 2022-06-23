@@ -24,10 +24,7 @@ import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Paciente;
 import una.ac.backend.logic.Service;
 
-/**
- *
- * @author Henry
- */
+
 
 @Path("/pacientes")
 public class Pacientes {

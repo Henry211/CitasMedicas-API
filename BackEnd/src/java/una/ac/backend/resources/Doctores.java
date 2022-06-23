@@ -4,6 +4,11 @@
  */
 package una.ac.backend.resources;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -17,23 +22,24 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import una.ac.backend.logic.Cita;
 import una.ac.backend.logic.Dia;
 import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Horario;
 import una.ac.backend.logic.Service;
 
-/**
- *
- * @author Henry
- */
+
 @Path("/doctores")
 public class Doctores {
-    
+    String location="C:/AAA/images/";
     
     //@Context
     //HttpServletRequest request;
@@ -52,7 +58,59 @@ public class Doctores {
             throw new NotAcceptableException();
         }
     }
+    
+    /*
+           
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA) 
+    @Path("{cedula}/imagen")
+    public void addImage(@PathParam("cedula") String cedula, @FormDataParam("imagen") InputStream in) {  
+        try{
+                OutputStream out = new FileOutputStream(new File(location + cedula));
+                in.transferTo(out);
+                out.close();
+            } catch (Exception ex) {
+                throw new NotAcceptableException(); 
+            }
+    }
 
+    
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADM"})  
+    public void update(Persona p) {  
+        try {
+            Service.instance().personaUpdate(p);
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }
+    
+
+    @DELETE
+    @Path("{cedula}")
+    @RolesAllowed({"ADM"})  
+    public void del(@PathParam("cedula") String cedula) {
+        try {
+            Service.instance().personaDelete(cedula);
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }
+    
+    
+    /*@POST
+    @Consumes(MediaType.APPLICATION_JSON) 
+    @RolesAllowed({"ADM"})  
+    public void add(Doctor p) {  
+        try {
+            Service.instance().createMedico(p);
+        } catch (Exception ex) {
+            throw new NotAcceptableException(); 
+        }
+    }*/
+    
     @GET
     @RolesAllowed({"ADM"})  //-- listar medicos para aceptar registros
     @Produces(MediaType.APPLICATION_JSON)
@@ -60,19 +118,67 @@ public class Doctores {
         return Service.instance().findAllMedicos();
 
     }
-
+//----------------Imagen
     @GET
     @Path("{cedula}")
     @Produces(MediaType.APPLICATION_JSON)
     public Doctor read(@PathParam("cedula") String cedula) {
         try {
 
-            return null;//Service.instance().medicoLogin(d);
+            return Service.instance().medicoString(cedula);
         } catch (Exception e) {
             throw new NotFoundException();
         }
     }
-
+    
+    @GET
+    @Path("{cedula}/imagen")
+    @Produces("image/png")
+    public Response getImge(@PathParam("cedula") String cedula) throws IOException {
+        File file = new File(location+cedula);
+        ResponseBuilder response = Response.ok((Object) file);
+        return response.build();
+    }    
+    
+    /*
+    //ADM
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON) 
+    @RolesAllowed({"ADM"})  
+    public void add(Doctor p) {  
+        try {
+            Service.instance().createMedico(p);
+        } catch (Exception ex) {
+            throw new NotAcceptableException(); 
+        }
+    }
+    
+    
+    @DELETE
+    @Path("{cedula}")
+    @RolesAllowed({"ADM"})  
+    public void del(@PathParam("cedula") String cedula) {
+        try {
+            Service.instance().doctorDelete(cedula);
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }     
+ */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADM"})  
+    public void update(Doctor p) {  
+        try {
+            Service.instance().editarMedico(p);
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }
+    
+    
+    
+    //----------
     @GET
     @Path("/dias/{cedula}")
     @Produces(MediaType.APPLICATION_JSON)

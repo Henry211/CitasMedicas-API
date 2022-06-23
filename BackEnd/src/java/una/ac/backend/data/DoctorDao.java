@@ -78,6 +78,22 @@ public class DoctorDao {
         }
     }
     
+    public Doctor leerString(String cedula) throws Exception{
+        String sql = "select * from medico c where idMedicos=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, cedula);
+        //System.out.println("sql->"+ stm);
+        
+        ResultSet rs =  db.executeQuery(stm);
+        if (rs.next()) {
+            Doctor c = from(rs, "c"); 
+            return c;
+        }
+        else{
+            throw new Exception ("Medico no existe");
+        }
+    }
+    
     public ArrayList<Dia> findDays(String cedula) throws Exception{
         ArrayList<Dia> horario = new ArrayList<>();
         String sql = "select * from slot d where idDoctor=? ";

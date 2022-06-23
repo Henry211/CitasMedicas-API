@@ -89,6 +89,16 @@ public class Service {
     public Doctor medicoLogin(Doctor medico) throws Exception {
         return mDao.read1(medico);
     }
+    
+       
+    public Doctor medicoString(String medico) throws Exception {
+        return mDao.leerString(medico);
+    }
+    
+        
+    public void medicoDelete(String medico) throws Exception {
+         mDao.delete(medico);
+    }
 
     public void editarMedico(Doctor medico) throws Exception {
         mDao.update(medico);
