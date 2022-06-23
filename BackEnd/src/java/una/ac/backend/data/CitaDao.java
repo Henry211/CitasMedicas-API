@@ -50,7 +50,7 @@ public class CitaDao {
         /*stm.setString(5, u.getDiagnostico());
         stm.setString(6, u.getMedicina());
         stm.setObject(7, u.getPaciente());*/
-        stm.setString(4, "2222");  //LLAMAR AL USUARIO DE LA SESIÓN- usuario.getId()
+        stm.setString(4, u.getMedico().getId());  //LLAMAR AL USUARIO DE LA SESIÓN- usuario.getId()
         stm.setString(5, "333");
         //byte[] image = new byte[]{0} ;
         //nputStream targetStream = new ByteArrayInputStream(image);
@@ -88,9 +88,10 @@ public class CitaDao {
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);
         ResultSet rs = db.executeQuery(stm);
-        System.out.println("sql = "+ stm);
+        System.out.println("resultado = "+ rs.toString());
         Cita c;     
         while (rs.next()) {
+            System.out.println("Entro a while");
                 c = from2(rs, "c");
                 System.out.println("cita->"+c.getEstado());
                 resultado.add(c);
@@ -229,8 +230,12 @@ public class CitaDao {
             Doctor m = new Doctor();
             m.setId(rs.getString(alias + ".Medico_idMedico"));
             System.out.println("id medico***>" + rs.getString(alias + ".Medico_idMedico"));
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // Error al llamar el 'nombre' del médico
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             m.setNombre(rs.getString("m.nombre"));
             System.out.println("nombre medico***>" + rs.getString(alias + ".nombre"));
+            //-----------------------------------------------
             m.setLocalidad(rs.getString("m.nombre_provincia"));
             m.setEspecialidad(rs.getString("m.nombre_especialidad"));
             c.setMedico(m);//- set medico

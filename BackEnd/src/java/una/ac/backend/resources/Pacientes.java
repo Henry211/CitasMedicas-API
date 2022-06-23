@@ -55,8 +55,13 @@ public class Pacientes {
     public void createCita(Cita cita){
         try{
             
-            Doctor usuario = (Doctor) request.getAttribute("user");
-            System.out.println("User session = "+ usuario);
+            Doctor usuario = (Doctor) request.getSession(true).getAttribute("user");
+            //   !!!!!!!!!!!!!!
+            //TODO:  ERROR aquí, al llamar atributos de usuario:
+            System.out.println("User session = "+ usuario.getNombre());
+            cita.setMedico(usuario);
+            System.out.println("MEdico de cita: "+ cita.getMedico().getNombre());
+            //   !!!!!!!!!!!!!!!!!
             System.out.println("CreateCita: "+cita);
             Service.instance().createCita(cita);
             
