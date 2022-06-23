@@ -14,9 +14,11 @@ function fillData(){
     $('#diaCita').append(date.dia);
     $('#horaCita').append(date.hora);
     
+    console.log("Cargando paciente: "+ JSON.stringify(paciente))
+    
     cita = {
             estado:"activo",
-            //paciente:paciente.id,
+            //paciente:JSON.parse(paciente),
             dateStr:date.dia,
             horaStr:date.hora
         }
@@ -28,7 +30,7 @@ function fetchGuardar(){
     
     console.log("Guardando...")
     
-    const request = new Request(backend+'/pacientes/cita', 
+    const request = new Request(backend+'/pacientes/cita/'+paciente.cedula, // Pasarle por parametro el id paciente 
             {method: 'POST', 
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(cita)});
@@ -44,7 +46,6 @@ function fetchGuardar(){
 }
 
 function main(){
-    
     
     fillData();
     

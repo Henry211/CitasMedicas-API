@@ -22,9 +22,7 @@ public class CitaDao {
     HttpServletRequest request;
     
     Database db;
-       
-    //HttpSession session = request.getSession(true);
-    // AQUI DA ERROR -- (no carga la agenda)
+
     public CitaDao() {
         db = Database.instance();
     }
@@ -33,15 +31,9 @@ public class CitaDao {
     //registrar medico
     //el id no se coloca es auto_increment
     public void create(Cita u) throws Exception {
-        
-        //HttpSession session = request.getSession(true);
-        //Doctor usuario = (Doctor) request.getAttribute("user");
-       // System.out.println("User session = "+ usuario);
 
         String sql = "insert into cita(estado,dia,hora,Medico_idMedico,Paciente_cedula) "
                 + "values(?,?,?,?,?)";
-         //Doctor user=(Doctor) request.getSession().getAttribute("user");
-         System.out.println("creando cita.."+ u);
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getEstado());
         stm.setString(2, u.getDateStr());
@@ -51,7 +43,7 @@ public class CitaDao {
         stm.setString(6, u.getMedicina());
         stm.setObject(7, u.getPaciente());*/
         stm.setString(4, u.getMedico().getId());  //LLAMAR AL USUARIO DE LA SESIÓN- usuario.getId()
-        stm.setString(5, "333");
+        stm.setString(5, u.getPaciente().getCedula());
         //byte[] image = new byte[]{0} ;
         //nputStream targetStream = new ByteArrayInputStream(image);
         //stm.setBlob(7, targetStream);

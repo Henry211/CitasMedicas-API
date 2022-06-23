@@ -50,17 +50,19 @@ public class Pacientes {
     
     @POST
     //@RolesAllowed({"DOC"}) 
-    @Path("/cita")
+    @Path("/cita/{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createCita(Cita cita){
+    public void createCita(@PathParam("cedula") String cedula, Cita cita){
         try{
             
             Doctor usuario = (Doctor) request.getSession(true).getAttribute("user");
+            Paciente pacSelected = read(cedula);
             //   !!!!!!!!!!!!!!
             //TODO:  ERROR aquí, al llamar atributos de usuario:
-            System.out.println("User session = "+ usuario.getNombre());
+            
             cita.setMedico(usuario);
-            System.out.println("MEdico de cita: "+ cita.getMedico().getNombre());
+            cita.setPaciente(pacSelected);
+            System.out.println("User session = "+ cita.getPaciente().getCedula());
             //   !!!!!!!!!!!!!!!!!
             System.out.println("CreateCita: "+cita);
             Service.instance().createCita(cita);
