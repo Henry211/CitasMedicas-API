@@ -17,13 +17,14 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 
 public class CitaDao {
-    Database db;
     
-    /*@Context
+    @Context
     HttpServletRequest request;
+    
+    Database db;
        
-    HttpSession session = request.getSession(true);
-    */// AQUI DA ERROR -- (no carga la agenda)
+    //HttpSession session = request.getSession(true);
+    // AQUI DA ERROR -- (no carga la agenda)
     public CitaDao() {
         db = Database.instance();
     }
@@ -32,6 +33,10 @@ public class CitaDao {
     //registrar medico
     //el id no se coloca es auto_increment
     public void create(Cita u) throws Exception {
+        
+        //HttpSession session = request.getSession(true);
+        //Doctor usuario = (Doctor) request.getAttribute("user");
+       // System.out.println("User session = "+ usuario);
 
         String sql = "insert into cita(estado,dia,hora,Medico_idMedico,Paciente_cedula) "
                 + "values(?,?,?,?,?)";
@@ -45,7 +50,7 @@ public class CitaDao {
         /*stm.setString(5, u.getDiagnostico());
         stm.setString(6, u.getMedicina());
         stm.setObject(7, u.getPaciente());*/
-        stm.setString(4, "2222");  //LLAMAR AL USUARIO DE LA SESIÓN
+        stm.setString(4, "2222");  //LLAMAR AL USUARIO DE LA SESIÓN- usuario.getId()
         stm.setString(5, "333");
         //byte[] image = new byte[]{0} ;
         //nputStream targetStream = new ByteArrayInputStream(image);
@@ -69,6 +74,25 @@ public class CitaDao {
      
         while (rs.next()) {
                 c = from2(rs, "c");
+                resultado.add(c);
+            }
+        return resultado;
+    }
+     
+     
+     public ArrayList<Cita> readByMedico(String cedula) throws Exception {
+        
+        ArrayList<Cita> resultado = new ArrayList<>();
+        String sql = "select * from cita c "
+                    + " where c.Medico_idMedico = ? ";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, cedula);
+        ResultSet rs = db.executeQuery(stm);
+        System.out.println("sql = "+ stm);
+        Cita c;     
+        while (rs.next()) {
+                c = from2(rs, "c");
+                System.out.println("cita->"+c.getEstado());
                 resultado.add(c);
             }
         return resultado;
@@ -189,23 +213,31 @@ public class CitaDao {
       Cita from2(ResultSet rs, String alias) {
         try {
             Cita c = new Cita();
+            System.out.println("ID***>" + rs.getInt(alias + ".idCitas"));
             c.setIdCita(rs.getInt(alias + ".idCitas"));
             c.setEstado(rs.getString(alias + ".estado"));
+            
             c.setDateStr(rs.getString(alias + ".dia"));
+            
             c.setHoraStr(rs.getString(alias + ".hora"));
+            
             //-----------
             Paciente p = new Paciente();
             p.setCedula(rs.getString(alias + ".Paciente_cedula"));
-            c.setPaciente(p);
+            System.out.println("pacienteCedula***>" + rs.getString(alias + ".Paciente_cedula"));
+            c.setPaciente(p);//-set paciente
             Doctor m = new Doctor();
             m.setId(rs.getString(alias + ".Medico_idMedico"));
+            System.out.println("id medico***>" + rs.getString(alias + ".Medico_idMedico"));
             m.setNombre(rs.getString("m.nombre"));
+            System.out.println("nombre medico***>" + rs.getString(alias + ".nombre"));
             m.setLocalidad(rs.getString("m.nombre_provincia"));
             m.setEspecialidad(rs.getString("m.nombre_especialidad"));
-            c.setMedico(m);
+            c.setMedico(m);//- set medico
             //------------
 //            c.getPaciente().setCedula(rs.getString(alias + ".Paciente_cedula"));
 //            c.getMedico().setCedula(rs.getString(alias + ".Medico_idMedico"));
+            System.out.println("CITA: "+ c);
             return c;
         } catch (SQLException ex) {
             return null;

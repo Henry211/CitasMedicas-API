@@ -6,6 +6,7 @@ package una.ac.backend.resources;
 
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import una.ac.backend.logic.Cita;
 import una.ac.backend.logic.Doctor;
@@ -30,8 +32,12 @@ import una.ac.backend.logic.Service;
 @Path("/pacientes")
 public class Pacientes {
     
+    
+    @Context
+    HttpServletRequest request;
+    
     @POST
-    @RolesAllowed({"DOC"})  
+    //@RolesAllowed({"DOC"})  
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Paciente pac){
         try{
@@ -48,6 +54,9 @@ public class Pacientes {
     @Consumes(MediaType.APPLICATION_JSON)
     public void createCita(Cita cita){
         try{
+            
+            Doctor usuario = (Doctor) request.getAttribute("user");
+            System.out.println("User session = "+ usuario);
             System.out.println("CreateCita: "+cita);
             Service.instance().createCita(cita);
             

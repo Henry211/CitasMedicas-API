@@ -37,10 +37,13 @@ public class Login {
        
 
         try {    
-
+                //HttpSession session = request.getSession(true);
                 logged = Service.instance().getDoc(user);             
                 
-            request.getSession(true).setAttribute("user", logged);
+                if(logged != null){
+                    System.out.println("Se ha logueado "+ logged);
+                    request.setAttribute("user", logged);
+                }
             return logged;
         } catch (Exception ex) {
             throw new NotFoundException();

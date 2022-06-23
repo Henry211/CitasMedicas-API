@@ -10,8 +10,16 @@ import una.ac.backend.data.PacienteDao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Context;
 
 public class Service {
+    
+    /*@Context
+    HttpServletRequest request;
+       
+    HttpSession session = request.getSession(true);*/
 
     PacienteDao pDao = new PacienteDao();
     DoctorDao mDao = new DoctorDao();
@@ -20,6 +28,7 @@ public class Service {
     CitaDao citDao = new CitaDao();
     EspecialidadDao esDao = new EspecialidadDao();
     //HorarioDao horDao = new HorarioDao();
+    
     
 
     public Service() {
@@ -116,6 +125,12 @@ public class Service {
     public void pacienteUpdate(Paciente paciente) throws Exception {
         //pDao.update(paciente);
     }
+    
+     public ArrayList<Cita> findCitasByCedula(String cedula) throws Exception {
+        return citDao.readByMedico(cedula);
+    }
+    
+    
 
 
 }

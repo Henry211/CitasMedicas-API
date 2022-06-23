@@ -8,6 +8,7 @@ var pacienteToCita;
 let date;
 let iteracionWeek;
 var fetchSemana;
+var citasDeMedico;
 
 var backend = "http://localhost:8080/BackEnd/api";
 
@@ -180,6 +181,26 @@ function printDayNames(lu,ma,mi,ju,vi){
 
 }
 
+function fetchCitasExistentes(){
+    
+    var cedula="2222";
+    
+    const request = new Request(backend+'/doctores/citasExistentes/'+cedula, {method:'GET', headers: { }});
+    (async ()=> {
+        try{
+            const response = await fetch(request);
+            
+            citasDeMedico = await response.json();
+            console.log("citas de medico-> "+ JSON.stringify(citasDeMedico))
+
+                        
+        }catch(e){
+
+        }
+    })();
+    
+}
+
 function printElements(fetchSemana){
     
     let i = 0;
@@ -189,6 +210,9 @@ function printElements(fetchSemana){
     let invalidColumn = ["_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_"];
     let horasString = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
 
+
+    console.log("ejecutando print elements**")
+    //fetchCitasExistentes();
 
     $("#nextBtn").click(nextWeek);
 
@@ -219,7 +243,7 @@ function printElements(fetchSemana){
             j++;
         })
         } else { // true
-            console.log("ha sido true**");
+            console.log("ha sido true *!*");
             count = 0;
             
             // -- horas = arreglo de '1' y '0'  || (rango de fecha en que atiende)
@@ -254,6 +278,8 @@ function fetchShedule(dayString){
             console.log("Semana one-> "+ JSON.stringify(fetchSemana))
 
             loadShedule(dayString,fetchSemana);// este metodo carga a 'fetchSemana'
+            fetchCitasExistentes();
+            console.log("LoadShedule() finalizado")
             printElements(fetchSemana); // fetchSemana como parametro
             
         }catch(e){
@@ -484,6 +510,8 @@ function main() {
         especial = true;
         console.log("Vista Especial")
     }
+    
+    fetchCitasExistentes();
     
 
     /*var head = {checked: true, desde: "8:00", hasta: "6:00"};
