@@ -63,7 +63,7 @@ function occupiedCell(dayColumn,iteracion){
                 </div> 
             </div>`);
         tr.find("#atenderBtn").on("click", ()=> {
-            
+           /* 
             console.log("it->"+ arrayDiasSemana[iteracion])
             console.log("hora->"+ hora)
             if(especial){
@@ -71,7 +71,7 @@ function occupiedCell(dayColumn,iteracion){
             }else{
                 //findPaciente(arrayDiasSemana[iteracion],hora);
             }
-            
+            */
         })
         dayColumn.append(tr);
 
