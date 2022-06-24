@@ -4,13 +4,10 @@
  */
 package una.ac.backend.logic;
 
-/**
- *
- * @author ESCINF
- */
 public class Paciente {
     String nombre;
     String cedula;
+    String edad;
     String enfermedad;
     String alergias;
     String cirugia;
@@ -35,6 +32,13 @@ public class Paciente {
         return cedula;
     }
 
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
+    }
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
