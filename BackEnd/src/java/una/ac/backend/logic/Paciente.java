@@ -5,17 +5,38 @@
 package una.ac.backend.logic;
 
 public class Paciente {
+
     String nombre;
     String cedula;
+    String peso;
     String edad;
-    String enfermedad;
+    String enfermedades;
     String alergias;
-    String cirugia;
-    String contactoEmergencia;
+    String cirugias;
+    String contacto_emergencia;
 
     public Paciente() {
     }
         
+    
+    public Paciente(String nombre, String cedula, String peso, String edad, String enfermedades, String alergias, String cirugias, String contacto_emergencia) {
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.peso = peso;
+        this.edad = edad;
+        this.enfermedades = enfermedades;
+        this.alergias = alergias;
+        this.cirugias = cirugias;
+        this.contacto_emergencia = contacto_emergencia;
+    }
+        
+    public String getPeso() {
+        return peso;
+    }
+
+    public void setPeso(String peso) {
+        this.peso = peso;
+    }
     public Paciente(String cedula) {
         this.cedula=cedula;
     }
@@ -43,12 +64,12 @@ public class Paciente {
         this.cedula = cedula;
     }
 
-    public String getEnfermedad() {
-        return enfermedad;
+    public String getEnfermedades() {
+        return enfermedades;
     }
 
-    public void setEnfermedad(String enfermedad) {
-        this.enfermedad = enfermedad;
+    public void setEnfermedades(String enfermedades) {
+        this.enfermedades = enfermedades;
     }
 
     public String getAlergias() {
@@ -59,20 +80,20 @@ public class Paciente {
         this.alergias = Alergias;
     }
 
-    public String getCirugia() {
-        return cirugia;
+    public String getCirugias() {
+        return cirugias;
     }
 
-    public void setCirugia(String cirugia) {
-        this.cirugia = cirugia;
+    public void setCirugias(String cirugias) {
+        this.cirugias = cirugias;
     }
 
-    public String getContactoEmergencia() {
-        return contactoEmergencia;
+    public String getContacto_emergencia() {
+        return contacto_emergencia;
     }
 
-    public void setContactoEmergencia(String contactoEmergencia) {
-        this.contactoEmergencia = contactoEmergencia;
+    public void setContacto_emergencia(String contacto_emergencia) {
+        this.contacto_emergencia = contacto_emergencia;
     }
     
     
