@@ -56,58 +56,6 @@ public class Doctores {
         }
     }
     
-    /*
-           
-    @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA) 
-    @Path("{cedula}/imagen")
-    public void addImage(@PathParam("cedula") String cedula, @FormDataParam("imagen") InputStream in) {  
-        try{
-                OutputStream out = new FileOutputStream(new File(location + cedula));
-                in.transferTo(out);
-                out.close();
-            } catch (Exception ex) {
-                throw new NotAcceptableException(); 
-            }
-    }
-
-    
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"ADM"})  
-    public void update(Persona p) {  
-        try {
-            Service.instance().personaUpdate(p);
-        } catch (Exception ex) {
-            throw new NotFoundException(); 
-        }
-    }
-    
-
-    @DELETE
-    @Path("{cedula}")
-    @RolesAllowed({"ADM"})  
-    public void del(@PathParam("cedula") String cedula) {
-        try {
-            Service.instance().personaDelete(cedula);
-        } catch (Exception ex) {
-            throw new NotFoundException(); 
-        }
-    }
-    
-    
-    /*@POST
-    @Consumes(MediaType.APPLICATION_JSON) 
-    @RolesAllowed({"ADM"})  
-    public void add(Doctor p) {  
-        try {
-            Service.instance().createMedico(p);
-        } catch (Exception ex) {
-            throw new NotAcceptableException(); 
-        }
-    }*/
-    
     @GET
     @RolesAllowed({"ADM"})  //-- listar medicos para aceptar registros
     @Produces(MediaType.APPLICATION_JSON)

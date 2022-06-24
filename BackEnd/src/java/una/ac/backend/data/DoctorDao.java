@@ -39,7 +39,7 @@ public class DoctorDao {
         stm.setString(4, u.getTarifa());
         stm.setString(5, u.getLocalidad());
         stm.setString(6, u.getEspecialidad());
-        
+        //comentario
         int count = db.executeUpdate(stm);
         System.out.println("sql-> "+stm);
         if (count == 0) {
