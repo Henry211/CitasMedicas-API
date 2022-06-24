@@ -140,31 +140,20 @@ public class Doctores {
         return response.build();
     }    
     
-    /*
-    //ADM
+        
     @POST
-    @Consumes(MediaType.APPLICATION_JSON) 
-    @RolesAllowed({"ADM"})  
-    public void add(Doctor p) {  
-        try {
-            Service.instance().createMedico(p);
-        } catch (Exception ex) {
-            throw new NotAcceptableException(); 
-        }
+    @Consumes(MediaType.MULTIPART_FORM_DATA) 
+    @Path("{cedula}/imagen")
+    public void addImage(@PathParam("cedula") String cedula, @FormDataParam("imagen") InputStream in) {  
+        try{
+                OutputStream out = new FileOutputStream(new File(location + cedula));
+                in.transferTo(out);
+                out.close();
+            } catch (Exception ex) {
+                throw new NotAcceptableException(); 
+            }
     }
-    
-    
-    @DELETE
-    @Path("{cedula}")
-    @RolesAllowed({"ADM"})  
-    public void del(@PathParam("cedula") String cedula) {
-        try {
-            Service.instance().doctorDelete(cedula);
-        } catch (Exception ex) {
-            throw new NotFoundException(); 
-        }
-    }     
- */
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"ADM"})  
@@ -175,8 +164,6 @@ public class Doctores {
             throw new NotFoundException(); 
         }
     }
-    
-    
     
     //----------
     @GET
