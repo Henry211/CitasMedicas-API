@@ -20,6 +20,7 @@ public class RestConfiguration extends Application{
         HashSet<Class<?>> classes = new HashSet<>();
         classes.add(MultiPartFeature.class);
         classes.add(Doctores.class);
+        classes.add(Pacientes.class);
         classes.add(Login.class);  
         return classes;
     }  
