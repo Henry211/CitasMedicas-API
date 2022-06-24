@@ -39,11 +39,10 @@ function fillPaciente(){
     $("#idTxt").append("Id: "+paciente.cedula);
     $("#pesoTxt").append("Peso: "+paciente.peso);
     $("#edadTxt").append("Edad: "+paciente.edad);
-
-    $("#enfermedadesTxt").append("<br> <p>"+paciente.enfermedades)
-    $("#alergiasTxt").append("<br> <p>"+paciente.alergias)
-    $("#cirugiasTxt").append("<br> <p>"+paciente.cirugias)
-    $("#contactoTxt").append("<br> <p>"+paciente.contacto_emergencia)
+    $("#enfermedadesTxt").append("<br> <p>"+paciente.enfermedades);
+    $("#alergiasTxt").append("<br> <p>"+paciente.alergias);
+    $("#cirugiasTxt").append("<br> <p>"+paciente.cirugias);
+    $("#contactoTxt").append("<br> <p>"+paciente.contacto_emergencia);
 
 
 

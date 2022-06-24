@@ -1,6 +1,6 @@
 
 
-var paciente = {cedula:"19292", nombre:"", enfermedades:"", alergias:"", cirugias:"", contacto_emergencia:""}
+var paciente = {cedula:"19292", nombre:"", enfermedades:"", alergias:"", cirugias:"", contacto_emergencia:""};
 
 var backend = "http://localhost:8080/BackEnd/api";
 
@@ -9,7 +9,7 @@ function add(){
     var  paciente;
     paciente = Object.fromEntries( (new FormData($("#formulario").get(0))).entries());
     
-    console.log("Personas->"+ JSON.stringify(paciente))
+    console.log("Personas->"+ JSON.stringify(paciente));
     
     const request = new Request(backend+'/pacientes', 
             {method: 'POST', 
