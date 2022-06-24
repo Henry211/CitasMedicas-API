@@ -57,9 +57,7 @@ public class Login {
         
 
         try {
-            System.out.println("POST login 1");
             
-
             logged = Service.instance().getAdmin(user);                
 
             request.getSession(true).setAttribute("user", logged);

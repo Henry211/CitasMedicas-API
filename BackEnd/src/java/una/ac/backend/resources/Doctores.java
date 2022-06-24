@@ -35,12 +35,9 @@ import una.ac.backend.logic.Service;
 public class Doctores {
     
     
-    //@Context
-    //HttpServletRequest request;
-       
-    //HttpSession session = request.getSession(true);
-    // -- ESTO DA ERROR
-
+    @Context
+    HttpServletRequest request;
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Doctor doc) {
@@ -78,7 +75,7 @@ public class Doctores {
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Dia> readDias(@PathParam("cedula") String cedula) {
         try {
-            System.out.println("Entró a dias");
+            
             return Service.instance().getMedicoDias(cedula);
         } catch (Exception e) {
             throw new NotFoundException();
@@ -88,12 +85,13 @@ public class Doctores {
     
     
     @GET
-    @Path("/citasExistentes/{cedula}")
+    @Path("/citasExistentes")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Cita> citasExistentes(@PathParam("cedula") String cedula) {
+    public ArrayList<Cita> citasExistentes() {
         try {
-            System.out.println("Entró a citas Existentes");
-            return Service.instance().findCitasByCedula(cedula);
+            Doctor user = (Doctor) request.getSession(true).getAttribute("user");
+            String idMedico = user.getId();
+            return Service.instance().findCitasByCedula(idMedico);
         } catch (Exception e) {
             throw new NotFoundException();
         

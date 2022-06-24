@@ -76,15 +76,15 @@ public class CitaDao {
         
         ArrayList<Cita> resultado = new ArrayList<>();
         String sql = "select * from cita c "
-                    + " where c.Medico_idMedico = ? ";
+                    + " where c.Medico_idMedico = ? ;";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, cedula);
         ResultSet rs = db.executeQuery(stm);
-        System.out.println("resultado = "+ rs.toString());
-        Cita c;     
+        System.out.println("sql = "+ stm);
+             
         while (rs.next()) {
             System.out.println("Entro a while");
-                c = from2(rs, "c");
+                Cita c = from2(rs, "c");
                 System.out.println("cita->"+c.getEstado());
                 resultado.add(c);
             }
@@ -206,7 +206,6 @@ public class CitaDao {
       Cita from2(ResultSet rs, String alias) {
         try {
             Cita c = new Cita();
-            System.out.println("ID***>" + rs.getInt(alias + ".idCitas"));
             c.setIdCita(rs.getInt(alias + ".idCitas"));
             c.setEstado(rs.getString(alias + ".estado"));
             
@@ -217,19 +216,18 @@ public class CitaDao {
             //-----------
             Paciente p = new Paciente();
             p.setCedula(rs.getString(alias + ".Paciente_cedula"));
-            System.out.println("pacienteCedula***>" + rs.getString(alias + ".Paciente_cedula"));
             c.setPaciente(p);//-set paciente
             Doctor m = new Doctor();
             m.setId(rs.getString(alias + ".Medico_idMedico"));
-            System.out.println("id medico***>" + rs.getString(alias + ".Medico_idMedico"));
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // Error al llamar el 'nombre' del médico
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            m.setNombre(rs.getString("m.nombre"));
-            System.out.println("nombre medico***>" + rs.getString(alias + ".nombre"));
+            // La consulta solo trae el id del medico, no el nombre (en ese caso requiere inner join)
+            //m.setNombre(rs.getString("m.nombre"));
+            //System.out.println("nombre medico***>" + rs.getString(alias + ".nombre"));
             //-----------------------------------------------
-            m.setLocalidad(rs.getString("m.nombre_provincia"));
-            m.setEspecialidad(rs.getString("m.nombre_especialidad"));
+           // m.setLocalidad(rs.getString("m.nombre_provincia"));
+            //m.setEspecialidad(rs.getString("m.nombre_especialidad"));
             c.setMedico(m);//- set medico
             //------------
 //            c.getPaciente().setCedula(rs.getString(alias + ".Paciente_cedula"));

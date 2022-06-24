@@ -209,7 +209,6 @@ public class DoctorDao {
             Dia d = new Dia();
  
             d.setChecked(rs.getBoolean(alias+".checked"));  
-            System.out.println("desde: "+rs.getString(alias+".desde") );
             d.setDesde(rs.getString(alias+".desde"));
             d.setHasta(rs.getString(alias+".hasta"));
             

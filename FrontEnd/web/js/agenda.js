@@ -1,5 +1,5 @@
 
-let arr;
+let arrayDiasSemana;
 
 var especial = false;
 
@@ -9,6 +9,7 @@ let date;
 let iteracionWeek;
 var fetchSemana;
 var citasDeMedico;
+var ocupadas;
 
 var backend = "http://localhost:8080/BackEnd/api";
 
@@ -26,7 +27,7 @@ function iteracionDay(i){
         case 0:
             return "";
         case 1:
-            return arr[1];
+            return arrayDiasSemana[1];
         case 2:
             return "M";
         case 3:
@@ -41,7 +42,7 @@ function iteracionDay(i){
 function findPaciente(dia,hora){
     
     let cita={hora:"",dia:""};
-    cita.hora = hora;
+    cita.hora = hora;//// --> esta 'hora' es de 1 y 0
     cita.dia = dia;
     
     //- Cargar en LocalStorage al Paciente
@@ -50,36 +51,58 @@ function findPaciente(dia,hora){
     location.href = 'listaPacientes.html';
 }
 
-function cell(col, hora, iteracion) {
+function occupiedCell(dayColumn,iteracion){
+    var tr = $("<tr />");
+    
+    
+    tr.html(`
+            <div class="horas">        
+                <div class="calendario_dia" draggable="true">                  
+                    <div class="hora-row ableButton">
+                        <!-- <a class="item"> </a> -->
+                        <button type="button" id="makeBtn" class="cardButton">cita</button>
+                    </div>
+                </div> 
+            </div>`);
+        tr.find("#makeBtn").on("click", ()=> {
+            
+            console.log("it->"+ arrayDiasSemana[iteracion])
+            console.log("hora->"+ hora)
+            if(especial){
+                location.href = 'makeCita.html';
+            }else{
+                findPaciente(arrayDiasSemana[iteracion],hora);
+            }
+            
+        })
+        dayColumn.append(tr);
+
+}
+
+function cell(col, hora, iteracion) {// con la iteración puedo saber la hora
     var tr = $("<tr />");
     var dayLetter = iteracionDay(iteracion);
 
     if (hora) { // true -> Botón habilitado
         
-        //TODO: validar aquí si el campo está ocupado
-        
-        //#1- llamar lista de citas de BD
-        //#2- validar que no exista una con 'fecha' y 'hora' iguales
-        //#3- if exists => crear 'cell' para "asistir a cita"
-
         tr.html(`
             <div class="horas">        
                 <div class="calendario_dia" draggable="true">                  
                     <div class="hora-row ableButton">
                         <!-- <a class="item"> </a> -->
-        <!--                        <button type="button" id="makeBtn" class="btn-primary cardButton" >${arr[iteracion]}</button>
+        <!--                        <button type="button" id="makeBtn" class="btn-primary cardButton" >${arrayDiasSemana[iteracion]}</button>
          -->                <button type="button" id="makeBtn" class="cardButton">cita</button>
                     </div>
                 </div> 
             </div>`);
         tr.find("#makeBtn").on("click", ()=> {
             
-            console.log("it->"+ arr[iteracion])
+            console.log("it->"+ arrayDiasSemana[iteracion])
             console.log("hora->"+ hora)
             if(especial){
                 location.href = 'makeCita.html';
             }else{
-                findPaciente(arr[iteracion],hora);
+                findPaciente(arrayDiasSemana[iteracion],hora);
             }
             
         })
@@ -169,8 +192,6 @@ function calcHoras(frequency, desde, hasta) {
         i++;
     })
 
-    console.log("Array horas -> " + horas);
-
     return horas;
 
 }
@@ -181,24 +202,54 @@ function printDayNames(lu,ma,mi,ju,vi){
 
 }
 
-function fetchCitasExistentes(){
-    
-    var cedula="2222";
-    
-    const request = new Request(backend+'/doctores/citasExistentes/'+cedula, {method:'GET', headers: { }});
-    (async ()=> {
-        try{
-            const response = await fetch(request);
-            
-            citasDeMedico = await response.json();
-            console.log("citas de medico-> "+ JSON.stringify(citasDeMedico))
+function existeCita(toAnalize,citasFromDB){
+    console.log("toAnalize: "+toAnalize)
+    citasFromDB.forEach((c) => {
+       console.log("--citaFromDB: "+ c.dateStr + " " + c.horaStr);
+       if(toAnalize == c.dateStr+" "+ c.horaStr){
+           return true;
+       }
+    })
+    return false;
+}
 
-                        
-        }catch(e){
-
+function citaValidate(frequency,iteracion){ 
+    
+    console.log("citaValidate()...");
+    //-- usar citasDeMedico
+    
+    /* count cells = 21 when frequency = 30min  (8am->6pm) */
+    let ocupadas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let horasString;
+    
+    console.log("Frequemy: "+frequency);
+    if(frequency == 30){
+        horasString  = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"];
+    }else if(frequency == 60){
+        horasString = ["8:00","9:00","10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00","5:00","6:00"];
+    }
+    
+    let i = 0;
+    
+    console.log(arrayDiasSemana[iteracion]);
+    let strDate;
+    var citasFromDB = JSON.stringify(citasDeMedico);
+    
+    horasString.forEach((h) => {
+    // comparar cada elemento (se recorren todas las citas existentes)
+        console.log("citasDeMedico->"+ citasFromDB);
+        
+        str = arrayDiasSemana[iteracion] +" "+ h;
+        console.log("Horas String ->"+str);
+        
+        if(existeCita(str,citasDeMedico)){
+            return true;
         }
-    })();
-    
+        
+        i++;
+    })
+
+    return false;
 }
 
 function printElements(fetchSemana){
@@ -212,7 +263,7 @@ function printElements(fetchSemana){
 
 
     console.log("ejecutando print elements**")
-    //fetchCitasExistentes();
+    
 
     $("#nextBtn").click(nextWeek);
 
@@ -248,10 +299,20 @@ function printElements(fetchSemana){
             
             // -- horas = arreglo de '1' y '0'  || (rango de fecha en que atiende)
             horas = calcHoras(frequency, fetchSemana[i].desde, fetchSemana[i].hasta);
+            
+            // -- ocupadas = arreglo de '1' y '0'  || (citas ocupadas)
+            ocupadas = calcHoras(frequency, fetchSemana[i].desde, fetchSemana[i].hasta);
 
             horas.forEach((h) => {
-            
-                    cell($(this), h, i);// ->     h  ==  1 || 0
+                
+                    // VALIDAR aquí si la cita ya existe
+                    if(citaValidate(30,i)){//- params (frequency y iteracion)
+                        cell($(this), h, i);// ->     h  ==  1 || 0    i == 1,2,3,4,5 (l,m,i,j,v)
+                    }else{
+                        // cita ocupada
+                        occupiedCell($(this),i);
+                    }
+                    
                 
                 j++;
                 count++;
@@ -278,7 +339,7 @@ function fetchShedule(dayString){
             console.log("Semana one-> "+ JSON.stringify(fetchSemana))
 
             loadShedule(dayString,fetchSemana);// este metodo carga a 'fetchSemana'
-            fetchCitasExistentes();
+            //fetchCitasExistentes();
             console.log("LoadShedule() finalizado")
             printElements(fetchSemana); // fetchSemana como parametro
             
@@ -409,8 +470,6 @@ function validarFecha(weekCount,fecha){
 
     //fecha = new Date();
     let day = fecha.toLocaleString('en-us', {weekday: 'long'});
-    console.log(day);
-    console.log("fecha->"+fecha);
     var semana = getWeek(day);//-json días pasados
 
     
@@ -459,7 +518,7 @@ function validarFecha(weekCount,fecha){
         vi = "Viernes " + String(fecha.getDate()).padStart(2, '0');
     }
 
-    arr = ["",lu,ma,mi,ju,vi]// Print Head Days
+    arrayDiasSemana = ["",lu,ma,mi,ju,vi]// Print Head Days
     let n = 0;
     
     
@@ -467,7 +526,7 @@ function validarFecha(weekCount,fecha){
     $('.dias_item').each( function() {
 
         var tr = $("<tr />");
-        tr.html(`${arr[n]}`)
+        tr.html(`${arrayDiasSemana[n]}`)
 
         $(this).append(tr)
         n++;
@@ -510,29 +569,30 @@ function main() {
         especial = true;
         console.log("Vista Especial")
     }
-    
-    fetchCitasExistentes();
-    
-
-    /*var head = {checked: true, desde: "8:00", hasta: "6:00"};
-    var lunes = {checked: true, desde: "9:30", hasta: "3:00"};
-    var martes = {checked: true, desde: "1:30", hasta: "4:00"};
-    var miercoles = {checked: true, desde: "9:30", hasta: "4:00"};
-    var jueves = {checked: true, desde: "8:30", hasta: "4:00"};
-    var viernes = {checked: true, desde: "9:30", hasta: "4:00"};
-    //examenes:[{id:"1"},{id:"2"}]
-    var semana = [{checked: true, desde: "8:00", hasta: "6:00"},
-                    {checked: true, desde: "9:30", hasta: "3:00"},
-                    {checked: true, desde: "1:30", hasta: "4:00"},
-                    {checked: true, desde: "9:30", hasta: "3:00"},
-                    {checked: true, desde: "8:30", hasta: "4:30"},
-                    {checked: true, desde: "9:30", hasta: "4:00"}];*/
-
-    /* 0:lunes  1:martes  2:miercoles  3:jueves  4:viernes*/
-    //var horario2 = [head, lunes, martes, miercoles, jueves, viernes];
 
     date = new Date();
-    var horario = validarFecha(1,date);
+    
+    console.log("Entró a citas Existentes")
+    
+
+    const request = new Request(backend+'/doctores/citasExistentes', {method:'GET', headers: { }});
+    (async ()=> {
+        try{
+            const response = await fetch(request);
+            
+            citasDeMedico = await response.json();
+            console.log("citas de medico-> "+ JSON.stringify(citasDeMedico))
+               //... when 'fetch' finished ...//
+              //*****************************//
+             //----> LEER CITAS Y PRINT <---//
+            //*****************************//
+            var horario = validarFecha(1,date);
+                        
+        }catch(e){
+
+        }
+    })();
+    
     
     
 

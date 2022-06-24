@@ -28,7 +28,6 @@ function fillData(){
 
 function fetchGuardar(){
     
-    console.log("Guardando...")
     
     const request = new Request(backend+'/pacientes/cita/'+paciente.cedula, // Pasarle por parametro el id paciente 
             {method: 'POST', 
