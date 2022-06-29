@@ -32,9 +32,20 @@ function saveUpdate(){
     paciente.cirugias = $("#cirugiasId").val();
     paciente.alergias = $("#alergiasId").val();
     
-    console.log(JSON.stringify(paciente))
+    console.log(JSON.stringify(paciente));
     
     fetchUpdate();
+}
+
+async function addpdf() {
+    var pdfData = new FormData();
+    pdfData.append("cedula", paciente.cedula);
+    pdfData.append("pdf", $("#pdf").get(0).files[0]);
+    let request = new Request(BE + '/citas/' + paciente.cedula + '/pdf', {method: 'POST', body: pdfData});
+    const response = await fetch(request);
+    if (!response.ok) {
+        alert("respuesta mal en addimagen");
+    }
 }
 
 function main(){
@@ -52,6 +63,7 @@ function main(){
     $("#cirugiasId").val(paciente.cirugias);
     
     $("#saveBtn").click(saveUpdate);
+    $("#printPdf").attr("href", backend+'/pacientes/'+paciente.cedula+'/pdf');    
 }
 
 $(main);
