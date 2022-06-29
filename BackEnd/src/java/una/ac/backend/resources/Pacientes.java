@@ -4,7 +4,20 @@
  */
 package una.ac.backend.resources;
 
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -19,6 +32,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import una.ac.backend.logic.Cita;
 import una.ac.backend.logic.Doctor;
 import una.ac.backend.logic.Paciente;
@@ -29,7 +43,7 @@ import una.ac.backend.logic.Service;
 @Path("/pacientes")
 public class Pacientes {
     
-    
+    String location = "C:/AAA/images/";
     @Context
     HttpServletRequest request;
     
@@ -98,6 +112,58 @@ public class Pacientes {
         }catch(Exception e){
             throw new NotFoundException();
         }
+    }
+    
+    /*@GET
+    @Path("{cedula}/pdf")
+    @Produces("application/pdf")
+    public Response getPdf(@PathParam("cedula") String cedula) throws IOException {
+        File file = new File(location + cedula);
+        Response.ResponseBuilder response = Response.ok((Object) file);
+        return response.build();
+    }
+    */
+    @GET 
+    @Path("{cedula}/pdf")
+    @Produces("application/pdf")
+    @PermitAll    
+    public Response getPdf(@PathParam("cedula") String cedula) throws IOException {
+        Paciente per=null;
+        try { per = Service.instance().pacienteByCedula(cedula);} catch (Exception ex) {}
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PdfDocument pdf = new PdfDocument(new PdfWriter(out));
+        Document doc = new Document(pdf, PageSize.A4.rotate());
+        
+        Paragraph p;
+        
+        p = new Paragraph("DATOS DE PERSONA");
+        p.setTextAlignment(TextAlignment.CENTER);
+        p.setBold();
+        p.setBackgroundColor(Color.PINK);
+        doc.add(p);
+
+        p = new Paragraph("CEDULA: "+per.getCedula());
+        p.setTextAlignment(TextAlignment.LEFT);
+        p.setBold();
+        doc.add(p);
+
+        p = new Paragraph("NOMBRE: "+per.getNombre());
+        p.setTextAlignment(TextAlignment.LEFT);
+        p.setBold();
+        doc.add(p);
+        
+//        Image img = new Image(ImageDataFactory.create(location+per.getCedula()));
+//        doc.add(img);        
+
+        p = new Paragraph("FIN");
+        p.setTextAlignment(TextAlignment.CENTER);
+        p.setBold();
+        p.setBackgroundColor(Color.PINK);
+        doc.add(p);
+
+        doc.close(); 
+        
+        return Response.ok(out.toByteArray()).build();
     }
     
     @PUT
